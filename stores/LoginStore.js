@@ -32,7 +32,6 @@ export const useLoginStore = defineStore('login', {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Accept": 'application/json' },
                 body: loginForm,
-                mode: 'no-cors',
                 initialCache: false
             });
 
