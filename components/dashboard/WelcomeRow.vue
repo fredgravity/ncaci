@@ -101,7 +101,7 @@ onMounted(async () => {
       Accept: "application/json",
       Authorization: "Bearer " + accessToken.accessToken,
     },
-    mode: 'cors',
+   mode: 'no-cors',
 
     initialCache: false,
   });
@@ -117,7 +117,7 @@ onMounted(async () => {
       Accept: "application/json",
       Authorization: "Bearer " + accessToken.accessToken,
     },
-    mode: 'cors',
+    mode: 'no-cors',
     initialCache: false,
   });
   loading.value = pending.value;
