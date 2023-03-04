@@ -38,7 +38,7 @@
                 <!-- <small class="text-muted">Mobile, Earbuds, TV</small> -->
               </div>
               <div class="user-progress">
-                <small class="fw-semibold">GHS {{ item.amount }}</small>
+                <small class="fw-semibold">GHS {{ item.amount.toFixed() }}</small>
               </div>
             </div>
           </li>
