@@ -22,7 +22,7 @@
             <div id="growthChart">
               <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
             </div>
-            <div class="text-center fw-semibold pt-3 mb-2">{{ varience }}% Revenue Comparison</div>
+            <div class="text-center fw-semibold pt-3 mb-2" v-if="incomeYearSlice[1] !== undefined">{{ varience }}% Revenue Comparison</div>
 
             <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
               <div class="d-flex">
@@ -60,7 +60,17 @@ const incomeYear = ref([]);
 const incomeYearSlice = ref([]);
 const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
-const varience = ref("");
+const varience = computed(() => {
+  if (incomeAmountSlice.value[1] == undefined) {
+    console.log(incomeAmountSlice.value[1]);
+    console.log(incomeAmountSlice.value[0]);
+    let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[0]) * 100;
+    return ans.toFixed(2);
+  } else {
+    let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[1]) * 100;
+    return ans.toFixed(2);
+  }
+});
 
 const category = ref(["2022"]);
 const catData = ref([1]);
@@ -139,16 +149,6 @@ onMounted(async () => {
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
-
-  if (incomeAmountSlice.value[1] == undefined) {
-    console.log(incomeAmountSlice.value[1]);
-    console.log(incomeAmountSlice.value[0]);
-    let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[0]) * 100;
-    return ans.toFixed(2);
-  } else {
-    let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[1]) * 100;
-    return ans.toFixed(2);
-  }
 });
 </script>
 
