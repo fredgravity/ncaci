@@ -20,9 +20,9 @@
               </div>
             </div>
             <div id="growthChart">
-              <!-- <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart> -->
+              <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
             </div>
-            <div class="text-center fw-semibold pt-3 mb-2" v-if="incomeAmountSlice[0] != undefined">{{ varience.toFixed(2) }}% Revenue Comparison</div>
+            <div class="text-center fw-semibold pt-3 mb-2">{{ varience }}% Revenue Comparison</div>
 
             <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
               <div class="d-flex">
@@ -38,7 +38,7 @@
                 <div class="me-2">
                   <span class="badge bg-label-success p-2"><i class="bx bx-wallet text-info"></i></span>
                 </div>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column" v-if="incomeYearSlice[0] !== undefined">
                   <small>{{ incomeYearSlice[0] }}</small>
                   <h6 class="mb-0 tw-text-xs">GHS {{ incomeAmountSlice[0] }}</h6>
                 </div>
@@ -60,20 +60,18 @@ const incomeYear = ref([]);
 const incomeYearSlice = ref([]);
 const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
-const varience = computed(() => {
-  if (incomeAmountSlice.value[1] == undefined) {
-    return (incomeAmountSlice.value[0] / incomeAmountSlice.value[0]) * 100;
-  } else {
-    return (incomeAmountSlice.value[0] / incomeAmountSlice.value[1]) * 100;
-  }
-});
+const varience = ref("");
+
+const category = ref(["2022"]);
+const catData = ref([1]);
 
 const totalRevenue = ref({
   chart: {
     id: "total revenue",
   },
   xaxis: {
-    categories: incomeYear.value.sort(),
+    // categories: incomeYear.value.sort(),
+    categories: category.value.sort(),
   },
   plotOptions: {
     bar: {
@@ -89,7 +87,8 @@ const totalRevenue = ref({
 const totalRevenueSeries = ref([
   {
     name: "total revenue series",
-    data: incomeAmount.value,
+    // data: incomeAmount.value,
+    data: catData.value,
   },
 ]);
 
@@ -99,6 +98,7 @@ const totalRevenue1 = ref({
     type: "donut",
   },
   labels: incomeYearSlice.value,
+
   // xaxis: {
   //   categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
   // },
@@ -131,12 +131,24 @@ onMounted(async () => {
 
   for (const [key, value] of result) {
     incomeYear.value.push(key.toString());
+    category.value.push(key.toString());
   }
   for (const key of incomeYear.value.sort()) {
     incomeAmount.value.push(result.get(parseInt(key)));
+    catData.value.push(result.get(parseInt(key)));
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
+
+  if (incomeAmountSlice.value[1] == undefined) {
+    console.log(incomeAmountSlice.value[1]);
+    console.log(incomeAmountSlice.value[0]);
+    let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[0]) * 100;
+    return ans.toFixed(2);
+  } else {
+    let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[1]) * 100;
+    return ans.toFixed(2);
+  }
 });
 </script>
 
