@@ -6,7 +6,7 @@
           <div class="col-md-8">
             <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
             <div id="totalRevenueChart" class="px-2">
-              <!-- <apexchart width="550" type="bar" :options="totalRevenue" :series="totalRevenueSeries"></apexchart> -->
+              <apexchart width="550" type="bar" :options="totalRevenue" :series="totalRevenueSeries"></apexchart>
             </div>
           </div>
           <div class="col-md-4">
