@@ -152,6 +152,7 @@ onMounted(async () => {
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
+  console.log("incomeAmountSlice");
   console.log(incomeAmountSlice.value[0]);
   console.log(incomeYearSlice.value[0]);
 });
