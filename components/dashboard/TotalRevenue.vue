@@ -156,10 +156,17 @@ onMounted(async () => {
   for (const key of incomeYear.value.sort()) {
     console.log("sd");
     console.log(result);
-    console.log(result.get(parseInt(key)));
-    incomeAmount.value.push(result.get(parseInt(key)));
+    if (result.get(parseInt(key))) {
+      incomeAmount.value.push(result.get(parseInt(key)));
+      catData.value.push(result.get(parseInt(key)));
+    } else {
+      incomeAmount.value.push(result.get(key));
+      catData.value.push(result.get(key));
+    }
+    // console.log(result.get(parseInt(key)));
+    // incomeAmount.value.push(result.get(parseInt(key)));
     console.log(incomeAmount.value);
-    catData.value.push(result.get(parseInt(key)));
+    // catData.value.push(result.get(parseInt(key)));
     console.log(catData.value);
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
