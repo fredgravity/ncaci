@@ -29,10 +29,10 @@
                 <div class="me-2">
                   <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
                 </div>
-                <div class="d-flex flex-column" v-if="incomeYearSlice[1] !== undefined">
+                <!-- <div class="d-flex flex-column" v-if="incomeYearSlice[1] !== undefined">
                   <small>{{ incomeYearSlice[1] }}</small>
                   <h6 class="mb-0 tw-text-xs">GHS {{ incomeAmountSlice[1] }}</h6>
-                </div>
+                </div> -->
               </div>
               <div class="d-flex">
                 <div class="me-2">
@@ -62,7 +62,7 @@ const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
 const varience = computed(() => {
   if (incomeAmountSlice.value[1] == undefined) {
-    console.log(incomeAmountSlice.value[1]);
+    console.log(incomeAmountSlice.value[0] / incomeAmountSlice.value[0]);
     return incomeAmountSlice.value[0] / incomeAmountSlice.value[0];
   }
   return incomeAmountSlice.value[0] / incomeAmountSlice.value[1];
