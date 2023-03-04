@@ -5,7 +5,7 @@
         <div class="row row-bordered g-0">
           <div class="col-md-8">
             <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
-            <div id="totalRevenueChart" class="px-2">
+            <div id="totalRevenueChart" class="px-2" v-if="incomeYear.length > 0">
               <apexchart width="550" type="bar" :options="totalRevenue" :series="totalRevenueSeries"></apexchart>
             </div>
           </div>
@@ -73,7 +73,7 @@ const totalRevenue = ref({
     id: "total revenue",
   },
   xaxis: {
-    categories: ["South Korea", "Canada", "United Kingdom", "Netherlands", "Italy", "France", "Japan", "United States", "China", "Germany"],
+    categories: incomeYear.value.sort(),
   },
   plotOptions: {
     bar: {
@@ -89,7 +89,7 @@ const totalRevenue = ref({
 const totalRevenueSeries = ref([
   {
     name: "total revenue series",
-    data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
+    data: incomeAmount.value,
   },
 ]);
 
