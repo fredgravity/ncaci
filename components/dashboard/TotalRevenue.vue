@@ -22,17 +22,17 @@
             <div id="growthChart">
               <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
             </div>
-            <div class="text-center fw-semibold pt-3 mb-2">{{ varience.toFixed(2) }}% Revenue Comparison</div>
+            <div class="text-center fw-semibold pt-3 mb-2">{{ varience }}% Revenue Comparison</div>
 
             <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
               <div class="d-flex">
                 <div class="me-2">
                   <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
                 </div>
-                <!-- <div class="d-flex flex-column" v-if="incomeYearSlice[1] !== undefined">
+                <div class="d-flex flex-column" v-if="incomeYearSlice[1] !== undefined">
                   <small>{{ incomeYearSlice[1] }}</small>
                   <h6 class="mb-0 tw-text-xs">GHS {{ incomeAmountSlice[1] }}</h6>
-                </div> -->
+                </div>
               </div>
               <div class="d-flex">
                 <div class="me-2">
