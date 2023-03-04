@@ -20,7 +20,7 @@
               </div>
             </div>
             <div id="growthChart">
-              <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
+              <!-- <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart> -->
             </div>
             <!-- <div class="text-center fw-semibold pt-3 mb-2" v-if="incomeAmountSlice[0] != undefined">{{ varience.toFixed(2) }}% Revenue Comparison</div> -->
 
