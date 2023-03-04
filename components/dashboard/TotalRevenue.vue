@@ -29,7 +29,7 @@
                 <div class="me-2">
                   <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
                 </div>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column" v-if="incomeYearSlice[1] !== undefined">
                   <small>{{ incomeYearSlice[1] }}</small>
                   <h6 class="mb-0 tw-text-xs">GHS {{ incomeAmountSlice[1] }}</h6>
                 </div>
