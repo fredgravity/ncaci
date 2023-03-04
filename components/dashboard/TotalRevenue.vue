@@ -62,12 +62,14 @@ const incomeYearSlice = ref([]);
 const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
 const varience = computed(() => {
-  if (incomeAmountSlice.value[1] == undefined) {
+  if (!incomeAmountSlice.value[1]) {
     console.log(incomeAmountSlice.value[1]);
     console.log(incomeAmountSlice.value[0]);
     let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[0]) * 100;
     return ans.toFixed(2);
   } else {
+    console.log(incomeAmountSlice.value[1]);
+    console.log(incomeAmountSlice.value[0]);
     let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[1]) * 100;
     return ans.toFixed(2);
   }
