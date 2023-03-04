@@ -144,11 +144,15 @@ onMounted(async () => {
       result.set(element.attributes.year, element.attributes.amount);
     }
   });
+  console.log(result);
 
   for (const [key, value] of result) {
     incomeYear.value.push(key.toString());
     category.value.push(key.toString());
   }
+
+  console.log(incomeYear.value);
+
   for (const key of incomeYear.value.sort()) {
     incomeAmount.value.push(result.get(parseInt(key)));
     console.log(incomeAmount.value);
