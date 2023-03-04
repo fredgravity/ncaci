@@ -4,9 +4,10 @@
 
     <Loading :loading="loading" />
 
-    <div v-if="show">
-      <Alert :alert="show" />
-    </div>
+    <template v-if="error_message.type">
+      <Alert :alert="error_message" v-if="error_message" />
+    </template>
+
     <div class="mb-3 row">
       <label for="assembly" class="col-md-2 col-form-label">Find Assembly</label>
       <div class="col-md-10">
@@ -113,15 +114,14 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const assemblies = reactive([]);
-const error_message = ref("");
 const detail = ref("");
 const assembly_id = ref("");
-const show = reactive({
-  state: "hide",
-  message_type: "",
-  message: "",
+const error_message = reactive({
+  type: "",
   title: "",
+  text: "",
 });
+
 const tithe = reactive({
   amount: "",
   paidby: "",
@@ -169,21 +169,14 @@ const submitTithe = async () => {
   loading.value = pending.value;
 
   if (error.value) {
-    show.state = "show";
-    show.message_type = "error";
-    show.message = "Tithe not paid successfully!. Try again";
-    show.title = "Pay Tithe";
-    setTimeout(() => {
-      show.state = "hide";
-    }, 5000);
+    error_message.type = "error";
+    error_message.text = "Tithe not paid successfully!. Try again";
+    error_message.title = "Pay Tithe";
   } else {
-    show.state = "show";
-    show.message_type = "";
-    show.message = "Tithe paid successfully!.";
-    show.title = "Pay Tithe";
-    setTimeout(() => {
-      show.state = "hide";
-    }, 5000);
+    error_message.type = "success";
+    error_message.text = "Tithe paid successfully!.";
+    error_message.title = "Pay Tithe";
+
     tithe.amount = "";
     tithe.paidby = "";
   }
