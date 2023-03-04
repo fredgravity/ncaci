@@ -155,6 +155,7 @@ onMounted(async () => {
 
   for (const key of incomeYear.value.sort()) {
     console.log("sd");
+    console.log(result);
     console.log(result.get(parseInt(key)));
     incomeAmount.value.push(result.get(parseInt(key)));
     console.log(incomeAmount.value);
