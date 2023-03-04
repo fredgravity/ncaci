@@ -35,7 +35,6 @@ export const useLoginStore = defineStore('login', {
                 initialCache: false
             });
 
-            
             if (error.value == null){
                 // console.log(data.value.data.token)
                 this.token.accessToken = data.value.data.token

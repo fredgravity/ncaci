@@ -101,7 +101,6 @@ onMounted(async () => {
       Accept: "application/json",
       Authorization: "Bearer " + accessToken.accessToken,
     },
-
     initialCache: false,
   });
   loading.value = pending.value;
@@ -116,7 +115,6 @@ onMounted(async () => {
       Accept: "application/json",
       Authorization: "Bearer " + accessToken.accessToken,
     },
-
     initialCache: false,
   });
   loading.value = pending.value;
