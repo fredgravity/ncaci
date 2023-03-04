@@ -62,7 +62,7 @@ const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
 const varience = computed(() => {
   if (incomeAmountSlice.value[1] == undefined) {
-    return incomeAmountSlice.value[0] / 1;
+    return incomeAmountSlice.value[0] / incomeAmountSlice.value[0];
   }
   return incomeAmountSlice.value[0] / incomeAmountSlice.value[1];
 });
