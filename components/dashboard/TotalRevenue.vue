@@ -65,21 +65,17 @@ const varience = ref(null);
 setTimeout(() => {
   varience.value = computed(() => {
     if (!incomeAmountSlice.value[1]) {
-      console.log(incomeAmountSlice.value[1]);
-      console.log(incomeAmountSlice.value[0]);
       let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[0]) * 100;
-      return ans.toFixed(2);
+      return parseInt(ans.toFixed(2));
     } else {
-      console.log(incomeAmountSlice.value[1]);
-      console.log(incomeAmountSlice.value[0]);
       let ans = (incomeAmountSlice.value[0] / incomeAmountSlice.value[1]) * 100;
-      return ans.toFixed(2);
+      return parseInt(ans.toFixed(2));
     }
   });
 }, 3000);
 
 const category = ref(["2022"]);
-const catData = ref([1]);
+const catData = ref([0.1]);
 
 const totalRevenue = ref({
   chart: {
@@ -144,7 +140,6 @@ onMounted(async () => {
       result.set(element.attributes.year, element.attributes.amount);
     }
   });
-  console.log(result);
 
   for (const [key, value] of result) {
     incomeYear.value.push(key.toString());
@@ -154,8 +149,6 @@ onMounted(async () => {
   console.log(incomeYear.value);
 
   for (const key of incomeYear.value.sort()) {
-    console.log("sd");
-    console.log(result);
     if (result.get(parseInt(key))) {
       incomeAmount.value.push(result.get(parseInt(key)));
       catData.value.push(result.get(parseInt(key)));
@@ -163,17 +156,9 @@ onMounted(async () => {
       incomeAmount.value.push(result.get(key));
       catData.value.push(result.get(key));
     }
-    // console.log(result.get(parseInt(key)));
-    // incomeAmount.value.push(result.get(parseInt(key)));
-    console.log(incomeAmount.value);
-    // catData.value.push(result.get(parseInt(key)));
-    console.log(catData.value);
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
-  console.log("incomeAmountSlice");
-  console.log(incomeAmountSlice.value[0]);
-  console.log(incomeYearSlice.value[0]);
 });
 </script>
 
