@@ -1,0 +1,72 @@
+<template>
+  <div>
+    <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">expenditure</div>
+    <Loading :loading="loading" />
+
+    <div>
+      <AgGrid :results="expenditures" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useLoginStore } from "~/stores/LoginStore";
+const api_base = useRuntimeConfig().public.apiBase;
+const expenditures = reactive([]);
+const loading = ref("");
+const rowData = ref([]);
+
+const columnDefs = reactive([
+  { headerName: "Item", field: "expenditure_name" },
+  { headerName: "Year", field: "year" },
+  { headerName: "Amount", field: "amount" },
+  { headerName: "Requested By", field: "requestedBy" },
+  { headerName: "Approved By", field: "requestedBy" },
+  { headerName: "Area", field: "area" },
+  { headerName: "District", field: "district" },
+  { headerName: "Assembly", field: "assembly" },
+  // { headerName: "Status", field: "status" },
+  // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
+]);
+
+const recordClick = (event) => {
+  console.log(event.data);
+  // window.location.href = "/assemblyDetail-" + event.data.id;
+};
+
+onMounted(async () => {
+  const loginStore = useLoginStore();
+  const accessToken = await loginStore.getAccessToken;
+
+  const { data, error, refresh, pending } = await useFetch(api_base + "/expenditure", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + accessToken.accessToken,
+    },
+
+    initialCache: false,
+  });
+  loading.value = pending.value;
+  expenditures.value = data.value.data;
+  console.log(expenditures.value);
+  rowData.value = expenditures.value.map((res) => {
+    let mine = {
+      expenditure_name: res.attributes.budget_item_name,
+      year: res.attributes.year,
+      amount: res.attributes.amount,
+      requestedBy: res.attributes.requestedBy,
+      approvedBy: res.attributes.approvedBy,
+      area: res.attributes.area,
+      district: res.attributes.district,
+      assembly: res.attributes.assembly,
+      budget_item_id: res.attributes.budget_item_id,
+      id: res.id,
+    };
+    return mine;
+  });
+});
+</script>
+
+<style></style>
