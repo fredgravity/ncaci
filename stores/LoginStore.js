@@ -30,7 +30,7 @@ export const useLoginStore = defineStore('login', {
         async login(loginForm){
             const { data, error, refresh } = await useFetch(this.api_base+"/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": 'application/json' },
+                headers: { "Content-Type": "application/json", "Accept": 'application/json', 'Access-Control-Allow-Origin': '*' },
                 body: loginForm,
                 initialCache: false
             });
