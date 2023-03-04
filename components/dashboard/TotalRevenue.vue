@@ -22,14 +22,15 @@
             <div id="growthChart">
               <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
             </div>
-            <div class="text-center fw-semibold pt-3 mb-2" v-if="incomeYearSlice[1] !== undefined">{{ varience }}% Revenue Comparison</div>
+
+            <div class="text-center fw-semibold pt-3 mb-2" v-if="incomeYearSlice[1] !== ''">{{ varience }}% Revenue Comparison</div>
 
             <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
               <div class="d-flex">
                 <div class="me-2">
                   <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
                 </div>
-                <div class="d-flex flex-column" v-if="incomeYearSlice[1] !== undefined">
+                <div class="d-flex flex-column" v-if="incomeYearSlice[1] !== ''">
                   <small>{{ incomeYearSlice[1] }}</small>
                   <h6 class="mb-0 tw-text-xs">GHS {{ incomeAmountSlice[1] }}</h6>
                 </div>
@@ -38,7 +39,7 @@
                 <div class="me-2">
                   <span class="badge bg-label-success p-2"><i class="bx bx-wallet text-info"></i></span>
                 </div>
-                <div class="d-flex flex-column" v-if="incomeYearSlice[0] !== undefined">
+                <div class="d-flex flex-column" v-if="incomeYearSlice[0] !== ''">
                   <small>{{ incomeYearSlice[0] }}</small>
                   <h6 class="mb-0 tw-text-xs">GHS {{ incomeAmountSlice[0] }}</h6>
                 </div>
@@ -149,6 +150,8 @@ onMounted(async () => {
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
+  console.log(incomeAmountSlice.value[0]);
+  console.log(incomeYearSlice.value[0]);
 });
 </script>
 
