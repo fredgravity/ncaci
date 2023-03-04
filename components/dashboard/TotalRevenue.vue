@@ -148,7 +148,9 @@ onMounted(async () => {
   }
   for (const key of incomeYear.value.sort()) {
     incomeAmount.value.push(result.get(parseInt(key)));
+    console.log(incomeAmount.value);
     catData.value.push(result.get(parseInt(key)));
+    console.log(catData.value);
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
