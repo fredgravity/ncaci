@@ -22,7 +22,7 @@
             <div id="growthChart">
               <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
             </div>
-            <div class="text-center fw-semibold pt-3 mb-2">{{ varience }}% Revenue Comparison</div>
+            <div class="text-center fw-semibold pt-3 mb-2" v-if="incomeAmountSlice[0] != undefined">{{ varience.toFixed(2) }}% Revenue Comparison</div>
 
             <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
               <div class="d-flex">
@@ -62,10 +62,12 @@ const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
 const varience = computed(() => {
   if (incomeAmountSlice.value[1] == undefined) {
-    console.log(incomeAmountSlice.value[0] / incomeAmountSlice.value[0]);
-    return incomeAmountSlice.value[0] / incomeAmountSlice.value[0];
+    console.log(incomeAmountSlice.value[0]);
+    console.log(incomeAmountSlice.value[1]);
+    return (incomeAmountSlice.value[0] / incomeAmountSlice.value[0]) * 100;
+  } else {
+    return (incomeAmountSlice.value[0] / incomeAmountSlice.value[1]) * 100;
   }
-  return incomeAmountSlice.value[0] / incomeAmountSlice.value[1];
 });
 
 const totalRevenue = ref({
