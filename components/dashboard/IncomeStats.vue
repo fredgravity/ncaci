@@ -24,7 +24,7 @@
             <span>Areas</span>
           </div>
           <div id="orderStatisticsChart">
-            <apexchart width="250" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
+            <apexchart width="250" :options="incomeStatChart" :series="incomeStatSeries"></apexchart>
           </div>
         </div>
         <ul class="p-0 m-0">
@@ -64,9 +64,9 @@ const totalIncome = computed(() => {
   return amtTotal.toFixed(2);
 });
 
-const totalRevenue1 = ref({
+const incomeStatChart = ref({
   chart: {
-    id: "total revenue donut",
+    id: "income stat donut",
     type: "donut",
   },
   labels: incomeName.value,
@@ -88,7 +88,7 @@ const totalRevenue1 = ref({
   // },
 });
 
-const totalRevenueSeries1 = incomeAmt.value;
+const incomeStatSeries = incomeAmt.value;
 
 onMounted(async () => {
   const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
