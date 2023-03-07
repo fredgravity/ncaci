@@ -88,7 +88,7 @@ const totalRevenue1 = ref({
   // },
 });
 
-const totalRevenueSeries1 = incomeAmt;
+const totalRevenueSeries1 = incomeAmt.value;
 
 onMounted(async () => {
   const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
@@ -148,7 +148,8 @@ onMounted(async () => {
     incomeName.value.push(value.area);
     incomeAmt.value.push(value.amount);
   }
-
+  console.log(incomeName.value);
+  console.log(incomeAmt.value);
   // for (const key of incomeYear.value.sort()) {
   //   incomeAmount.value.push(result.get(key));
   // }
