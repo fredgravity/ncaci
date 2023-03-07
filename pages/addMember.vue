@@ -89,7 +89,7 @@
           <v-textarea clearable :rules="nameRules" variant="solo" counter label="Address" auto-grow model-value="" v-model="member.address"></v-textarea>
         </div>
         <div class="text-center">
-          <v-btn variant="outlined" type="submit" @click="submitMember"> Button </v-btn>
+          <v-btn variant="outlined" type="submit" @click="submitMember"> Add Member </v-btn>
           <!-- <button type="button" class="" >Add Member</button> -->
         </div>
       </v-form>
