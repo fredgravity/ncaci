@@ -135,9 +135,9 @@ onMounted(async () => {
   const result = new Map();
   incomes.value.forEach((element) => {
     if (result.get(element.attributes.year)) {
-      result.set(element.attributes.year, result.get(element.attributes.year) + element.attributes.amount);
+      result.set(element.attributes.year, result.get(element.attributes.year) + parseInt(element.attributes.amount));
     } else {
-      result.set(element.attributes.year, element.attributes.amount);
+      result.set(element.attributes.year, parseInt(element.attributes.amount));
     }
   });
 
@@ -146,7 +146,7 @@ onMounted(async () => {
     category.value.push(key.toString());
   }
 
-  console.log(incomeYear.value);
+  console.log(result);
 
   for (const key of incomeYear.value.sort()) {
     if (result.get(parseInt(key))) {
@@ -159,6 +159,7 @@ onMounted(async () => {
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
+  console.log(incomeAmount.value);
 });
 </script>
 

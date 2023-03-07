@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
-      <form>
+      <v-form ref="form">
         <div class="mb-3 row">
           <!-- <label for="participant" class="col-md-2 col-form-label">Participant</label> -->
           <div class="col-md-12">
@@ -41,14 +41,14 @@
         </div>
 
         <div class="mb-3 row">
-          <!-- <label for="ministry" class="col-md-2 col-form-label">Training Item</label> -->
+          <label for="ministry" class="col-md-2 col-form-label">Training Item</label>
           <div class="col-md-12">
-            <!-- <select class="form-control" id="ministry" v-model="training.training_item_id" @change="getTraining($event)">
-              <template v-for="(item, index) in trainingItems.value" :key="index">
+            <select class="form-control" id="ministry" v-model="training.training_item_id" @change="getTraining($event)">
+              <template v-for="(item, index) in trainingItems" :key="index">
                 <option v-if="item.attributes.name" :value="item.id">{{ item.attributes.name }}</option>
               </template>
-            </select> -->
-            <v-select clearable :rules="nameRules" variant="solo" :items="trainingItems" item-title="attributes.name" item-value="id" label="training item" v-model="training.training_item_id"></v-select>
+            </select>
+            <!-- <v-select clearable :rules="nameRules" variant="solo" :items="trainingItems" item-title="attributes.name" item-value="id" label="training item" v-model="training.training_item_id"></v-select> -->
           </div>
         </div>
 
@@ -109,7 +109,7 @@
         <div class="text-center">
           <v-btn type="button" @click="submitTraining">Add Training</v-btn>
         </div>
-      </form>
+      </v-form>
     </div>
   </div>
 </template>
@@ -122,6 +122,7 @@ const accessToken = await loginStore.getAccessToken;
 const assemblies = reactive([]);
 const trainingItems = ref([]);
 const ministries = ref([]);
+const form = ref("");
 const nameRules = ref([
   (value) => {
     if (value) return true;
@@ -210,6 +211,7 @@ onMounted(async () => {
   });
 
   trainingItems.value = data.value.data;
+  console.log(trainingItems.value);
 });
 
 let submitTraining = async () => {
@@ -246,6 +248,8 @@ let submitTraining = async () => {
     training.area = "";
     training.district = "";
     training.email = "";
+
+    form.value.reset();
   }
 };
 </script>

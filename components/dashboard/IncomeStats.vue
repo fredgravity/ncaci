@@ -59,9 +59,9 @@ const incomeName = ref([]);
 const incomeAmt = ref([]);
 const totalIncome = computed(() => {
   const amtTotal = incomeArea.value.reduce((acc, curr) => {
-    return acc + curr.amount;
+    return parseInt(acc) + parseInt(curr.amount);
   }, 0);
-  return amtTotal;
+  return amtTotal.toFixed(2);
 });
 
 const totalRevenue1 = ref({

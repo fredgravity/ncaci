@@ -59,9 +59,9 @@ const expenseName = ref([]);
 const expenseAmt = ref([]);
 const totalExpense = computed(() => {
   const amtTotal = expenseArea.value.reduce((acc, curr) => {
-    return acc + curr.amount;
+    return parseInt(acc) + parseInt(curr.amount);
   }, 0);
-  return amtTotal;
+  return amtTotal.toFixed(2);
 });
 
 const totalRevenue1 = ref({
