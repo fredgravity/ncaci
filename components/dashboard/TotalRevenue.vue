@@ -107,8 +107,21 @@ const totalRevenueSeries = ref([
 const totalRevenue1 = ref({
   chart: {
     id: "total revenue donut",
-    type: "donut",
+    type: "pie",
   },
+  responsive: [
+    {
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200,
+        },
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  ],
   labels: incomeYearSlice.value,
 
   // xaxis: {
@@ -159,7 +172,7 @@ onMounted(async () => {
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
-  console.log(incomeAmount.value);
+  console.log(incomeYearSlice.value);
 });
 </script>
 

@@ -37,7 +37,9 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   tithes.value = data.value.data;
+  let titheAssembly = tithes.value.filter((res) => res.attributes.member !== null);
   rowData.value = tithes.value.map((res) => {
+    // console.log(res.attributes);
     let mine = {
       name: res.attributes.name,
       area: res.attributes.area.name,

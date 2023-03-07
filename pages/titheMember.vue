@@ -48,20 +48,23 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   tithes.value = data.value.data;
-  rowData.value = tithes.value.map((res) => {
-    // console.log(res.attributes.member);
-    let mine = {
-      // name: res.attributes.assembly.name,
-      // district: res.attributes.assembly.district,
-      // pastor: res.attributes.assembly.pastor,
-      // status: res.attributes.assembly.status,
-      // openedOn: res.attributes.assembly.openedOn,
-      paidby: res.attributes.paidby,
-      tithe: res.attributes.amount,
-      paidon: new Date(res.attributes.updated_at).toDateString(),
-      id: res.id,
-    };
-    return mine;
+  let titheMembers = tithes.value.filter((res) => res.attributes.member !== null);
+  rowData.value = titheMembers.map((res) => {
+    if (res.attributes.member_id !== null) {
+      // console.log(res.attributes);
+      let mine = {
+        // name: res.attributes.assembly.name,
+        // district: res.attributes.assembly.district,
+        // pastor: res.attributes.assembly.pastor,
+        // status: res.attributes.assembly.status,
+        // openedOn: res.attributes.assembly.openedOn,
+        paidby: res.attributes.paidby,
+        tithe: res.attributes.amount,
+        paidon: new Date(res.attributes.updated_at).toDateString(),
+        id: res.id,
+      };
+      return mine;
+    }
   });
 });
 </script>
