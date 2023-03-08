@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <label for="ministry" class="col-md-12 col-form-label">Select Budget Item</label>
           <div class="col-md-12">
@@ -70,6 +70,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const ministries = reactive([]);
+const form = ref(null);
 const budgetItems = reactive([]);
 const budgetItemTypes = ref([
   { type: "Income", val: "income" },
@@ -156,11 +157,12 @@ let submitBudget = async () => {
     error_message.text = "Budget added successfully!";
     error_message.title = "Add Budget";
 
-    budget.year = "";
-    budget.type = "";
-    budget.amount = "";
-    budget.ministry = "";
-    budget.budget_item_id = "";
+    // budget.year = "";
+    // budget.type = "";
+    // budget.amount = "";
+    // budget.ministry = "";
+    // budget.budget_item_id = "";
+    form.value.reset();
   }
 };
 </script>

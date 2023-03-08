@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-2/3 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
-      <v-form @submit.prevent>
+      <v-form ref="form" @submit.prevent>
         <div class="mb-3 row">
           <!-- <label for="name" class="col-md-2 col-form-label">Name</label> -->
           <div class="col-md-10">
@@ -36,7 +36,7 @@
           <!-- <label for="phone" class="col-md-2 col-form-label">Phone</label> -->
           <div class="col-md-10">
             <!-- <input class="form-control" type="tel" id="phone" v-model="member.phone" /> -->
-            <v-text-field v-model="member.phone" clearable :rules="nameRules" variant="solo" label="phone" required></v-text-field>
+            <v-text-field v-model="member.phone" clearable :rules="nameRules" variant="solo" hint="eg: 0244123456" label="phone" required></v-text-field>
           </div>
         </div>
 
@@ -104,6 +104,7 @@ const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const assemblies = ref([]);
 const ministries = ref([]);
+const form = ref(null);
 const nameRules = ref([
   (value) => {
     if (value) return true;
@@ -181,26 +182,26 @@ let submitMember = async () => {
   );
 
   if (error.value) {
-    // show.state = "show";
     error_message.type = "error";
     error_message.text = "Church member not added successfully!. Try again";
     error_message.title = "Add Member";
   } else {
-    // show.state = "show";
     error_message.type = "success";
     error_message.text = "Church member added successfully!.";
     error_message.title = "Add Member";
 
-    member.name = "";
-    member.email = "";
-    member.home_town = "";
-    member.phone = "";
-    member.dob = "";
-    member.gender = "";
-    member.marital_status = "";
-    member.address = "";
-    member.ministry_id = "";
-    member.assembly_id = "";
+    // member.name = "";
+    // member.email = "";
+    // member.home_town = "";
+    // member.phone = "";
+    // member.dob = "";
+    // member.gender = "";
+    // member.assembly_id = "";
+    // member.ministry_id = "";
+    // member.marital_status = "";
+    // member.address = "";
+
+    form.value.reset();
   }
 };
 </script>

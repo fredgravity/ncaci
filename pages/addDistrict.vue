@@ -10,7 +10,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <label for="district" class="col-md-2 col-form-label">Area</label>
           <div class="col-md-12">
@@ -43,6 +43,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const areas = ref([]);
+const form = ref(null);
 const loading = ref("");
 const error_message = reactive({
   type: "",
@@ -97,8 +98,9 @@ let submitDistrict = async () => {
     error_message.text = "Church District added successfully!";
     error_message.title = "Add District";
 
-    district.name = "";
-    district.area_id = "";
+    // district.name = "";
+    // district.area_id = "";
+    form.value.reset();
   }
 };
 </script>

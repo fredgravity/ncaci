@@ -9,6 +9,13 @@ const props = defineProps({
   alert: ref({}),
 });
 
+watch(props.alert.type, (newType) => {
+  console.log(newType);
+  if (newType) {
+    props.alert.type = newType;
+  }
+});
+
 setTimeout(() => {
   props.alert.type = "";
 }, 5000);

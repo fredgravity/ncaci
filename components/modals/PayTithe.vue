@@ -10,7 +10,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form ref="form">
               <div class="mb-3 row">
                 <label for="name" class="col-md-2 col-form-label">Amount</label>
                 <div class="col-md-10">

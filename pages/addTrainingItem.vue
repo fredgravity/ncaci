@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <!-- <label for="name" class="col-md-2 col-form-label">Training Item Name</label> -->
           <div class="col-md-12">
@@ -67,6 +67,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const ministries = ref([]);
+const form = ref(null);
 const nameRules = ref([
   (value) => {
     if (value) return true;
@@ -124,11 +125,12 @@ let submitTrainingItem = async () => {
     error_message.text = "Training item added successfully!";
     error_message.title = "Add District";
 
-    trainingItem.name = "";
-    trainingItem.startDate = "";
-    trainingItem.endDate = "";
-    trainingItem.ministry_id = "";
-    trainingItem.venue = "";
+    // trainingItem.name = "";
+    // trainingItem.startDate = "";
+    // trainingItem.endDate = "";
+    // trainingItem.ministry_id = "";
+    // trainingItem.venue = "";
+    form.value.reset();
   }
 };
 </script>

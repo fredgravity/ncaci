@@ -9,7 +9,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <!-- <label for="name" class="col-md-2 col-form-label">Area Name</label> -->
           <div class="col-md-12">
@@ -31,6 +31,7 @@ import { useLoginStore } from "~/stores/LoginStore";
 const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
+const form = ref(null);
 
 const error_message = reactive({
   type: "",
@@ -65,6 +66,7 @@ let submitArea = async () => {
     error_message.title = "Add Area";
 
     area.name = "";
+    form.value.reset();
   }
 };
 </script>

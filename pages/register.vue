@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-2/3 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <div class="col-md-10">
             <!-- <input class="form-control" type="text" id="name" v-model="user.name" /> -->
@@ -59,6 +59,7 @@ import { useLoginStore } from "~/stores/LoginStore";
 const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
+const form = ref(null);
 const assemblies = reactive([]);
 const ministries = reactive([]);
 const roleItems = ref([
@@ -104,16 +105,19 @@ let submitUser = async () => {
     error_message.type = "error";
     error_message.text = "Church User not added successfully!. Try again";
     error_message.title = "Add User";
+    // form.value.reset();
   } else {
     error_message.type = "success";
     error_message.text = "Church User added successfully!.";
     error_message.title = "Add User";
 
-    user.name = "";
-    user.email = "";
-    user.password = "";
-    user.password_confirmation = "";
-    user.role = "";
+    // user.name = "";
+    // user.email = "";
+    // user.password = "";
+    // user.password_confirmation = "";
+    // user.role = "";
+
+    form.value.reset();
   }
 };
 </script>

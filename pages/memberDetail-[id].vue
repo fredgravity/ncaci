@@ -43,7 +43,7 @@
     <template v-if="member_modal.length != 0">
       <ModalsEditMember2 :member="member_modal" :assemblies="assemblies" :ministries="ministries" :member_id="spouse.member_id" />
     </template>
-    <a :href="'/member-' + member.id" class="tw-font-normal tw-ml-4 btn btn-sm tw-w-full md:tw-w-1/3 tw-mb-2 btn-outline-primary tw-text-blue-500 tw-cursor-pointer">Add More Info</a>
+    <NuxtLink :to="'/member-' + member.id" class="tw-font-normal tw-ml-4 btn btn-sm tw-w-full md:tw-w-1/3 tw-mb-2 btn-outline-primary tw-text-blue-500 tw-cursor-pointer">Add More Info</NuxtLink>
     <hr class="tw-my-0" />
     <div class="tw-ml-4 tw-mt-3 tw-font-bold">Spouse History</div>
     <div class="tw-flex tw-flex-wrap tw-mx-3" v-if="member.attributes">
@@ -101,7 +101,9 @@
       </template>
     </div>
     <hr class="tw-my-0" />
-    <div class="tw-ml-4 tw-mt-3 tw-font-bold">Tithe History (<span class="text-xs text-green-400 cursor-pointer" data-bs-toggle="modal" data-bs-target="#payTithe">Pay Here</span>)</div>
+    <template v-if="member_modal.length != 0">
+      <div class="tw-ml-4 tw-mt-3 tw-font-bold tw-flex tw-gap-5 tw-items-center">Tithe History (<ModalsPayTithe2 :member="member_modal" :member_id="member.id" />)</div>
+    </template>
     <div class="tw-flex tw-flex-wrap tw-mx-3" v-if="member.attributes">
       <p class="tw-font-semibold tw-basis-1/3 tw-mb-1 tw-pl-1">paid on</p>
       <p class="tw-font-semibold tw-basis-1/3 tw-mb-1 tw-pl-1">amount</p>
@@ -120,9 +122,9 @@
     <template v-if="member_modal.length != 0 && assemblies.length != 0">
       <ModalsEditMember :member="member_modal" :assemblies="assemblies" :ministries="ministries" :member_id="spouse.member_id" />
     </template>
-    <template v-if="member_modal.length != 0">
+    <!-- <template v-if="member_modal.length != 0">
       <ModalsPayTithe :member="member_modal" :assemblies="assemblies" :ministries="ministries" :member_id="spouse.member_id" />
-    </template>
+    </template> -->
   </div>
 </template>
 
@@ -194,6 +196,7 @@ onMounted(async () => {
   loading.value = pending.value;
   member.value = data.value.data;
   member_modal.value = data.value.data;
+  console.log(member_modal.value);
 });
 
 let submitSpouse = async () => {

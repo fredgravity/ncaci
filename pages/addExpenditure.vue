@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <label for="expenditure" class="col-md-12 col-form-label"> Select Expenditure Item</label>
           <div class="col-md-12">
@@ -110,6 +110,7 @@ const accessToken = await loginStore.getAccessToken;
 const ministries = reactive([]);
 const budgetItems = reactive([]);
 const assemblies = ref([]);
+const form = ref(null);
 const districts = ref([]);
 const areas = ref([]);
 const enabledAssembly = ref(false);
@@ -261,16 +262,17 @@ let submitExpenditure = async () => {
     error_message.text = "Expenditure added successfully!";
     error_message.title = "Add Expenditure";
 
-    expenditure.budget_item_id = "";
-    expenditure.year = "";
-    expenditure.amount = "";
-    expenditure.type = "";
-    expenditure.approvedBy = "";
-    expenditure.requestedBy = "";
-    expenditure.assembly = "";
-    expenditure.district = "";
-    expenditure.area = "";
-    expenditure.details = "";
+    // expenditure.budget_item_id = "";
+    // expenditure.year = "";
+    // expenditure.amount = "";
+    // expenditure.type = "";
+    // expenditure.approvedBy = "";
+    // expenditure.requestedBy = "";
+    // expenditure.assembly = "";
+    // expenditure.district = "";
+    // expenditure.area = "";
+    // expenditure.details = "";
+    form.value.reset();
   }
 };
 </script>

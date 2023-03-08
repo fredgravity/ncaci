@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <!-- <label for="name" class="col-md-2 col-form-label">Budget Item Name</label> -->
           <div class="col-md-12">
@@ -61,6 +61,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const ministries = ref([]);
+const form = ref(null);
 const budgetItems = ref([
   { type: "Income", val: "income" },
   { type: "Expense", val: "expense" },
@@ -123,10 +124,11 @@ let submitBudgetItem = async () => {
     error_message.text = "Budget Item added successfully!";
     error_message.title = "Add Budget Item";
 
-    budgetItem.name = "";
-    budgetItem.year = "";
-    budgetItem.type = "";
-    budgetItem.ministry_id = "";
+    // budgetItem.name = "";
+    // budgetItem.year = "";
+    // budgetItem.type = "";
+    // budgetItem.ministry_id = "";
+    form.value.reset();
   }
 };
 </script>

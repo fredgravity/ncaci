@@ -7,7 +7,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <label for="income" class="col-md-12 col-form-label">Add Income Item</label>
           <div class="col-md-12">
@@ -94,6 +94,7 @@ const accessToken = await loginStore.getAccessToken;
 const ministries = reactive([]);
 const budgetItems = reactive([]);
 const assemblies = ref([]);
+const form = ref(null);
 const districts = ref([]);
 const areas = ref([]);
 const enabledAssembly = ref(false);
@@ -241,15 +242,16 @@ let submitIncome = async () => {
     error_message.text = "Income  added successfully!.";
     error_message.title = "Add Income";
 
-    income.budget_item_id = "";
-    income.year = "";
-    income.amount = "";
-    income.type = "";
-    income.approvedBy = "";
-    income.assembly = "";
-    income.district = "";
-    income.area = "";
-    income.details = "";
+    // income.budget_item_id = "";
+    // income.year = "";
+    // income.amount = "";
+    // income.type = "";
+    // income.approvedBy = "";
+    // income.assembly = "";
+    // income.district = "";
+    // income.area = "";
+    // income.details = "";
+    form.value.reset();
   }
 };
 </script>

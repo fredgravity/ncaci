@@ -109,7 +109,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
 const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
@@ -149,6 +148,7 @@ const getAssemblyDetails = async (e) => {
   let assembly = assemblies.value.filter((res) => {
     return res.id == assembly_id.value;
   });
+  console.log(assembly);
 
   detail.value = assembly[0];
 };

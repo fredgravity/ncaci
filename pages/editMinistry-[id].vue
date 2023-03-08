@@ -10,7 +10,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-bg-gray-100 tw-shadow-xl tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <!-- <label for="name" class="col-md-2 col-form-label">Ministry Name</label> -->
           <div class="col-md-12">

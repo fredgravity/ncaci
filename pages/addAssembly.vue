@@ -9,7 +9,7 @@
     </template>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
-      <form>
+      <form ref="form">
         <div class="mb-3 row">
           <!-- <label for="name" class="col-md-2 col-form-label">Assembly Name</label> -->
           <div class="col-md-12">
@@ -83,6 +83,7 @@ const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const areas = ref([]);
 const districts = ref([]);
+const form = ref(null);
 const filteredDistricts = ref([]);
 const statusItems = ref([
   { status: "Active", val: "active" },
@@ -172,12 +173,10 @@ let submitAssembly = async () => {
     error_message.text = "Church Assembly added successfully!";
     error_message.title = "Add Assembly";
 
-    assembly.name = "";
-    assembly.area_id = "";
-    assembly.district = "";
-    assembly.pastor = "";
-    assembly.openedOn = "";
-    assembly.status = "";
+    // assembly.area_id = "";
+    // assembly.district = "";
+
+    form.value.reset();
   }
 };
 </script>

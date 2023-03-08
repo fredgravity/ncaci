@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row justify="left">
+    <v-row>
       <v-dialog v-model="dialog" persistent>
         <template v-slot:activator="{ props }">
           <div class="tw-font-normal tw-ml-6 btn btn-sm tw-w-full md:tw-w-1/3 tw-mb-4 btn-outline-primary tw-text-blue-500 tw-cursor-pointer" color="primary" v-bind="props">Edit</div>
@@ -134,7 +134,6 @@ let submitMember = async () => {
     })
   );
 
-  console.log(error.value);
   if (error.value) {
     error_message.type = "error";
     error_message.title = "Error";
