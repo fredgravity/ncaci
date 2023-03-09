@@ -28,7 +28,7 @@
           <!-- <label for="phone" class="col-md-2 col-form-label">Phone</label> -->
           <div class="col-md-12">
             <!-- <input class="form-control" type="text" id="phone" v-model="training.phone" /> -->
-            <v-text-field v-model="training.phone" clearable :rules="nameRules" variant="solo" label="phone" required></v-text-field>
+            <v-text-field v-model="training.phone" clearable :rules="nameRules" variant="solo" type="number" hint="eg: 0244123456" label="phone" required></v-text-field>
           </div>
         </div>
 
@@ -236,18 +236,18 @@ let submitTraining = async () => {
     error_message.text = "Training added successfully!";
     error_message.title = "Add Training";
 
-    training.training_item_id = "";
-    training.startDate = "";
-    training.endDate = "";
-    training.ministry = "";
-    training.participant = "";
-    training.position = "";
-    training.venue = "";
-    training.phone = "";
-    training.assembly = "";
-    training.area = "";
-    training.district = "";
-    training.email = "";
+    // training.training_item_id = "";
+    // training.startDate = "";
+    // training.endDate = "";
+    // training.ministry = "";
+    // training.participant = "";
+    // training.position = "";
+    // training.venue = "";
+    // training.phone = "";
+    // training.assembly = "";
+    // training.area = "";
+    // training.district = "";
+    // training.email = "";
 
     form.value.reset();
   }
