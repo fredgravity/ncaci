@@ -22,7 +22,7 @@ const columnDefs = reactive([
   { headerName: "Area", field: "area" },
   { headerName: "District", field: "district" },
   { headerName: "Assembly", field: "assembly" },
-  // { headerName: "Status", field: "status" },
+  { headerName: "Created By", field: "createdBy" },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
 ]);
 
@@ -57,6 +57,7 @@ onMounted(async () => {
       district: res.attributes.district,
       assembly: res.attributes.assembly,
       budget_item_id: res.attributes.budget_item_id,
+      createdBy: res.relationships["user name"],
       id: res.id,
     };
     return mine;

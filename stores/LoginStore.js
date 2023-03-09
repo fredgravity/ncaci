@@ -57,6 +57,10 @@ export const useLoginStore = defineStore('login', {
             
             
         },
+
+        async setUser(user){
+            localStorage.setItem('user', JSON.stringify(user))
+        },
         
         async setToken(token){
             // console.log(token)

@@ -60,6 +60,7 @@ const members = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
 const dialog = ref(false);
+const router = useRouter();
 const form = ref(null);
 const tithe = reactive({
   amount: "",
@@ -75,6 +76,7 @@ const columnDefs = reactive([
   { headerName: "Phone", field: "phone" },
   { headerName: "Assembly", field: "assembly" },
   { headerName: "Ministry", field: "ministry" },
+  { headerName: "CreatedBy", field: "createdBy" },
   { headerName: "Edit", field: "edit" },
   { headerName: "Pay", field: "pay" },
   // { headerName: "Action", field: "action" },
@@ -83,7 +85,8 @@ const columnDefs = reactive([
 const recordClick = (event) => {
   // console.log(event);
   if (event.value == "Edit") {
-    window.location.href = "/memberDetail-" + event.data.id;
+    // window.location.href = "/memberDetail-" + event.data.id;
+    router.push("memberDetail-" + event.data.id);
   }
   if (event.value == "Pay Tithe") {
     dialog.value = true;
@@ -116,6 +119,7 @@ onMounted(async () => {
       phone: res.attributes.phone,
       assembly: res.attributes.assembly.name,
       ministry: res.attributes.ministry.name,
+      createdBy: res.relationships["user name"],
       openedOn: res.attributes.openedOn,
       edit: "Edit",
       pay: "Pay Tithe",

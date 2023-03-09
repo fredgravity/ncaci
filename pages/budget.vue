@@ -22,7 +22,7 @@ const columnDefs = reactive([
   { headerName: "Amount", field: "amount" },
   { headerName: "Type", field: "type" },
   { headerName: "Ministry", field: "ministry" },
-  // { headerName: "Status", field: "status" },
+  { headerName: "Created By", field: "createdBy" },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
 ]);
 
@@ -56,6 +56,7 @@ onMounted(async () => {
       amount: res.attributes.amount,
       ministry: res.attributes.ministry,
       amount: res.attributes.amount,
+      createdBy: res.relationships["user name"],
       budget_item_id: res.attributes.budget_item_id,
       id: res.id,
     };

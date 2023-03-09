@@ -22,7 +22,7 @@ const columnDefs = reactive([
   { headerName: "End Date", field: "endDate" },
   { headerName: "Venue", field: "venue" },
   { headerName: "Organised By", field: "ministry_name" },
-  // { headerName: "Status", field: "status" },
+  { headerName: "Created By", field: "createdBy" },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
 ]);
 
@@ -55,6 +55,7 @@ onMounted(async () => {
       endDate: res.attributes.endDate,
       ministry_name: res.attributes.ministry_name,
       ministry_id: res.attributes.ministry_id,
+      createdBy: res.relationships["user name"],
       id: res.id,
     };
     return mine;

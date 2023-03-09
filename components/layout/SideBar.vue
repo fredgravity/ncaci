@@ -6,7 +6,7 @@
         </div> -->
       <v-divider class="tw-mb-5"></v-divider>
       <v-list>
-        <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg" title="Sandra Adams" subtitle="sandra_a88@gmailcom"></v-list-item>
+        <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg" :title="getUser.name" :subtitle="getUser.email"></v-list-item>
       </v-list>
 
       <v-divider></v-divider>
@@ -20,17 +20,19 @@
           <span class=""></span>
         </li>
         <!-- users -->
-        <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-user" rounded="shaped">
-          <v-list-group value="Users">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" title="Users" rounded="shaped"></v-list-item>
-            </template>
+        <template v-if="getUser.role == 'admin'">
+          <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-user" rounded="shaped">
+            <v-list-group value="Users">
+              <template v-slot:activator="{ props }">
+                <v-list-item v-bind="props" title="Users" rounded="shaped"></v-list-item>
+              </template>
 
-            <v-list-item v-for="([title, link], i) in users" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
-            </v-list-item>
-          </v-list-group>
-        </v-list-item>
+              <v-list-item v-for="([title, link], i) in users" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </v-list-item>
+            </v-list-group>
+          </v-list-item>
+        </template>
         <!-- members -->
         <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-users" rounded="shaped">
           <v-list-group value="Members">
@@ -143,8 +145,12 @@
 </template>
 
 <script setup>
+// const api_base = useRuntimeConfig().public.apiBase;
+const loginStore = useLoginStore();
+const getUser = await loginStore.getUser;
 const drawStore = useMenuStore();
 const opened = computed(() => drawStore.drawer);
+console.log(getUser);
 const close = () => {
   drawStore.openMenu();
 };

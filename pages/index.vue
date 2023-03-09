@@ -1,10 +1,11 @@
 <template>
   <div class="tw-w-full tw-mx-auto tw-mt-32">
+    <div class="tw-text-4xl tw-font-extrabold tw-text-blue-500 tw-text-center">The New Covenant Apostolic Church International</div>
     <v-form class="tw-w-96 tw-mx-auto tw-py-10" ref="form" v-model="valid" lazy-validation>
       <div class="tw-text-center tw-text-2xl">Login</div>
       <v-text-field class="tw-pr-4 md:tw-pr-0" v-model="loginForm.email" :rules="emailRules" label="E-mail" required></v-text-field>
       <v-text-field class="tw-pr-4 md:tw-pr-0" type="password" v-model="loginForm.password" :rules="passwordRules" label="Password" required></v-text-field>
-      <v-btn color="success" class="tw-w-full tw-py-10" @click="validate">
+      <v-btn color="" class="tw-w-full tw-py-10 tw-bg-blue-400" @click="validate">
         <template v-if="loading"> Go! </template>
         <template v-else-if="!loading"> Loading... </template>
       </v-btn>

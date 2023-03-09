@@ -7,11 +7,25 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
 const loginStore = useLoginStore();
+const api_base = useRuntimeConfig().public.apiBase;
 const user = await loginStore.getUser;
 const router = useRouter();
 const route = useRoute();
+const accessToken = await loginStore.getAccessToken;
+onMounted(async () => {
+  const { data, error, refresh } = await useFetch(api_base + "/user", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + accessToken.accessToken,
+    },
+    initialCache: false,
+  });
+
+  loginStore.setUser(data.value);
+});
 
 onMounted(async () => {
   if (route.fullPath == "/") {
