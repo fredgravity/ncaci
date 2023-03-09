@@ -14,7 +14,7 @@
       <v-list density="compact" nav class="tw-text-sm">
         <!-- dashboard -->
         <v-list-item v-for="([title, icon, link], i) in menus" :key="i" :prepend-icon="icon" :value="title" class="tw-bg-black" rounded="shaped">
-          <NuxtLink class="tw-w-full tw-block tw-text-sm tw-text-black" :href="link">{{ title }}</NuxtLink>
+          <NuxtLink class="tw-w-full tw-block tw-text-sm tw-text-gray-600" :href="link">{{ title }}</NuxtLink>
         </v-list-item>
         <li class="tw-border-b-2 tw-list-none">
           <span class=""></span>

@@ -54,7 +54,8 @@ export default {
           content: "Church Finance",
         },
       ],
-      link: [{ rel: "icon", href: "/favicon.ico" }],
+      link: [{ rel: "icon", href: "/ncaciLogo.jpg" }],
+      // link: [{ rel: "icon", href: "/favicon.ico" }],
       script: [
         // { hid: "qq", src: "./assets/assets/vendor/libs/jquery/jquery.js", defer: true, body: true },
         // // { hid: "menu", src: "./assets/assets/vendor/js/menu.js", defer: true, body: true },
