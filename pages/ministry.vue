@@ -19,6 +19,7 @@ const rowData = ref([]);
 const columnDefs = reactive([
   { headerName: "Name", field: "name" },
   { headerName: "Action", field: "action" },
+  { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
 ]);
 
 const recordClick = (event) => {
@@ -46,6 +47,7 @@ onMounted(async () => {
   rowData.value = ministries.value.map((res) => {
     let mine = {
       name: res.attributes.name,
+      created_at: new Date(res.attributes.created_at).toDateString(),
       id: res.id,
       action: "Edit",
     };

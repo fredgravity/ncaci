@@ -18,10 +18,11 @@ const rowData = ref([]);
 
 const columnDefs = reactive([
   { headerName: "Item", field: "name" },
-  { headerName: "Year", field: "year" },
+  { headerName: "Year", field: "year", type: ["numberColumn"] },
   { headerName: "Type", field: "type" },
   { headerName: "Ministry", field: "ministry_name" },
   { headerName: "Created By", field: "createdBy" },
+  { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
 ]);
 
@@ -53,6 +54,7 @@ onMounted(async () => {
       year: res.attributes.year,
       type: res.attributes.type,
       ministry_name: res.attributes.ministry_name,
+      created_at: new Date(res.attributes.created_at).toDateString(),
       ministry_id: res.attributes.ministry_id,
       createdBy: res.relationships["user name"],
       id: res.id,

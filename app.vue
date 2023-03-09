@@ -35,6 +35,13 @@ onMounted(async () => {
   } else {
     if (!user) {
       router.push({ path: "/" });
+    } else {
+      if (user.role == "user") {
+        if (route.fullPath == "/user" || route.fullPath == "/register") {
+          console.log(user);
+          router.push({ path: "/dashboard" });
+        }
+      }
     }
   }
 });

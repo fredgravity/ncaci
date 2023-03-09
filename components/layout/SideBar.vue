@@ -162,48 +162,48 @@ const menus = ref([
   // ["Starred", "mdi:mdi-star"],
 ]);
 const users = ref([
-  ["User", "/user"],
+  ["View User", "/user"],
   ["Register", "/register"],
 ]);
 const members = ref([
-  ["View", "/member"],
-  ["Add", "/addMember"],
+  ["View Member", "/member"],
+  ["Add Member", "/addMember"],
 ]);
 const areas = ref([
-  ["View", "/area"],
-  ["Add", "/addArea"],
+  ["View Area", "/area"],
+  ["Add Area", "/addArea"],
 ]);
 const districts = ref([
-  ["View", "/district"],
-  ["Add", "/addDistrict"],
+  ["View District", "/district"],
+  ["Add District", "/addDistrict"],
 ]);
 const assemblies = ref([
-  ["View", "/assembly"],
-  ["Add", "addAssembly"],
+  ["View Assembly", "/assembly"],
+  ["Add Assembly", "addAssembly"],
 ]);
 const ministries = ref([
-  ["View", "/ministry"],
-  ["Add", "/addMinistry"],
+  ["View Ministry", "/ministry"],
+  ["Add Ministry", "/addMinistry"],
 ]);
 const trainings = ref([
-  ["Item", "/trainingItem"],
-  ["Add Item", "/addTrainingItem"],
-  ["View", "/training"],
-  ["Add", "/addTraining"],
+  ["View Training", "/trainingItem"],
+  ["Add Training", "/addTrainingItem"],
+  ["View Participant", "/training"],
+  ["Add Participant", "/addTraining"],
 ]);
 const tithes = ref([
-  ["All", "/tithe"],
-  ["Members", "/titheMember"],
-  ["Add", "/addTithe"],
+  ["View All Tithe", "/tithe"],
+  ["View Members Tithe", "/titheMember"],
+  ["Add Tithe", "/addTithe"],
 ]);
 const finances = ref([
-  ["Budget Item", "/budgetItem"],
-  ["Add  Item", "/addBudgetItem"],
-  ["Budget", "/budget"],
+  ["View Budget Setup", "/budgetItem"],
+  ["Budget Setup", "/addBudgetItem"],
+  ["View Budget", "/budget"],
   ["Add Budget", "/addBudget"],
-  ["Expenditure", "/expenditure"],
+  ["View Expend", "/expenditure"],
   ["Add Expend", "/addExpenditure"],
-  ["Income", "/income"],
+  ["View Income", "/income"],
   ["Add Income", "/addIncome"],
 ]);
 </script>

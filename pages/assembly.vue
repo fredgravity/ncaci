@@ -24,7 +24,8 @@ const columnDefs = reactive([
   { headerName: "District", field: "district" },
   { headerName: "Pastor", field: "pastor" },
   { headerName: "Status", field: "status" },
-  { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
+  { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
+  { headerName: "OpenedOn", field: "openedOn", type: ["dateColumn"] },
   { headerName: "Action", field: "action" },
 ]);
 
@@ -56,6 +57,7 @@ onMounted(async () => {
       district: res.attributes.district,
       pastor: res.attributes.pastor,
       status: res.attributes.status,
+      created_at: new Date(res.attributes.created_at).toDateString(),
       openedOn: res.attributes.openedOn,
       id: res.id,
       action: "Edit",

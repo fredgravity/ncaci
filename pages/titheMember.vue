@@ -15,6 +15,7 @@ const accessToken = await loginStore.getAccessToken;
 const tithes = ref([]);
 const loading = ref("");
 const rowData = ref([]);
+const router = useRouter();
 
 const columnDefs = reactive([
   // { headerName: "Assembly", field: "name" },
@@ -23,8 +24,8 @@ const columnDefs = reactive([
   // { headerName: "Status", field: "status" },
   // { headerName: "OpenedOn", field: "openedOn" },
   { headerName: "Paid By", field: "paidby" },
-  { headerName: "Amount", field: "tithe" },
-  { headerName: "Paid On", field: "paidon" },
+  { headerName: "Amount", field: "tithe", type: ["numberColumn"] },
+  { headerName: "Paid On", field: "paidon", type: ["dateColumn"] },
 ]);
 
 const recordClick = (event) => {
@@ -33,7 +34,8 @@ const recordClick = (event) => {
     return res.id == tithe.id;
   });
   // console.log(getTithe[0].attributes.member.id);
-  window.location.href = "/memberDetail-" + getTithe[0].attributes.member.id;
+  router.push("memberDetail-" + event.data.id);
+  // window.location.href = "/memberDetail-" + getTithe[0].attributes.member.id;
 };
 
 onMounted(async () => {
@@ -59,7 +61,7 @@ onMounted(async () => {
         // status: res.attributes.assembly.status,
         // openedOn: res.attributes.assembly.openedOn,
         paidby: res.attributes.paidby,
-        tithe: parseInt(res.attributes.amount).toFixed(2),
+        tithe: parseInt(res.attributes.amount),
         paidon: new Date(res.attributes.updated_at).toDateString(),
         id: res.id,
       };

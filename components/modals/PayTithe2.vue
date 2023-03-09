@@ -72,7 +72,7 @@ setTimeout(() => {
 
 let submitTithe = async () => {
   const { data, pending, error, refresh } = await useAsyncData("submitTithe", () =>
-    $fetch(api_base + "/tithe/", {
+    $fetch(api_base + "/tithe", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ let submitTithe = async () => {
     })
   );
 
-  //   console.log(error_message);
+  console.log(error.value);
   if (error.value) {
     // error_message.value = error.value.data.message;
   }

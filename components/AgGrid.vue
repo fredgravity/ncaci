@@ -22,6 +22,7 @@
       @cellValueChanged="valueChanged"
       :pagination="true"
       :paginationPageSize="paginationPageSize"
+      :columnTypes="columnTypes"
     >
     </ag-grid-vue>
   </div>
@@ -35,6 +36,27 @@ import { AgGridVue } from "ag-grid-vue3";
 const gridApi = ref({});
 const columnApi = ref({});
 const paginationPageSize = ref(10);
+const filterParams = {
+  comparator: (filterLocalDateAtMidnight, cellValue) => {
+    let dateAsString = new Date(cellValue).toLocaleDateString();
+    if (dateAsString == null) return -1;
+    var dateParts = dateAsString.split("/");
+    var cellDate = new Date(Number(dateParts[2]), Number(dateParts[0]) - 1, Number(dateParts[1]));
+    if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+      return 0;
+    }
+    if (cellDate < filterLocalDateAtMidnight) {
+      return -1;
+    }
+    if (cellDate > filterLocalDateAtMidnight) {
+      return 1;
+    }
+    return 0;
+  },
+  minValidYear: 1991,
+  maxValidYear: 2050,
+  inRangeFloatingFilterDateFormat: "Do MMM YYYY",
+};
 
 const props = defineProps({ results: Object, columnDefs: Object, rowData: Object });
 
@@ -43,6 +65,17 @@ const emit = defineEmits(["recordClick"]);
 const onGridReady = (params) => {
   gridApi.value = params.api;
   columnApi.value = params.columnApi;
+};
+
+const columnTypes = {
+  dateColumn: {
+    filter: "agDateColumnFilter",
+    filterParams: filterParams,
+    // suppressMenu: true
+  },
+  numberColumn: {
+    filter: "agNumberColumnFilter",
+  },
 };
 
 const cellWasClicked = (event) => {

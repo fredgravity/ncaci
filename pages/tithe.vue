@@ -21,8 +21,9 @@ const columnDefs = reactive([
   { headerName: "District", field: "district" },
   { headerName: "Pastor", field: "pastor" },
   { headerName: "Status", field: "status" },
-  { headerName: "OpenedOn", field: "openedOn" },
-  { headerName: "Total Tithe", field: "total" },
+  { headerName: "OpenedOn", field: "openedOn", type: ["dateColumn"] },
+  { headerName: "Total Tithe", field: "total", type: ["numberColumn"] },
+  { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
 ]);
 
 onMounted(async () => {
@@ -47,11 +48,10 @@ onMounted(async () => {
       pastor: res.attributes.pastor,
       status: res.attributes.status,
       openedOn: res.attributes.openedOn,
-      total: res.attributes.tithe
-        .reduce((acc, curr) => {
-          return parseInt(acc) + parseInt(curr.amount);
-        }, 0)
-        .toFixed(2),
+      created_at: new Date(res.attributes.created_at).toDateString(),
+      total: res.attributes.tithe.reduce((acc, curr) => {
+        return parseInt(acc) + parseInt(curr.amount);
+      }, 0),
       id: res.id,
     };
     return mine;

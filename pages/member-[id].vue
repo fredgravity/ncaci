@@ -106,6 +106,7 @@ const route = useRoute();
 const member = ref([]);
 const error_message = ref("");
 const tab = ref(null);
+const router = useRouter();
 
 onMounted(async () => {
   const member_id = route.params.id;
@@ -120,7 +121,9 @@ onMounted(async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
+  if (error.value && error.value.statusCode == 404) {
+    router.back();
+  }
   member.value = data.value.data;
 });
 </script>

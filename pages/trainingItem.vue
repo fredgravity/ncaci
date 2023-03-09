@@ -18,11 +18,16 @@ const rowData = ref([]);
 
 const columnDefs = reactive([
   { headerName: "Training", field: "name" },
-  { headerName: "Start Date", field: "startDate" },
-  { headerName: "End Date", field: "endDate" },
+  { headerName: "Start Date", field: "startDate", type: ["dateColumn"] },
+  { headerName: "End Date", field: "endDate", type: ["dateColumn"] },
   { headerName: "Venue", field: "venue" },
   { headerName: "Organised By", field: "ministry_name" },
   { headerName: "Created By", field: "createdBy" },
+  {
+    headerName: "Created At",
+    field: "created_at",
+    type: ["dateColumn"],
+  },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
 ]);
 
@@ -51,8 +56,9 @@ onMounted(async () => {
     let mine = {
       name: res.attributes.name,
       venue: res.attributes.venue,
-      startDate: res.attributes.startDate,
-      endDate: res.attributes.endDate,
+      startDate: new Date(res.attributes.startDate).toDateString(),
+      created_at: new Date(res.attributes.created_at).toDateString(),
+      endDate: new Date(res.attributes.endDate).toDateString(),
       ministry_name: res.attributes.ministry_name,
       ministry_id: res.attributes.ministry_id,
       createdBy: res.relationships["user name"],

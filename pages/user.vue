@@ -19,7 +19,7 @@ const columnDefs = reactive([
   { headerName: "Name", field: "name" },
   { headerName: "Email", field: "email" },
   { headerName: "Role", field: "role" },
-  { headerName: "Created On", field: "created_at" },
+  { headerName: "Created On", field: "created_at", type: "dateColumn" },
 
   // { headerName: "Status", field: "status" },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },

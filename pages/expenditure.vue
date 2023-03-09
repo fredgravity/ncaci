@@ -18,14 +18,15 @@ const rowData = ref([]);
 
 const columnDefs = reactive([
   { headerName: "Item", field: "expenditure_name" },
-  { headerName: "Year", field: "year" },
-  { headerName: "Amount", field: "amount" },
+  { headerName: "Year", field: "year", type: ["numberColumn"] },
+  { headerName: "Amount", field: "amount", type: ["numberColumn"] },
   { headerName: "Requested By", field: "requestedBy" },
   { headerName: "Approved By", field: "requestedBy" },
   { headerName: "Area", field: "area" },
   { headerName: "District", field: "district" },
   { headerName: "Assembly", field: "assembly" },
   { headerName: "Created By", field: "createdBy" },
+  { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
   // { headerName: "OpenedOn", field: "openedOn", filter: "agDateColumnFilter" },
 ]);
 
@@ -55,7 +56,8 @@ onMounted(async () => {
     let mine = {
       expenditure_name: res.attributes.budget_item_name,
       year: res.attributes.year,
-      amount: parseInt(res.attributes.amount).toFixed(2),
+      created_at: new Date(res.attributes.created_at).toDateString(),
+      amount: parseInt(res.attributes.amount),
       requestedBy: res.attributes.requestedBy,
       approvedBy: res.attributes.approvedBy,
       area: res.attributes.area,

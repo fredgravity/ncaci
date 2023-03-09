@@ -140,6 +140,7 @@ const error_message = ref("");
 const assemblies = ref([]);
 const ministries = ref([]);
 const loading = ref("");
+const router = useRouter();
 
 const spouse = reactive({
   name: "",
@@ -194,9 +195,12 @@ onMounted(async () => {
   });
 
   loading.value = pending.value;
+
+  if (error.value && error.value.statusCode == 404) {
+    router.back();
+  }
   member.value = data.value.data;
   member_modal.value = data.value.data;
-  console.log(member_modal.value);
 });
 
 let submitSpouse = async () => {

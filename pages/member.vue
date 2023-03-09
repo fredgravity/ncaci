@@ -71,12 +71,13 @@ const tithe = reactive({
 const columnDefs = reactive([
   { headerName: "Name", field: "name" },
   { headerName: "Gender", field: "gender" },
-  { headerName: "DOB", field: "dob" },
+  { headerName: "DOB", field: "dob", type: ["dateColumn"] },
   { headerName: "Email", field: "email" },
   { headerName: "Phone", field: "phone" },
   { headerName: "Assembly", field: "assembly" },
   { headerName: "Ministry", field: "ministry" },
   { headerName: "CreatedBy", field: "createdBy" },
+  { headerName: "CreatedAt", field: "createdAt", type: ["dateColumn"] },
   { headerName: "Edit", field: "edit" },
   { headerName: "Pay", field: "pay" },
   // { headerName: "Action", field: "action" },
@@ -109,7 +110,7 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   members.value = data.value.data;
-  console.log(members.value);
+  // console.log(members.value);
   rowData.value = members.value.map((res) => {
     let mine = {
       name: res.attributes.name,
@@ -119,6 +120,7 @@ onMounted(async () => {
       phone: res.attributes.phone,
       assembly: res.attributes.assembly.name,
       ministry: res.attributes.ministry.name,
+      createdAt: new Date(res.attributes.created_at).toDateString(),
       createdBy: res.relationships["user name"],
       openedOn: res.attributes.openedOn,
       edit: "Edit",
