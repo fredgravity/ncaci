@@ -47,9 +47,11 @@ onMounted(async () => {
       pastor: res.attributes.pastor,
       status: res.attributes.status,
       openedOn: res.attributes.openedOn,
-      total: res.attributes.tithe.reduce((acc, curr) => {
-        return acc + curr.amount;
-      }, 0),
+      total: res.attributes.tithe
+        .reduce((acc, curr) => {
+          return parseInt(acc) + parseInt(curr.amount);
+        }, 0)
+        .toFixed(2),
       id: res.id,
     };
     return mine;

@@ -59,7 +59,7 @@ onMounted(async () => {
         // status: res.attributes.assembly.status,
         // openedOn: res.attributes.assembly.openedOn,
         paidby: res.attributes.paidby,
-        tithe: res.attributes.amount,
+        tithe: parseInt(res.attributes.amount).toFixed(2),
         paidon: new Date(res.attributes.updated_at).toDateString(),
         id: res.id,
       };

@@ -55,7 +55,7 @@ onMounted(async () => {
     let mine = {
       expenditure_name: res.attributes.budget_item_name,
       year: res.attributes.year,
-      amount: res.attributes.amount,
+      amount: parseInt(res.attributes.amount).toFixed(2),
       requestedBy: res.attributes.requestedBy,
       approvedBy: res.attributes.approvedBy,
       area: res.attributes.area,
