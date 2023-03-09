@@ -135,7 +135,7 @@ onMounted(async () => {
 let submitTitheMember = async () => {
   console.log(tithe);
   const { data, pending, error, refresh } = await useAsyncData("submitTitheMember", () =>
-    $fetch(api_base + "/tithe/", {
+    $fetch(api_base + "/tithe", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
