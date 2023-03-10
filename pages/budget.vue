@@ -10,8 +10,9 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
 const api_base = useRuntimeConfig().public.apiBase;
+const loginStore = useLoginStore();
+const accessToken = await loginStore.getAccessToken;
 const budget = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
@@ -33,9 +34,6 @@ const recordClick = (event) => {
 };
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
-
   const { data, error, refresh, pending } = await useFetch(api_base + "/budget", {
     method: "get",
     headers: {

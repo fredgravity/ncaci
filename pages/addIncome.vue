@@ -43,6 +43,14 @@
           <!-- <label for="amount" class="col-md-2 col-form-label">Amount</label> -->
           <div class="col-md-12">
             <!-- <input class="form-control" type="number" id="amount" v-model="expenditure.amount" /> -->
+            <v-text-field disabled type="number" v-model="budget_amt" clearable :rules="nameRules" variant="solo" label="budget amount" required></v-text-field>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <!-- <label for="amount" class="col-md-2 col-form-label">Amount</label> -->
+          <div class="col-md-12">
+            <!-- <input class="form-control" type="number" id="amount" v-model="expenditure.amount" /> -->
             <v-text-field type="number" v-model="income.amount" clearable :rules="nameRules" variant="solo" label="income amount" required></v-text-field>
           </div>
         </div>
@@ -100,6 +108,7 @@ const areas = ref([]);
 const enabledAssembly = ref(false);
 const enabledDistrict = ref(false);
 const enabledArea = ref(false);
+const budget_amt = ref(0);
 const incomeItemTypes = ref([
   { type: "Income", val: "income" },
   { type: "Expense", val: "expense" },
@@ -118,6 +127,7 @@ const error_message = reactive({
 });
 const income = reactive({
   budget_item_id: "",
+  budget_id: "",
   year: "",
   amount: "",
   type: "",
@@ -208,6 +218,7 @@ onMounted(async () => {
     }
   });
   budgetItems.value = arry;
+  console.log(budgetItems.value);
 });
 
 const getBudgetItems = async (event) => {
@@ -218,6 +229,14 @@ const getBudgetItems = async (event) => {
 
   income.year = result[0].attributes.year;
   income.type = result[0].attributes.type;
+
+  if (result[0].attributes.budget.length > 0) {
+    budget_amt.value = result[0].attributes.budget[0].amount;
+    income.budget_id = result[0].attributes.budget[0].id.toString();
+  } else {
+    budget_amt.value = 0;
+    income.budget_id = "";
+  }
 };
 
 let submitIncome = async () => {

@@ -139,6 +139,18 @@
             </v-list-item>
           </v-list-group>
         </v-list-item>
+        <!-- reports -->
+        <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-file-signature" rounded="shaped">
+          <v-list-group value="Report">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" title="Report" rounded="shaped"></v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, link], i) in reports" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            </v-list-item>
+          </v-list-group>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </v-card>
@@ -195,6 +207,11 @@ const tithes = ref([
   ["View All Tithe", "/tithe"],
   ["View Members Tithe", "/titheMember"],
   ["Add Tithe", "/addTithe"],
+]);
+const reports = ref([
+  ["Budget Income", "/reportBudgetIncome"],
+  // ["View Members Tithe", "/titheMember"],
+  // ["Add Tithe", "/addTithe"],
 ]);
 const finances = ref([
   ["View Budget Setup", "/budgetItem"],
