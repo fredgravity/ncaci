@@ -81,14 +81,16 @@ const gettotalIncomeBudget = () => {
 const gettotalIncomeActualArry = () => {
   chartIncome.actual = [];
   let a = _.map(budgetItemIncome.value, (res) => {
-    let result = _.reduce(
-      res.attributes.budget[0].incomes,
-      (acc, curr) => {
-        chartIncome.actual.push(curr.amount);
-        return acc + curr.amount;
-      },
-      0
-    );
+    if (res.attributes.budget.length > 0) {
+      let result = _.reduce(
+        res.attributes.budget[0].incomes,
+        (acc, curr) => {
+          chartIncome.actual.push(curr.amount);
+          return acc + curr.amount;
+        },
+        0
+      );
+    }
 
     return result;
   });
