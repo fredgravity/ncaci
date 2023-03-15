@@ -210,7 +210,8 @@ const tithes = ref([
 ]);
 const reports = ref([
   ["Budget Income", "/reportBudgetIncome"],
-  // ["View Members Tithe", "/titheMember"],
+  ["Budget Expense", "/reportBudgetExpense"],
+  ["Tithe Quater Analysis", "/reportTithe"],
   // ["Add Tithe", "/addTithe"],
 ]);
 const finances = ref([

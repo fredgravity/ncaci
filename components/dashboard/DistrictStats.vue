@@ -148,8 +148,6 @@ onMounted(async () => {
     }
   });
 
-  console.log(result);
-
   for (const [key, value] of result) {
     incomeDistrict.value.push({ district: key, amount: value });
   }

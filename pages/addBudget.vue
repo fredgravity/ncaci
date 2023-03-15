@@ -14,7 +14,7 @@
             <select class="form-control" id="ministry" v-model="budget.budget_item_id" @change="getBudgetItems($event)">
               <option value="" disabled>select here</option>
               <template v-for="(budget, index) in budgetItems.value" :key="index">
-                <option v-if="budget.attributes.name" :value="budget.id">{{ budget.attributes.name }} - {{ budget.attributes.year }}</option>
+                <option v-if="budget.attributes.name" :value="budget.id">{{ budget.attributes.name }} - {{ budget.attributes.year }} - {{ budget.attributes.type }}</option>
               </template>
             </select>
           </div>

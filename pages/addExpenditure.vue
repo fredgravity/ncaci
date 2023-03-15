@@ -111,7 +111,7 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
+import _, { map } from "underscore";
 const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
@@ -244,8 +244,8 @@ const getBudgetItems = async (event) => {
   let result = budgetItems.value.filter((res) => {
     return res.id == event.target.value;
   });
-  console.log(result[0].attributes);
 
+  console.log(result[0].attributes.year);
   expenditure.year = result[0].attributes.year;
   expenditure.type = result[0].attributes.type;
 

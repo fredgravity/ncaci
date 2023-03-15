@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
 const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
@@ -21,6 +20,7 @@ const columnDefs = reactive([
   { headerName: "District", field: "district" },
   { headerName: "Pastor", field: "pastor" },
   { headerName: "Status", field: "status" },
+  { headerName: "Tithe Year", field: "tithe_year" },
   { headerName: "OpenedOn", field: "openedOn", type: ["dateColumn"] },
   { headerName: "Total Tithe", field: "total", type: ["numberColumn"] },
   { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
@@ -38,8 +38,16 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   tithes.value = data.value.data;
-  let titheAssembly = tithes.value.filter((res) => res.attributes.member !== null);
-  rowData.value = tithes.value.map((res) => {
+
+  let titheFiltered = tithes.value.filter((res) => {
+    return res.attributes.tithe.length > 0;
+  });
+
+  // let titheAssembly = titheFiltered.filter((res) => res.attributes.member !== null);
+
+  // console.log(titheAssembly);
+
+  rowData.value = titheFiltered.map((res) => {
     // console.log(res.attributes);
     let mine = {
       name: res.attributes.name,
@@ -47,6 +55,9 @@ onMounted(async () => {
       district: res.attributes.district,
       pastor: res.attributes.pastor,
       status: res.attributes.status,
+      tithe_year: res.attributes.tithe.reduce((acc, curr) => {
+        return new Date(curr.created_at).getFullYear();
+      }, 0),
       openedOn: res.attributes.openedOn,
       created_at: new Date(res.attributes.created_at).toDateString(),
       total: res.attributes.tithe.reduce((acc, curr) => {

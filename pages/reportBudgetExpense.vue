@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">Budget Income</div>
+    <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">Budget Expense</div>
     <Loading :loading="loading" />
 
     <div>
       <div class="card-body">
-        <div class="text-center">
-          <!-- <label for="ministry" class="col-md-12 col-form-label">Select Budget Year</label> -->
+        <div class="text-center tw-flex tw-justify-center">
+          <!-- <label for="ministry" class="">Select Budget Year</label> -->
           <select name="" id="" class="tw-w-52 tw-mx-auto tw-bg-slate-400 tw-text-gray-50 tw-rounded-md tw-p-1 tw-text-center" @change="getYear($event)">
             <option disabled selected>Select Budget Year</option>
             <option v-for="i in 20" :key="i" :value="2019 + i">{{ 2019 + i }}</option>
@@ -19,8 +19,8 @@
       <AgGrid :results="budgetItems" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
     </div>
 
-    <div class="tw-mt-20" v-if="budgetItemIncome.length > 0">
-      <ReportBudgetIncome :data="budgetItemIncome" :dataValue="chartIncome" />
+    <div class="tw-mt-20" v-if="budgetItemExpense.length > 0">
+      <ReportBudgetIncome :data="budgetItemExpense" :dataValue="chartIncome" />
     </div>
   </div>
 </template>
@@ -32,8 +32,8 @@ const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const budgetItems = ref([]);
 const loading = ref("");
-const budgetItemIncome = ref([]);
-// const budgetItemExpense = ref([]);
+// const budgetItemIncome = ref([]);
+const budgetItemExpense = ref([]);
 const rowData = ref([]);
 const chartIncome = reactive({
   budget: [],
@@ -62,13 +62,12 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   budgetItems.value = data.value.data;
-  console.log(budgetItems.value);
 });
 
 const gettotalIncomeBudget = () => {
   chartIncome.budget = [];
   let b = _.reduce(
-    budgetItemIncome.value,
+    budgetItemExpense.value,
     (acc, curr) => {
       chartIncome.budget.push(curr.attributes.budget[0].amount);
       return acc + curr.attributes.budget[0].amount;
@@ -80,9 +79,9 @@ const gettotalIncomeBudget = () => {
 
 const gettotalIncomeActualArry = () => {
   chartIncome.actual = [];
-  let a = _.map(budgetItemIncome.value, (res) => {
+  let a = _.map(budgetItemExpense.value, (res) => {
     let result = _.reduce(
-      res.attributes.budget[0].incomes,
+      res.attributes.budget[0].expenses,
       (acc, curr) => {
         chartIncome.actual.push(curr.amount);
         return acc + curr.amount;
@@ -96,12 +95,13 @@ const gettotalIncomeActualArry = () => {
 };
 
 const getYear = async (event) => {
-  budgetItemIncome.value = _.filter(budgetItems.value, (res) => {
-    return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "income";
-  });
-  // budgetItemExpense.value = _.filter(budgetItems.value, (res) => {
-  //   return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "expense";
+  // budgetItemIncome.value = _.filter(budgetItems.value, (res) => {
+  //   return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "income";
   // });
+
+  budgetItemExpense.value = _.filter(budgetItems.value, (res) => {
+    return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "expense";
+  });
 
   let totalIncomeActualArry = gettotalIncomeActualArry();
 
@@ -111,14 +111,14 @@ const getYear = async (event) => {
   //   acc + curr;
   // }, 0);
 
-  rowData.value = budgetItemIncome.value.map((res) => {
+  rowData.value = budgetItemExpense.value.map((res) => {
     let mine = {
       details: res.attributes.name,
       budget: res.attributes.budget[0].amount,
-      variance: (() => {
-        if (res.attributes.budget[0].incomes.length > 1) {
+      variance: (function () {
+        if (res.attributes.budget[0].expenses.length > 1) {
           let add = _.reduce(
-            res.attributes.budget[0].incomes,
+            res.attributes.budget[0].expenses,
             (acc, curr) => {
               return acc + curr.amount;
             },
@@ -129,9 +129,8 @@ const getYear = async (event) => {
           console.log(result);
           return result.toFixed(2);
         }
-        if ((res.attributes.budget[0].incomes.length = 1)) {
-          console.log(res.attributes.budget[0]);
-          let result = ((res.attributes.budget[0].amount - res.attributes.budget[0].incomes[0].amount) / res.attributes.budget[0].amount) * 100;
+        if ((res.attributes.budget[0].expenses.length = 1)) {
+          let result = ((res.attributes.budget[0].amount - res.attributes.budget[0].expenses[0].amount) / res.attributes.budget[0].amount) * 100;
           console.log(result.toFixed());
           return result.toFixed(2);
         }
@@ -139,9 +138,9 @@ const getYear = async (event) => {
       })(),
       distribution: ((res.attributes.budget[0].amount / totalIncomeBudget) * 100).toFixed(2),
       actual: (function () {
-        if (res.attributes.budget[0].incomes.length > 1) {
+        if (res.attributes.budget[0].expenses.length > 1) {
           let result = _.reduce(
-            res.attributes.budget[0].incomes,
+            res.attributes.budget[0].expenses,
             (acc, curr) => {
               return acc + curr.amount;
             },
@@ -149,8 +148,8 @@ const getYear = async (event) => {
           );
           return result;
         }
-        if ((res.attributes.budget[0].incomes.length = 1)) {
-          return res.attributes.budget[0].incomes[0].amount;
+        if ((res.attributes.budget[0].expenses.length = 1)) {
+          return res.attributes.budget[0].expenses[0].amount;
         }
         return 0;
       })(),
