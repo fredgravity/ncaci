@@ -117,7 +117,7 @@ const getYear = async (event) => {
   rowData.value = budgetItemIncome.value.map((res) => {
     let mine = {
       details: res.attributes.name,
-      budget: res.attributes.budget[0].amount,
+      budget: parseInt(res.attributes.budget[0].amount),
       variance: (() => {
         if (res.attributes.budget[0].incomes.length > 1) {
           let add = _.reduce(
