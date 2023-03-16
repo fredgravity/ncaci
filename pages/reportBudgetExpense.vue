@@ -97,7 +97,8 @@ const gettotalExpenseActualArry = () => {
       let result = _.reduce(
         res.attributes.budget[0].expenses,
         (acc, curr) => {
-          if (curr.amount != 0) {
+          console.log(parseInt(curr.amount));
+          if (parseInt(curr.amount) != 0) {
             chartIncome.actual.push(parseInt(curr.amount));
             return parseInt(acc) + parseInt(curr.amount);
           }
