@@ -64,34 +64,46 @@ onMounted(async () => {
   budgetItems.value = data.value.data;
 });
 
-const gettotalIncomeBudget = () => {
+const gettotalExpenseBudget = () => {
   chartIncome.budget = [];
   let b = _.reduce(
     budgetItemExpense.value,
     (acc, curr) => {
-      chartIncome.budget.push(curr.attributes.budget[0].amount);
-      return acc + curr.attributes.budget[0].amount;
+      if (curr.attributes.budget.length > 0) {
+        chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
+        return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
+      }
+      return 0;
     },
     0
   );
-  return b;
+
+  let ab = _.reduce(
+    chartIncome.budget,
+    (acc, cur) => {
+      return acc + cur;
+    },
+    0
+  );
+
+  return ab;
 };
 
-const gettotalIncomeActualArry = () => {
+const gettotalExpenseActualArry = () => {
   chartIncome.actual = [];
-  let a = _.map(budgetItemExpense.value, (res) => {
+  let mapResult = _.map(budgetItemExpense.value, (res) => {
     let result = _.reduce(
       res.attributes.budget[0].expenses,
       (acc, curr) => {
-        chartIncome.actual.push(curr.amount);
-        return acc + curr.amount;
+        chartIncome.actual.push(parseInt(curr.amount));
+        return parseInt(acc) + parseInt(curr.amount);
       },
       0
     );
 
     return result;
   });
-  return a;
+  return mapResult;
 };
 
 const getYear = async (event) => {
@@ -100,58 +112,62 @@ const getYear = async (event) => {
   // });
 
   budgetItemExpense.value = _.filter(budgetItems.value, (res) => {
-    return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "expense";
+    return parseInt(res.attributes.year) == parseInt(event.target.value) && res.attributes.type == "expense";
   });
 
-  let totalIncomeActualArry = gettotalIncomeActualArry();
+  let totalExpenseActualArry = gettotalExpenseActualArry();
 
-  let totalIncomeBudget = gettotalIncomeBudget();
+  let totalExpenseBudget = gettotalExpenseBudget();
 
-  // const totalIncomeActual = totalIncomeActualArry.reduce((acc, curr) => {
+  // const totalIncomeActual = totalExpenseActualArry.reduce((acc, curr) => {
   //   acc + curr;
   // }, 0);
 
   rowData.value = budgetItemExpense.value.map((res) => {
     let mine = {
       details: res.attributes.name,
-      budget: res.attributes.budget[0].amount,
+      budget: res.attributes.budget.length > 0 ? parseInt(res.attributes.budget[0].amount) : 0.0,
       variance: (function () {
-        if (res.attributes.budget[0].expenses.length > 1) {
-          let add = _.reduce(
-            res.attributes.budget[0].expenses,
-            (acc, curr) => {
-              return acc + curr.amount;
-            },
-            0
-          );
+        if (res.attributes.budget.length > 0) {
+          if (res.attributes.budget[0].expenses.length > 1) {
+            let add = _.reduce(
+              res.attributes.budget[0].expenses,
+              (acc, curr) => {
+                return parseInt(acc) + parseInt(curr.amount);
+              },
+              0
+            );
 
-          let result = ((res.attributes.budget[0].amount - add) / res.attributes.budget[0].amount) * 100;
-          console.log(result);
-          return result.toFixed(2);
-        }
-        if ((res.attributes.budget[0].expenses.length = 1)) {
-          let result = ((res.attributes.budget[0].amount - res.attributes.budget[0].expenses[0].amount) / res.attributes.budget[0].amount) * 100;
-          console.log(result.toFixed());
-          return result.toFixed(2);
+            let result = ((parseInt(res.attributes.budget[0].amount) - add) / parseInt(res.attributes.budget[0].amount)) * 100;
+            console.log(result);
+            return result.toFixed(2);
+          }
+          if (res.attributes.budget[0].expenses.length == 1) {
+            let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].expenses[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
+            console.log(result.toFixed());
+            return result.toFixed(2);
+          }
         }
         return 0;
       })(),
-      distribution: ((res.attributes.budget[0].amount / totalIncomeBudget) * 100).toFixed(2),
+      distribution: res.attributes.budget.length > 0 ? ((res.attributes.budget[0].amount / totalExpenseBudget) * 100).toFixed(2) : 0.0,
       actual: (function () {
-        if (res.attributes.budget[0].expenses.length > 1) {
-          let result = _.reduce(
-            res.attributes.budget[0].expenses,
-            (acc, curr) => {
-              return acc + curr.amount;
-            },
-            0
-          );
-          return result;
+        if (res.attributes.budget.length > 0) {
+          if (res.attributes.budget[0].expenses.length > 1) {
+            let result = _.reduce(
+              res.attributes.budget[0].expenses,
+              (acc, curr) => {
+                return parseInt(acc) + parseInt(curr.amount);
+              },
+              0
+            );
+            return result;
+          }
+          if (res.attributes.budget[0].expenses.length == 1) {
+            return parseInt(res.attributes.budget[0].expenses[0].amount);
+          }
+          return 0;
         }
-        if ((res.attributes.budget[0].expenses.length = 1)) {
-          return res.attributes.budget[0].expenses[0].amount;
-        }
-        return 0;
       })(),
       id: res.id,
     };

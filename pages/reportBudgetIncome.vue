@@ -62,7 +62,6 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   budgetItems.value = data.value.data;
-  console.log(budgetItems.value);
 });
 
 const gettotalIncomeBudget = () => {
@@ -116,9 +115,9 @@ const getYear = async (event) => {
   // budgetItemExpense.value = _.filter(budgetItems.value, (res) => {
   //   return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "expense";
   // });
-  console.log("hi");
+
   let totalIncomeActualArry = gettotalIncomeActualArry();
-  console.log("hii");
+
   let totalIncomeBudget = gettotalIncomeBudget();
 
   rowData.value = budgetItemIncome.value.map((res) => {
@@ -128,7 +127,6 @@ const getYear = async (event) => {
       variance: (() => {
         if (res.attributes.budget.length > 0) {
           if (res.attributes.budget[0].incomes.length > 1) {
-            console.log("h2");
             let add = _.reduce(
               res.attributes.budget[0].incomes,
               (acc, curr) => {
@@ -138,7 +136,7 @@ const getYear = async (event) => {
             );
 
             let result = ((parseInt(res.attributes.budget[0].amount) - add) / parseInt(res.attributes.budget[0].amount)) * 100;
-            console.log(result);
+
             return result.toFixed(2);
           }
           if (res.attributes.budget[0].incomes.length == 1) {
