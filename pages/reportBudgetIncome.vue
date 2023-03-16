@@ -85,6 +85,7 @@ const gettotalIncomeActualArry = () => {
       let result = _.reduce(
         res.attributes.budget[0].incomes,
         (acc, curr) => {
+          console.log(curr);
           chartIncome.actual.push(curr.amount);
           return acc + curr.amount;
         },
