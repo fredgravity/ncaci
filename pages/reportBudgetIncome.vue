@@ -76,7 +76,7 @@ const gettotalIncomeBudget = () => {
         console.log(parseInt(acc) + parseInt(curr.attributes.budget[0].amount));
         return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
       }
-      return 0;
+      // return 0;
     },
     0
   );
@@ -97,12 +97,9 @@ const gettotalIncomeActualArry = () => {
         },
         0
       );
-
       return result;
     }
-    return 0;
   });
-
   return mapResult;
 };
 
