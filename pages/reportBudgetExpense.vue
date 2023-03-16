@@ -99,17 +99,15 @@ const gettotalExpenseActualArry = () => {
         res.attributes.budget[0].expenses,
         (acc, curr) => {
           console.log(parseInt(curr.amount));
-          if (parseInt(curr.amount) != 0) {
-            chartIncome.actual.push(parseInt(curr.amount));
-            return parseInt(acc) + parseInt(curr.amount);
-          }
-          chartIncome.actual.push(0);
+
+          chartIncome.actual.push(parseInt(curr.amount));
           return parseInt(acc) + parseInt(curr.amount);
         },
         0
       );
       return result;
     }
+    chartIncome.actual.push(0);
   });
   console.log(chartIncome.actual);
   return mapResult;
