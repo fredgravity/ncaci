@@ -94,6 +94,7 @@ const gettotalExpenseActualArry = () => {
   chartIncome.actual = [];
   let mapResult = _.map(budgetItemExpense.value, (res) => {
     if (res.attributes.budget.length > 0) {
+      console.log(res.attributes.budget[0]);
       let result = _.reduce(
         res.attributes.budget[0].expenses,
         (acc, curr) => {
