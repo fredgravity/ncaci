@@ -93,10 +93,12 @@ const gettotalIncomeActualArry = () => {
         },
         0
       );
+      console.log(result);
       return result;
     }
     return 0;
   });
+  console.log(a);
   return a;
 };
 
@@ -107,12 +109,12 @@ const getYear = async (event) => {
   // budgetItemExpense.value = _.filter(budgetItems.value, (res) => {
   //   return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "expense";
   // });
-
+  console.log("hi");
   let totalIncomeActualArry = gettotalIncomeActualArry();
-
+  console.log("hii");
   let totalIncomeBudget = gettotalIncomeBudget();
 
-  console.log("hi");
+  console.log("hiii");
 
   // const totalIncomeActual = totalIncomeActualArry.reduce((acc, curr) => {
   //   acc + curr;
