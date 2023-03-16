@@ -70,15 +70,17 @@ const gettotalIncomeBudget = () => {
   let b = _.reduce(
     budgetItemIncome.value,
     (acc, curr) => {
-      console.log(curr.attributes.budget);
       if (curr.attributes.budget.length > 0) {
         chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
+        console.log(parseInt(curr.attributes.budget[0].amount));
+        console.log(parseInt(acc) + parseInt(curr.attributes.budget[0].amount));
         return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
       }
       return 0;
     },
     0
   );
+  console.log(b);
   return b;
 };
 
