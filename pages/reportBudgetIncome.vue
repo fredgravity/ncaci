@@ -73,10 +73,11 @@ const gettotalIncomeBudget = () => {
       if (curr.attributes.budget.length > 0) {
         chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
         console.log(parseInt(curr.attributes.budget[0].amount));
-        console.log(parseInt(acc) + parseInt(curr.attributes.budget[0].amount));
-        return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
+        let summ = parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
+        console.log(summ);
+        return summ;
       }
-      // return 0;
+      return 0;
     },
     0
   );
