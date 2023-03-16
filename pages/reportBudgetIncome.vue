@@ -94,6 +94,7 @@ const gettotalIncomeActualArry = () => {
       );
       return result;
     }
+    return 0;
   });
   return a;
 };
