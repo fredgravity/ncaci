@@ -120,7 +120,7 @@ const gettotalExpenseActualArry = () => {
       );
       return result;
     }
-    chartIncome.actual.push(0);
+    // chartIncome.actual.push(0);
   });
   console.log(chartIncome.actual);
   return mapResult;
