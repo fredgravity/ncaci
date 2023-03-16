@@ -70,8 +70,9 @@ const gettotalIncomeBudget = () => {
   let b = _.reduce(
     budgetItemIncome.value,
     (acc, curr) => {
+      console.log(curr.attributes.budget);
       chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
-      return acc + parseInt(curr.attributes.budget[0].amount);
+      return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
     },
     0
   );
@@ -85,20 +86,18 @@ const gettotalIncomeActualArry = () => {
       let result = _.reduce(
         res.attributes.budget[0].incomes,
         (acc, curr) => {
-          console.log(curr);
           chartIncome.actual.push(parseInt(curr.amount));
-          console.log(parseInt(curr.amount));
-          console.log(parseInt(acc) + parseInt(curr.amount));
+
           return parseInt(acc) + parseInt(curr.amount);
         },
         0
       );
-      console.log(result);
+
       return result;
     }
     return 0;
   });
-  console.log(a);
+
   return a;
 };
 
