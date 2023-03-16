@@ -127,44 +127,50 @@ const getYear = async (event) => {
       details: res.attributes.name,
       budget: parseInt(res.attributes.budget[0].amount),
       variance: (() => {
-        if (res.attributes.budget.length > 0 && res.attributes.budget[0].incomes.length > 1) {
-          console.log("h2");
-          let add = _.reduce(
-            res.attributes.budget[0].incomes,
-            (acc, curr) => {
-              return acc + parseInt(curr.amount);
-            },
-            0
-          );
+        if (res.attributes.budget.length > 0) {
+          if (res.attributes.budget[0].incomes.length > 1) {
+            console.log("h2");
+            let add = _.reduce(
+              res.attributes.budget[0].incomes,
+              (acc, curr) => {
+                return acc + parseInt(curr.amount);
+              },
+              0
+            );
 
-          let result = ((parseInt(res.attributes.budget[0].amount) - add) / parseInt(res.attributes.budget[0].amount)) * 100;
-          console.log(result);
-          return result.toFixed(2);
-        }
-        if (res.attributes.budget.length > 0 && (res.attributes.budget[0].incomes.length = 1)) {
-          console.log(res.attributes.budget[0]);
+            let result = ((parseInt(res.attributes.budget[0].amount) - add) / parseInt(res.attributes.budget[0].amount)) * 100;
+            console.log(result);
+            return result.toFixed(2);
+          }
+          if ((res.attributes.budget[0].incomes.length = 1)) {
+            console.log(res.attributes.budget[0]);
 
-          let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].incomes[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
-          console.log(result.toFixed());
-          return result.toFixed(2);
+            let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].incomes[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
+            console.log(result.toFixed());
+            return result.toFixed(2);
+          }
         }
+
         return 0;
       })(),
       distribution: ((parseInt(res.attributes.budget[0].amount) / totalIncomeBudget) * 100).toFixed(2),
       actual: (function () {
-        if (res.attributes.budget[0].incomes.length > 1) {
-          let result = _.reduce(
-            res.attributes.budget[0].incomes,
-            (acc, curr) => {
-              return acc + parseInt(curr.amount);
-            },
-            0
-          );
-          return result;
+        if (res.attributes.budget.length > 0) {
+          if (res.attributes.budget[0].incomes.length > 1) {
+            let result = _.reduce(
+              res.attributes.budget[0].incomes,
+              (acc, curr) => {
+                return acc + parseInt(curr.amount);
+              },
+              0
+            );
+            return result;
+          }
+          if ((res.attributes.budget[0].incomes.length = 1)) {
+            return parseInt(res.attributes.budget[0].incomes[0].amount);
+          }
         }
-        if ((res.attributes.budget[0].incomes.length = 1)) {
-          return parseInt(res.attributes.budget[0].incomes[0].amount);
-        }
+
         return 0;
       })(),
       id: res.id,
