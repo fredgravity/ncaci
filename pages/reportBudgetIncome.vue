@@ -72,16 +72,14 @@ const gettotalIncomeBudget = () => {
     (acc, curr) => {
       if (curr.attributes.budget.length > 0) {
         chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
-        console.log(parseInt(curr.attributes.budget[0].amount));
         let summ = parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
-        console.log(summ);
         return summ;
       }
       return 0;
     },
     0
   );
-  console.log(chartIncome.budget);
+
   let ab = _.reduce(
     chartIncome.budget,
     (acc, cur) => {
@@ -89,7 +87,7 @@ const gettotalIncomeBudget = () => {
     },
     0
   );
-  console.log(ab);
+
   return ab;
 };
 
@@ -101,7 +99,6 @@ const gettotalIncomeActualArry = () => {
         res.attributes.budget[0].incomes,
         (acc, curr) => {
           chartIncome.actual.push(parseInt(curr.amount));
-
           return parseInt(acc) + parseInt(curr.amount);
         },
         0
@@ -123,12 +120,6 @@ const getYear = async (event) => {
   let totalIncomeActualArry = gettotalIncomeActualArry();
   console.log("hii");
   let totalIncomeBudget = gettotalIncomeBudget();
-
-  console.log(totalIncomeBudget);
-
-  // const totalIncomeActual = totalIncomeActualArry.reduce((acc, curr) => {
-  //   acc + curr;
-  // }, 0);
 
   rowData.value = budgetItemIncome.value.map((res) => {
     let mine = {
@@ -159,10 +150,7 @@ const getYear = async (event) => {
 
         return 0;
       })(),
-      distribution: (() => {
-        console.log(totalIncomeBudget);
-        // res.attributes.budget.length > 0 ? ((parseInt(res.attributes.budget[0].amount) / totalIncomeBudget) * 100).toFixed(2) : 0.0;
-      })(),
+      distribution: res.attributes.budget.length > 0 ? ((parseInt(res.attributes.budget[0].amount) / totalIncomeBudget) * 100).toFixed(2) : 0.0,
       actual: (function () {
         if (res.attributes.budget.length > 0) {
           if (res.attributes.budget[0].incomes.length > 1) {
