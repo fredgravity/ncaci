@@ -81,8 +81,16 @@ const gettotalIncomeBudget = () => {
     },
     0
   );
-  console.log(total);
-  return total;
+  console.log(chartIncome.budget);
+  let ab = _.reduce(
+    chartIncome.budget,
+    (acc, cur) => {
+      return acc + cur;
+    },
+    0
+  );
+  console.log(ab);
+  return ab;
 };
 
 const gettotalIncomeActualArry = () => {
