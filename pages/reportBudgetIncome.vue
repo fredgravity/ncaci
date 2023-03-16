@@ -71,8 +71,11 @@ const gettotalIncomeBudget = () => {
     budgetItemIncome.value,
     (acc, curr) => {
       console.log(curr.attributes.budget);
-      chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
-      return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
+      if (curr.attributes.budget.length > 0) {
+        chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
+        return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
+      }
+      return 0;
     },
     0
   );
