@@ -171,9 +171,9 @@ const getYear = async (event) => {
             return result;
           }
           if ((res.attributes.budget[0].incomes.length = 1)) {
-            if (res.attributes.budget[0].incomes.length > 0) {
-              return parseInt(res.attributes.budget[0].incomes[0].amount);
-            }
+            console.log(res.attributes.budget[0].incomes);
+            return parseInt(res.attributes.budget[0].incomes[0].amount);
+
             return 0;
           }
         }
