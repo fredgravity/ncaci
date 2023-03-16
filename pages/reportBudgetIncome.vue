@@ -144,7 +144,7 @@ const getYear = async (event) => {
           }
           if (res.attributes.budget[0].incomes.length == 1) {
             let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].incomes[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
-            console.log(result.toFixed());
+
             return result.toFixed(2);
           }
         }
@@ -164,8 +164,7 @@ const getYear = async (event) => {
             );
             return result;
           }
-          if ((res.attributes.budget[0].incomes.length = 1)) {
-            console.log(res.attributes.budget);
+          if (res.attributes.budget[0].incomes.length == 1) {
             return parseInt(res.attributes.budget[0].incomes[0].amount);
 
             return 0;
