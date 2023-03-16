@@ -67,7 +67,7 @@ onMounted(async () => {
 
 const gettotalIncomeBudget = () => {
   chartIncome.budget = [];
-  let b = _.reduce(
+  let total = _.reduce(
     budgetItemIncome.value,
     (acc, curr) => {
       if (curr.attributes.budget.length > 0) {
@@ -80,13 +80,13 @@ const gettotalIncomeBudget = () => {
     },
     0
   );
-  console.log(b);
-  return b;
+  console.log(total);
+  return total;
 };
 
 const gettotalIncomeActualArry = () => {
   chartIncome.actual = [];
-  let a = _.map(budgetItemIncome.value, (res) => {
+  let mapResult = _.map(budgetItemIncome.value, (res) => {
     if (res.attributes.budget.length > 0) {
       let result = _.reduce(
         res.attributes.budget[0].incomes,
@@ -103,7 +103,7 @@ const gettotalIncomeActualArry = () => {
     return 0;
   });
 
-  return a;
+  return mapResult;
 };
 
 const getYear = async (event) => {
