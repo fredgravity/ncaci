@@ -111,6 +111,8 @@ const getYear = async (event) => {
 
   let totalIncomeBudget = gettotalIncomeBudget();
 
+  console.log("hi");
+
   // const totalIncomeActual = totalIncomeActualArry.reduce((acc, curr) => {
   //   acc + curr;
   // }, 0);
@@ -121,6 +123,7 @@ const getYear = async (event) => {
       budget: parseInt(res.attributes.budget[0].amount),
       variance: (() => {
         if (res.attributes.budget[0].incomes.length > 1) {
+          console.log("h2");
           let add = _.reduce(
             res.attributes.budget[0].incomes,
             (acc, curr) => {
