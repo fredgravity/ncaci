@@ -73,6 +73,7 @@ const gettotalExpenseBudget = () => {
         chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
         return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
       }
+      chartIncome.budget.push(0);
       return 0;
     },
     0
