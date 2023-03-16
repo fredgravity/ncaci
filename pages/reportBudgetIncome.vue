@@ -143,9 +143,12 @@ const getYear = async (event) => {
         }
         if ((res.attributes.budget[0].incomes.length = 1)) {
           console.log(res.attributes.budget[0]);
-          let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].incomes[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
-          console.log(result.toFixed());
-          return result.toFixed(2);
+          if (res.attributes.budget.length > 0) {
+            let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].incomes[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
+            console.log(result.toFixed());
+            return result.toFixed(2);
+          }
+          return 0;
         }
         return 0;
       })(),
