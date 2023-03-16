@@ -92,16 +92,18 @@ const gettotalExpenseBudget = () => {
 const gettotalExpenseActualArry = () => {
   chartIncome.actual = [];
   let mapResult = _.map(budgetItemExpense.value, (res) => {
-    let result = _.reduce(
-      res.attributes.budget[0].expenses,
-      (acc, curr) => {
-        chartIncome.actual.push(parseInt(curr.amount));
-        return parseInt(acc) + parseInt(curr.amount);
-      },
-      0
-    );
+    if (res.attributes.budget.length > 0) {
+      let result = _.reduce(
+        res.attributes.budget[0].expenses,
+        (acc, curr) => {
+          chartIncome.actual.push(parseInt(curr.amount));
+          return parseInt(acc) + parseInt(curr.amount);
+        },
+        0
+      );
 
-    return result;
+      return result;
+    }
   });
   return mapResult;
 };
