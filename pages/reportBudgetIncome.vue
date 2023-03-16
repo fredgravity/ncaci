@@ -133,7 +133,7 @@ const getYear = async (event) => {
             let add = _.reduce(
               res.attributes.budget[0].incomes,
               (acc, curr) => {
-                return acc + parseInt(curr.amount);
+                return parseInt(acc) + parseInt(curr.amount);
               },
               0
             );
@@ -143,12 +143,15 @@ const getYear = async (event) => {
             return result.toFixed(2);
           }
           if ((res.attributes.budget[0].incomes.length = 1)) {
-            console.log(res.attributes.budget[0].amount);
+            console.log(res.attributes.budget[0]);
             console.log(parseInt(res.attributes.budget[0].incomes[0].amount));
             console.log("fd");
-            let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].incomes[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
-            console.log(result.toFixed());
-            return result.toFixed(2);
+            if (parseInt(res.attributes.budget[0].incomes.length > 0)) {
+              let result = ((parseInt(res.attributes.budget[0].amount) - parseInt(res.attributes.budget[0].incomes[0].amount)) / parseInt(res.attributes.budget[0].amount)) * 100;
+              console.log(result.toFixed());
+              return result.toFixed(2);
+            }
+            return 0;
           }
         }
 
@@ -161,14 +164,17 @@ const getYear = async (event) => {
             let result = _.reduce(
               res.attributes.budget[0].incomes,
               (acc, curr) => {
-                return acc + parseInt(curr.amount);
+                return parseInt(acc) + parseInt(curr.amount);
               },
               0
             );
             return result;
           }
           if ((res.attributes.budget[0].incomes.length = 1)) {
-            return parseInt(res.attributes.budget[0].incomes[0].amount);
+            if (res.attributes.budget[0].incomes.length > 0) {
+              return parseInt(res.attributes.budget[0].incomes[0].amount);
+            }
+            return 0;
           }
         }
 
