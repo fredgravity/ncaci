@@ -71,9 +71,22 @@ const gettotalExpenseBudget = () => {
     (acc, curr) => {
       if (curr.attributes.budget.length > 0) {
         chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
+
+        let result = _.reduce(
+          curr.attributes.budget[0].expenses,
+          (num, cur) => {
+            console.log(parseInt(cur.amount));
+
+            chartIncome.actual.push(parseInt(cur.amount));
+          },
+          0
+        );
+        return result;
+
         return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
       }
       chartIncome.budget.push(0);
+      chartIncome.actual.push(0);
       return 0;
     },
     0
@@ -100,7 +113,7 @@ const gettotalExpenseActualArry = () => {
         (acc, curr) => {
           console.log(parseInt(curr.amount));
 
-          chartIncome.actual.push(parseInt(curr.amount));
+          // chartIncome.actual.push(parseInt(curr.amount));
           return parseInt(acc) + parseInt(curr.amount);
         },
         0
