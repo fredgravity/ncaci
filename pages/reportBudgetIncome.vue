@@ -89,7 +89,7 @@ const gettotalIncomeActualArry = () => {
           chartIncome.actual.push(parseInt(curr.amount));
           console.log(parseInt(curr.amount));
           console.log(parseInt(acc));
-          return acc + parseInt(curr.amount);
+          return parseInt(acc) + parseInt(curr.amount);
         },
         0
       );
