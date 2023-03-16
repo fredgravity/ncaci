@@ -171,7 +171,7 @@ const getYear = async (event) => {
             return result;
           }
           if ((res.attributes.budget[0].incomes.length = 1)) {
-            console.log(res.attributes.budget[0].incomes);
+            console.log(res.attributes.budget);
             return parseInt(res.attributes.budget[0].incomes[0].amount);
 
             return 0;
