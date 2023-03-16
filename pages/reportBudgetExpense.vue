@@ -8,7 +8,7 @@
         <div class="text-center tw-flex tw-justify-center">
           <!-- <label for="ministry" class="">Select Budget Year</label> -->
           <select name="" id="" class="tw-w-52 tw-mx-auto tw-bg-slate-400 tw-text-gray-50 tw-rounded-md tw-p-1 tw-text-center" @change="getYear($event)">
-            <option disabled selected>Select Budget Year</option>
+            <option disabled selected>Select Tithe Year</option>
             <option v-for="i in 20" :key="i" :value="2019 + i">{{ 2019 + i }}</option>
           </select>
         </div>
