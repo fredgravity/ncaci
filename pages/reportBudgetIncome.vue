@@ -151,7 +151,7 @@ const getYear = async (event) => {
 
         return 0;
       })(),
-      distribution: res.attributes.budget.length > 1 ? ((parseInt(res.attributes.budget[0].amount) / totalIncomeBudget) * 100).toFixed(2) : 0.0,
+      distribution: res.attributes.budget.length > 0 ? ((parseInt(res.attributes.budget[0].amount) / totalIncomeBudget) * 100).toFixed(2) : 0.0,
       actual: (function () {
         if (res.attributes.budget.length > 0) {
           if (res.attributes.budget[0].incomes.length > 1) {
