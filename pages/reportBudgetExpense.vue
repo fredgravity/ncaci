@@ -170,6 +170,7 @@ const getYear = async (event) => {
           }
           return 0;
         }
+        return 0;
       })(),
       id: res.id,
     };
