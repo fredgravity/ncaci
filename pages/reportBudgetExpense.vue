@@ -19,7 +19,7 @@
       <AgGrid :results="budgetItems" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
     </div>
 
-    <div class="tw-mt-20" v-if="budgetItemExpense.length > 0">
+    <div class="tw-mt-16 tw-px-10" v-if="budgetItemExpense.length > 0">
       <ReportBudgetIncome :data="budgetItemExpense" :dataValue="chartIncome" />
     </div>
   </div>

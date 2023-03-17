@@ -15,7 +15,11 @@
       </div>
     </div>
 
-    <AgGrid :key="componentKey" :results="areas" :columnDefs="columnDefs" :rowData="rowData" />
+    <AgGrid :key="componentKey" :results="areas" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
+
+    <div id="chart" class="tw-mt-16 tw-px-10">
+      <apexchart :key="componentKey" type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+    </div>
   </div>
 </template>
 
@@ -39,8 +43,56 @@ const rowData = ref([]);
 const getYear = (event) => {
   console.log(event.target.value);
   titheYear.value = parseInt(event.target.value);
+  chartOptions.value.xaxis.title.text = titheYear.value + " Quarters";
   forceRerender();
 };
+
+const series = ref([
+  {
+    data: [0, 0, 0, 0],
+  },
+]);
+
+const chartOptions = ref({
+  chart: {
+    type: "bar",
+    height: 350,
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: 4,
+      horizontal: false,
+    },
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  xaxis: {
+    categories: ["quarter 1", "quarter 2", "quarter 3", "quarter 3"],
+    title: {
+      text: titheYear.value + " Quarters",
+    },
+  },
+  yaxis: {
+    title: {
+      text: "Amount - GHS",
+    },
+  },
+  legend: {
+    position: "top",
+    horizontalAlign: "center",
+    floating: true,
+    offsetY: -25,
+    offsetX: -5,
+  },
+  title: {
+    text: "",
+    align: "left",
+  },
+  toolbar: {
+    show: true,
+  },
+});
 
 const columnDefs = reactive([
   { headerName: "Tithe Area", field: "area" },
@@ -70,7 +122,6 @@ watch(titheYear, (newTitheYear) => {
             let a = _.reduce(
               assembly,
               (acc, curr) => {
-                console.log(curr);
                 let b = _.reduce(
                   curr.tithes,
                   (num, val) => {
@@ -446,9 +497,25 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   areas.value = data.value.data;
-
-  console.log(areas.value);
 });
+
+const recordClick = (event) => {
+  let arry = [];
+  arry.push(event.data);
+  console.log(arry[0].quater1);
+  let areaName = _.pluck(arry, "area");
+  let quater1 = arry[0].quater1;
+  let quater2 = arry[0].quater2;
+  let quater3 = arry[0].quater3;
+  let quater4 = arry[0].quater4;
+  let seriesData = [quater1, quater2, quater3, quater4];
+
+  series.value[0].data = seriesData;
+  chartOptions.value.title.text = areaName;
+
+  forceRerender();
+  // window.location.href = "/assemblyDetail-" + event.data.id;
+};
 </script>
 
 <style></style>
