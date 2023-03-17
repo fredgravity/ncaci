@@ -164,6 +164,8 @@ watch(incomeArea.value, (newIncomeArea) => {
       arryArea.push(value.area);
       arryAmt.push(value.amount);
     }
+    console.log(arryArea);
+    console.log(arryAmt);
 
     incomeStatSeries.value = arryAmt;
     incomeStatChart.value.labels = arryArea;
