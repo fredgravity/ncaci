@@ -18,7 +18,7 @@
     <AgGrid :key="componentKey" :results="areas" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
 
     <div id="chart" class="tw-mt-16 tw-px-10">
-      <apexchart :key="componentKey" type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+      <apexchart :key="componentKey" type="bar" height="450" :options="chartOptions" :series="series"></apexchart>
     </div>
   </div>
 </template>
@@ -68,7 +68,7 @@ const chartOptions = ref({
     enabled: false,
   },
   xaxis: {
-    categories: ["quarter 1", "quarter 2", "quarter 3", "quarter 3"],
+    categories: ["quarter 1", "quarter 2", "quarter 3", "quarter 4"],
     title: {
       text: titheYear.value + " Quarters",
     },
@@ -91,6 +91,9 @@ const chartOptions = ref({
   },
   toolbar: {
     show: true,
+  },
+  dataLabels: {
+    enabled: true,
   },
 });
 

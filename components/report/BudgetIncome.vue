@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="chart">
-      <apexchart :key="componentKey" type="line" :height="400" :options="chartOptions" :series="series"></apexchart>
+      <apexchart :key="componentKey" type="line" :height="450" :options="chartOptions" :series="series"></apexchart>
     </div>
   </div>
 </template>
