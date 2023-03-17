@@ -70,23 +70,22 @@ watch(titheYear, (newTitheYear) => {
             let a = _.reduce(
               assembly,
               (acc, curr) => {
-                // console.log(curr);
+                console.log(curr);
                 let b = _.reduce(
                   curr.tithes,
                   (num, val) => {
                     let date = new Date(val.created_at);
                     let quarter = parseInt(date.getMonth() / 3) + 1;
-
                     if (val.assembly_id && date.getFullYear() == titheYear.value && quarter == 1) {
-                      arrySum.push(num + val.amount);
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
 
-                      return num + val.amount;
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
                   0
                 );
-                console.log(b);
+
                 return b;
               },
               0
@@ -152,9 +151,9 @@ watch(titheYear, (newTitheYear) => {
                     let quarter = parseInt(date.getMonth() / 3) + 1;
 
                     if (val.assembly_id && date.getFullYear() == titheYear.value && quarter == 2) {
-                      arrySum.push(num + val.amount);
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
 
-                      return num + val.amount;
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
@@ -187,8 +186,8 @@ watch(titheYear, (newTitheYear) => {
                     let quarter = parseInt(date.getMonth() / 3) + 1;
 
                     if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value && quarter == 2) {
-                      arrySum.push(num + val.amount);
-                      return num + val.amount;
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
@@ -225,9 +224,9 @@ watch(titheYear, (newTitheYear) => {
                     let quarter = parseInt(date.getMonth() / 3) + 1;
 
                     if (val.assembly_id && date.getFullYear() == titheYear.value && quarter == 3) {
-                      arrySum.push(num + val.amount);
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
 
-                      return num + val.amount;
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
@@ -261,8 +260,8 @@ watch(titheYear, (newTitheYear) => {
                     let quarter = parseInt(date.getMonth() / 3) + 1;
 
                     if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value && quarter == 3) {
-                      arrySum.push(num + val.amount);
-                      return num + val.amount;
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
@@ -296,12 +295,14 @@ watch(titheYear, (newTitheYear) => {
                   curr.tithes,
                   (num, val) => {
                     let date = new Date(val.created_at);
-                    let quarter = parseInt(date.getMonth() / 3) + 1;
+                    let quarter = Math.ceil((date.getMonth() + 1) / 3);
+
+                    console.log(date.getFullYear());
 
                     if (val.assembly_id && date.getFullYear() == titheYear.value && quarter == 4) {
-                      arrySum.push(num + val.amount);
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
 
-                      return num + val.amount;
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
@@ -334,8 +335,8 @@ watch(titheYear, (newTitheYear) => {
                     let quarter = parseInt(date.getMonth() / 3) + 1;
 
                     if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value && quarter == 4) {
-                      arrySum.push(num + val.amount);
-                      return num + val.amount;
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
@@ -369,15 +370,15 @@ watch(titheYear, (newTitheYear) => {
                   curr.tithes,
                   (num, val) => {
                     if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value) {
-                      arrySum.push(num + val.amount);
-                      console.log(val);
-                      return num + val.amount;
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
+
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
                   0
                 );
-                console.log(b);
+
                 return b;
               },
               0
@@ -392,7 +393,6 @@ watch(titheYear, (newTitheYear) => {
           }
 
           if (assembly.length == 1) {
-            console.log(assembly);
             let arrySum = [];
             // console.log(curr);
             let a = _.reduce(
@@ -403,8 +403,8 @@ watch(titheYear, (newTitheYear) => {
                   (num, val) => {
                     console.log(val);
                     if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value) {
-                      arrySum.push(num + val.amount);
-                      return num + val.amount;
+                      arrySum.push(parseInt(num) + parseInt(val.amount));
+                      return parseInt(num) + parseInt(val.amount);
                     }
                     return 0;
                   },
@@ -416,7 +416,7 @@ watch(titheYear, (newTitheYear) => {
               0
             );
             let finalTotal = arrySum.reduce((acc, cur) => {
-              return acc + cur;
+              return parseInt(acc) + parseInt(cur);
             }, 0);
 
             console.log(a);
@@ -424,7 +424,6 @@ watch(titheYear, (newTitheYear) => {
           }
 
           if (assembly.length < 1) {
-            console.log(assembly);
             return 0;
           }
         })(),
