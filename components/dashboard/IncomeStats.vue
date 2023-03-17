@@ -162,7 +162,7 @@ watch(incomeArea.value, (newIncomeArea) => {
       // incomeName.value.push(value.area);
       // incomeAmt.value.push(value.amount);
       arryArea.push(value.area);
-      arryAmt.push(value.amount);
+      arryAmt.push(parseInt(value.amount));
     }
     console.log(arryArea);
     console.log(arryAmt);
