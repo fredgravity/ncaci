@@ -71,9 +71,24 @@ const gettotalIncomeBudget = () => {
     (acc, curr) => {
       if (curr.attributes.budget.length > 0) {
         chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
+
+        if (curr.attributes.budget[0].incomes.length > 0) {
+          _.reduce(
+            curr.attributes.budget[0].incomes,
+            (num, cur) => {
+              chartIncome.actual.push(parseInt(cur.amount));
+            },
+            0
+          );
+        } else {
+          chartIncome.actual.push(0);
+        }
+
         let summ = parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
         return summ;
       }
+      chartIncome.budget.push(0);
+      chartIncome.actual.push(0);
       return 0;
     },
     0
@@ -97,7 +112,7 @@ const gettotalIncomeActualArry = () => {
       let result = _.reduce(
         res.attributes.budget[0].incomes,
         (acc, curr) => {
-          chartIncome.actual.push(parseInt(curr.amount));
+          // chartIncome.actual.push(parseInt(curr.amount));
           return parseInt(acc) + parseInt(curr.amount);
         },
         0

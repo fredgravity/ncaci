@@ -72,16 +72,17 @@ const gettotalExpenseBudget = () => {
       if (curr.attributes.budget.length > 0) {
         chartIncome.budget.push(parseInt(curr.attributes.budget[0].amount));
 
-        let result = _.reduce(
-          curr.attributes.budget[0].expenses,
-          (num, cur) => {
-            console.log(parseInt(cur.amount));
-
-            chartIncome.actual.push(parseInt(cur.amount));
-          },
-          0
-        );
-        return result;
+        if (curr.attributes.budget[0].expenses.length > 0) {
+          _.reduce(
+            curr.attributes.budget[0].expenses,
+            (num, cur) => {
+              chartIncome.actual.push(parseInt(cur.amount));
+            },
+            0
+          );
+        } else {
+          chartIncome.actual.push(0);
+        }
 
         return parseInt(acc) + parseInt(curr.attributes.budget[0].amount);
       }
@@ -99,7 +100,7 @@ const gettotalExpenseBudget = () => {
     },
     0
   );
-  console.log(chartIncome.budget);
+
   return ab;
 };
 
@@ -107,12 +108,9 @@ const gettotalExpenseActualArry = () => {
   chartIncome.actual = [];
   let mapResult = _.map(budgetItemExpense.value, (res) => {
     if (res.attributes.budget.length > 0) {
-      console.log(res.attributes.budget[0]);
       let result = _.reduce(
         res.attributes.budget[0].expenses,
         (acc, curr) => {
-          console.log(parseInt(curr.amount));
-
           // chartIncome.actual.push(parseInt(curr.amount));
           return parseInt(acc) + parseInt(curr.amount);
         },
@@ -122,7 +120,7 @@ const gettotalExpenseActualArry = () => {
     }
     // chartIncome.actual.push(0);
   });
-  console.log(chartIncome.actual);
+
   return mapResult;
 };
 
@@ -138,10 +136,6 @@ const getYear = async (event) => {
   let totalExpenseActualArry = gettotalExpenseActualArry();
 
   let totalExpenseBudget = gettotalExpenseBudget();
-
-  // const totalIncomeActual = totalExpenseActualArry.reduce((acc, curr) => {
-  //   acc + curr;
-  // }, 0);
 
   rowData.value = budgetItemExpense.value.map((res) => {
     let mine = {
