@@ -107,7 +107,7 @@ const totalRevenueSeries = ref([
 const totalRevenue1 = ref({
   chart: {
     id: "total revenue donut",
-    type: "pie",
+    type: "donut",
   },
   responsive: [
     {

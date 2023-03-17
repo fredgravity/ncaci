@@ -21,10 +21,10 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div class="d-flex flex-column align-items-center gap-1">
             <h2 class="mb-2 tw-text-2xl">GHS {{ totalExpense }}</h2>
-            <span>Total Orders</span>
+            <span>Areas</span>
           </div>
           <div id="orderStatisticsChart">
-            <apexchart width="250" :options="expenseStatChart" :series="expenseStatSeries"></apexchart>
+            <apexchart :key="componentKey" width="250" :options="expenseStatChart" :series="expenseStatSeries"></apexchart>
           </div>
         </div>
         <ul class="p-0 m-0">
@@ -57,6 +57,11 @@ const areas = ref([]);
 const expenseArea = ref([]);
 const expenseName = ref([]);
 const expenseAmt = ref([]);
+const componentKey = ref(0);
+const forceRerender = () => {
+  componentKey.value += 1;
+};
+
 const totalExpense = computed(() => {
   const amtTotal = expenseArea.value.reduce((acc, curr) => {
     return parseInt(acc) + parseInt(curr.amount);
@@ -67,9 +72,10 @@ const totalExpense = computed(() => {
 const expenseStatChart = ref({
   chart: {
     id: "expense stat donut",
-    type: "donut",
+    type: "pie",
   },
-  labels: expenseName.value,
+  // labels: expenseName.value,
+  // labels: [],
   responsive: [
     {
       breakpoint: 480,
@@ -88,7 +94,8 @@ const expenseStatChart = ref({
   // },
 });
 
-const expenseStatSeries = expenseAmt.value;
+// const expenseStatSeries = expenseAmt.value;
+const expenseStatSeries = ref([]);
 
 onMounted(async () => {
   const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
@@ -119,7 +126,6 @@ onMounted(async () => {
   });
 
   expenses.value = data.value.data;
-  console.log(expenses.value);
 
   const areas = [];
   expenses.value.filter((res) => {
@@ -127,7 +133,6 @@ onMounted(async () => {
       areas.push(res);
     }
   });
-  console.log(areas);
 
   const result = new Map();
   areas.forEach((element) => {
@@ -143,15 +148,32 @@ onMounted(async () => {
     expenseArea.value.push({ area: key, amount: value });
   }
 
-  console.log(expenseArea.value);
-  for (const value of expenseArea.value) {
-    expenseName.value.push(value.area);
-    expenseAmt.value.push(value.amount);
-  }
+  // console.log(expenseArea.value);
+  // for (const value of expenseArea.value) {
+  //   console.log(expenseStatChart.value.labels);
+  //   expenseName.value.push(value.area);
+  //   expenseAmt.value.push(value.amount);
 
-  // for (const key of incomeYear.value.sort()) {
-  //   incomeAmount.value.push(result.get(key));
   // }
+});
+
+watch(expenseArea.value, (newExpenseArea) => {
+  console.log(newExpenseArea);
+  if (newExpenseArea) {
+    let arryArea = [];
+    let arryAmt = [];
+    for (const value of newExpenseArea) {
+      // incomeName.value.push(value.area);
+      // incomeAmt.value.push(value.amount);
+      arryArea.push(value.area);
+      arryAmt.push(value.amount);
+    }
+
+    expenseStatSeries.value = arryAmt;
+    expenseStatChart.value.labels = arryArea;
+
+    forceRerender();
+  }
 });
 </script>
 

@@ -24,7 +24,7 @@
             <span>Districts</span>
           </div>
           <div id="orderStatisticsChart">
-            <apexchart width="250" :options="districtStatChart" :series="districtStatSeries"></apexchart>
+            <apexchart :key="componentKey" width="250" :options="districtStatChart" :series="districtStatSeries"></apexchart>
           </div>
         </div>
         <ul class="p-0 m-0">
@@ -57,6 +57,11 @@ const districts = ref([]);
 const incomeDistrict = ref([]);
 const incomeName = ref([]);
 const incomeAmt = ref([]);
+const componentKey = ref(0);
+const forceRerender = () => {
+  componentKey.value += 1;
+};
+
 const totalIncome = computed(() => {
   const amtTotal = incomeDistrict.value.reduce((acc, curr) => {
     return parseInt(acc) + parseInt(curr.amount);
@@ -67,9 +72,9 @@ const totalIncome = computed(() => {
 const districtStatChart = ref({
   chart: {
     id: "district stat donut",
-    type: "donut",
+    type: "pie",
   },
-  labels: incomeName.value,
+  labels: [],
   responsive: [
     {
       breakpoint: 480,
@@ -88,7 +93,7 @@ const districtStatChart = ref({
   // },
 });
 
-const districtStatSeries = incomeAmt.value;
+const districtStatSeries = ref([]);
 
 onMounted(async () => {
   const { data, error, refresh, pending } = await useFetch(api_base + "/district", {
@@ -151,14 +156,25 @@ onMounted(async () => {
   for (const [key, value] of result) {
     incomeDistrict.value.push({ district: key, amount: value });
   }
+});
 
-  console.log(incomeDistrict.value);
-  for (const value of incomeDistrict.value) {
-    incomeName.value.push(value.district);
-    incomeAmt.value.push(value.amount);
+watch(incomeDistrict.value, (newIncomeDistrict) => {
+  console.log(newIncomeDistrict);
+  if (newIncomeDistrict) {
+    let arryArea = [];
+    let arryAmt = [];
+    for (const value of newIncomeDistrict) {
+      // incomeName.value.push(value.area);
+      // incomeAmt.value.push(value.amount);
+      arryArea.push(value.district);
+      arryAmt.push(value.amount);
+    }
+
+    districtStatSeries.value = arryAmt;
+    districtStatChart.value.labels = arryArea;
+
+    forceRerender();
   }
-  console.log(incomeName.value);
-  console.log(incomeAmt.value);
 });
 </script>
 

@@ -24,7 +24,7 @@
             <span>Areas</span>
           </div>
           <div id="orderStatisticsChart">
-            <apexchart width="250" :options="incomeStatChart" :series="incomeStatSeries"></apexchart>
+            <apexchart :key="componentKey" width="250" :options="incomeStatChart" :series="incomeStatSeries"></apexchart>
           </div>
         </div>
         <ul class="p-0 m-0">
@@ -57,6 +57,11 @@ const areas = ref([]);
 const incomeArea = ref([]);
 const incomeName = ref([]);
 const incomeAmt = ref([]);
+const componentKey = ref(0);
+const forceRerender = () => {
+  componentKey.value += 1;
+};
+
 const totalIncome = computed(() => {
   const amtTotal = incomeArea.value.reduce((acc, curr) => {
     return parseInt(acc) + parseInt(curr.amount);
@@ -67,9 +72,10 @@ const totalIncome = computed(() => {
 const incomeStatChart = ref({
   chart: {
     id: "income stat donut",
-    type: "donut",
+    type: "pie",
   },
-  labels: incomeName.value,
+  labels: [],
+  // labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
   responsive: [
     {
       breakpoint: 480,
@@ -88,7 +94,10 @@ const incomeStatChart = ref({
   // },
 });
 
-const incomeStatSeries = incomeAmt.value;
+const incomeStatSeries = ref([]);
+console.log(incomeName.value);
+console.log(incomeAmt.value);
+// const incomeStatSeries = [44, 55, 13, 43, 22];
 
 onMounted(async () => {
   const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
@@ -123,6 +132,7 @@ onMounted(async () => {
 
   const areas = [];
   incomes.value.filter((res) => {
+    console.log(res);
     if (res.attributes.area) {
       areas.push(res);
     }
@@ -142,17 +152,24 @@ onMounted(async () => {
   for (const [key, value] of result) {
     incomeArea.value.push({ area: key, amount: value });
   }
+});
 
-  console.log(incomeArea.value);
-  for (const value of incomeArea.value) {
-    incomeName.value.push(value.area);
-    incomeAmt.value.push(value.amount);
+watch(incomeArea.value, (newIncomeArea) => {
+  if (newIncomeArea) {
+    let arryArea = [];
+    let arryAmt = [];
+    for (const value of newIncomeArea) {
+      // incomeName.value.push(value.area);
+      // incomeAmt.value.push(value.amount);
+      arryArea.push(value.area);
+      arryAmt.push(value.amount);
+    }
+
+    incomeStatSeries.value = arryAmt;
+    incomeStatChart.value.labels = arryArea;
+
+    forceRerender();
   }
-  console.log(incomeName.value);
-  console.log(incomeAmt.value);
-  // for (const key of incomeYear.value.sort()) {
-  //   incomeAmount.value.push(result.get(key));
-  // }
 });
 </script>
 
