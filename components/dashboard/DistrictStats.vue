@@ -167,7 +167,7 @@ watch(incomeDistrict.value, (newIncomeDistrict) => {
       // incomeName.value.push(value.area);
       // incomeAmt.value.push(value.amount);
       arryArea.push(value.district);
-      arryAmt.push(value.amount);
+      arryAmt.push(parseInt(value.amount));
     }
 
     districtStatSeries.value = arryAmt;

@@ -212,7 +212,7 @@ const reports = ref([
   ["Budget Income", "/reportBudgetIncome"],
   ["Budget Expense", "/reportBudgetExpense"],
   ["Tithe Quarter Analysis", "/reportTithe"],
-  // ["Add Tithe", "/addTithe"],
+  ["Tithe Compare", "/reportTitheCompare"],
 ]);
 const finances = ref([
   ["View Budget Setup", "/budgetItem"],

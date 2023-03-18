@@ -42,10 +42,10 @@ const chartIncome = reactive({
 
 const columnDefs = reactive([
   { headerName: "Details", field: "details" },
-  { headerName: "Distribution %", field: "distribution" },
-  { headerName: "Budget", field: "budget" },
-  { headerName: "Actual", field: "actual" },
-  { headerName: "Variance -%", field: "variance" },
+  { headerName: "Distribution %", field: "distribution", type: ["numberColumn"] },
+  { headerName: "Budget", field: "budget", type: ["numberColumn"] },
+  { headerName: "Actual", field: "actual", type: ["numberColumn"] },
+  { headerName: "Variance -%", field: "variance", type: ["numberColumn"] },
 ]);
 
 // get budget items

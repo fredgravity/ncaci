@@ -166,7 +166,7 @@ watch(expenseArea.value, (newExpenseArea) => {
       // incomeName.value.push(value.area);
       // incomeAmt.value.push(value.amount);
       arryArea.push(value.area);
-      arryAmt.push(value.amount);
+      arryAmt.push(parseInt(value.amount));
     }
 
     expenseStatSeries.value = arryAmt;

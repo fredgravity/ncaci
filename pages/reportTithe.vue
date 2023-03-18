@@ -41,7 +41,7 @@ const forceRerender = () => {
 const rowData = ref([]);
 
 const getYear = (event) => {
-  console.log(event.target.value);
+  // console.log(event.target.value);
   titheYear.value = parseInt(event.target.value);
   chartOptions.value.xaxis.title.text = titheYear.value + " Quarters";
   forceRerender();
@@ -99,17 +99,12 @@ const chartOptions = ref({
 
 const columnDefs = reactive([
   { headerName: "Tithe Area", field: "area" },
-  { headerName: "Quarter 1", field: "quater1" },
-  { headerName: "Quarter 2", field: "quater2" },
-  { headerName: "Quarter 3", field: "quater3" },
-  { headerName: "Quarter 4", field: "quater4" },
+  { headerName: "Quarter 1", field: "quater1", type: ["numberColumn"] },
+  { headerName: "Quarter 2", field: "quater2", type: ["numberColumn"] },
+  { headerName: "Quarter 3", field: "quater3", type: ["numberColumn"] },
+  { headerName: "Quarter 4", field: "quater4", type: ["numberColumn"] },
   // { headerName: "Tithe Year", field: "tithe_year" },
-  { headerName: "Total", field: "total" },
-  // { headerName: "Pastor", field: "pastor" },
-  // { headerName: "Status", field: "status" },
-  // { headerName: "OpenedOn", field: "openedOn", type: ["dateColumn"] },
-  // { headerName: "Total Tithe", field: "total", type: ["numberColumn"] },
-  // { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
+  { headerName: "Total", field: "total", type: ["numberColumn"] },
 ]);
 
 watch(titheYear, (newTitheYear) => {
@@ -414,7 +409,7 @@ watch(titheYear, (newTitheYear) => {
         })(),
         total: (() => {
           let assembly = res.attributes.assembly;
-          if (assembly.length > 1) {
+          if (assembly.length > 0) {
             let arrySum = [];
             let a = _.reduce(
               assembly,
@@ -446,40 +441,38 @@ watch(titheYear, (newTitheYear) => {
             // }
           }
 
-          if (assembly.length == 1) {
-            let arrySum = [];
-            // console.log(curr);
-            let a = _.reduce(
-              assembly,
-              (acc, curr) => {
-                let b = _.reduce(
-                  curr.tithes,
-                  (num, val) => {
-                    console.log(val);
-                    if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value) {
-                      arrySum.push(parseInt(num) + parseInt(val.amount));
-                      return parseInt(num) + parseInt(val.amount);
-                    }
-                    return 0;
-                  },
-                  0
-                );
-                console.log(b);
-                return b;
-              },
-              0
-            );
-            let finalTotal = arrySum.reduce((acc, cur) => {
-              return parseInt(acc) + parseInt(cur);
-            }, 0);
+          // if (assembly.length == 1) {
+          //   let arrySum = [];
+          //   // console.log(curr);
+          //   let a = _.reduce(
+          //     assembly,
+          //     (acc, curr) => {
+          //       let b = _.reduce(
+          //         curr.tithes,
+          //         (num, val) => {
+          //           console.log(val);
+          //           if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value) {
+          //             arrySum.push(parseInt(num) + parseInt(val.amount));
+          //             return parseInt(num) + parseInt(val.amount);
+          //           }
+          //           return 0;
+          //         },
+          //         0
+          //       );
+          //       console.log(b);
+          //       return b;
+          //     },
+          //     0
+          //   );
+          //   let finalTotal = arrySum.reduce((acc, cur) => {
+          //     return parseInt(acc) + parseInt(cur);
+          //   }, 0);
 
-            console.log(a);
-            return finalTotal;
-          }
+          //   console.log(a);
+          //   return finalTotal;
+          // }
 
-          if (assembly.length < 1) {
-            return 0;
-          }
+          return 0;
         })(),
         id: res.id,
       };
@@ -505,7 +498,7 @@ onMounted(async () => {
 const recordClick = (event) => {
   let arry = [];
   arry.push(event.data);
-  console.log(arry[0].quater1);
+
   let areaName = _.pluck(arry, "area");
   let quater1 = arry[0].quater1;
   let quater2 = arry[0].quater2;
