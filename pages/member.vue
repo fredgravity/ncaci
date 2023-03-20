@@ -15,7 +15,7 @@
         <!-- <div class="tw-flex tw-justify-items-start tw-text-green-400 tw-cursor-pointer hover:tw-border-b-2 tw-ease-linear tw-duration-200" v-bind="props">Pay Here</div> -->
         <!-- </template> -->
         <v-card class="tw-text-center">
-          <v-card-title class="text-h5"> Pay Tithe ({{ tithe.paidby }}) </v-card-title>
+          <v-card-title class="text-h5"> Pay Tithe - {{ tithe.paidby }} </v-card-title>
           <v-container class="tw-mb-2">
             <form ref="form">
               <div class="mb-3 row">
@@ -78,8 +78,8 @@ const columnDefs = reactive([
   { headerName: "Ministry", field: "ministry" },
   { headerName: "CreatedBy", field: "createdBy" },
   { headerName: "CreatedAt", field: "createdAt", type: ["dateColumn"] },
-  { headerName: "Edit", field: "edit" },
-  { headerName: "Pay", field: "pay" },
+  { headerName: "Edit", field: "edit", cellClass: "tw-bg-blue-400 tw-text-gray-50 tw-rounded-sm tw-cursor-pointer hover:tw-bg-blue-500 tw-font-bold" },
+  { headerName: "Pay", field: "pay", cellClass: "tw-bg-gray-600 tw-text-gray-50 tw-rounded-sm tw-cursor-pointer hover:tw-bg-gray-500 tw-font-bold" },
   // { headerName: "Action", field: "action" },
 ]);
 

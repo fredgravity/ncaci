@@ -98,7 +98,7 @@ const chartOptions = ref({
 });
 
 const columnDefs = reactive([
-  { headerName: "Tithe Area", field: "area" },
+  { headerName: "Tithe Area", field: "area", cellClass: "tw-font-bold tw-text-blue-400 hover:tw-cursor-pointer" },
   { headerName: "Quarter 1", field: "quater1", type: ["numberColumn"] },
   { headerName: "Quarter 2", field: "quater2", type: ["numberColumn"] },
   { headerName: "Quarter 3", field: "quater3", type: ["numberColumn"] },

@@ -23,6 +23,7 @@
       :pagination="true"
       :paginationPageSize="paginationPageSize"
       :columnTypes="columnTypes"
+      :debounceVerticalScrollbar="true"
     >
     </ag-grid-vue>
   </div>
