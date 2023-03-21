@@ -61,7 +61,7 @@ const incomeYear = ref([]);
 const incomeYearSlice = ref([]);
 const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
-const varience = ref(null);
+const varience = ref(0);
 setTimeout(() => {
   varience.value = computed(() => {
     if (!incomeAmountSlice.value[1]) {
