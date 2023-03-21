@@ -28,9 +28,9 @@
           </div>
         </div>
         <ul class="p-0 m-0">
-          <li class="d-flex mb-4 pb-1" v-for="(item, index) in incomeArea" :key="index">
-            <div class="avatar flex-shrink-0 me-3">
-              <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-mobile-alt"></i></span>
+          <li class="d-flex mb-0 pb-0" v-for="(item, index) in incomeArea" :key="index">
+            <div class="">
+              <span class="tw-text-xl tw-pr-2">*</span>
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
               <div class="me-2">
