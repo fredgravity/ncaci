@@ -95,8 +95,7 @@ const incomeStatChart = ref({
 });
 
 const incomeStatSeries = ref([]);
-console.log(incomeName.value);
-console.log(incomeAmt.value);
+
 // const incomeStatSeries = [44, 55, 13, 43, 22];
 
 onMounted(async () => {
@@ -112,7 +111,6 @@ onMounted(async () => {
   });
 
   areas.value = data.value.data;
-  console.log(areas.value);
 });
 
 onMounted(async () => {
@@ -128,20 +126,16 @@ onMounted(async () => {
   });
 
   incomes.value = data.value.data;
-  console.log(incomes.value);
 
   const areas = [];
   incomes.value.filter((res) => {
-    console.log(res);
     if (res.attributes.area) {
       areas.push(res);
     }
   });
-  console.log(areas);
 
   const result = new Map();
   areas.forEach((element) => {
-    console.log(element.attributes.area);
     if (result.get(element.attributes.area)) {
       result.set(element.attributes.area, result.get(element.attributes.area) + element.attributes.amount);
     } else {
@@ -164,8 +158,6 @@ watch(incomeArea.value, (newIncomeArea) => {
       arryArea.push(value.area);
       arryAmt.push(parseInt(value.amount));
     }
-    console.log(arryArea);
-    console.log(arryAmt);
 
     incomeStatSeries.value = arryAmt;
     incomeStatChart.value.labels = arryArea;

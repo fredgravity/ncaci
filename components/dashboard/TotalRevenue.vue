@@ -122,7 +122,7 @@ const totalRevenue1 = ref({
       },
     },
   ],
-  labels: incomeYearSlice.value,
+  labels: [],
 
   // xaxis: {
   //   categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
@@ -159,8 +159,6 @@ onMounted(async () => {
     category.value.push(key.toString());
   }
 
-  console.log(result);
-
   for (const key of incomeYear.value.sort()) {
     if (result.get(parseInt(key))) {
       incomeAmount.value.push(result.get(parseInt(key)));
@@ -172,7 +170,8 @@ onMounted(async () => {
   }
   incomeAmountSlice.value = incomeAmount.value.slice(-2);
   incomeYearSlice.value = incomeYear.value.slice(-2);
-  console.log(incomeYearSlice.value);
+
+  totalRevenue1.value.labels.push(incomeYearSlice.value);
 });
 </script>
 
