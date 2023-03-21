@@ -63,10 +63,6 @@
                   <a class="text-blue-800">{{ user.email }}</a>
                 </div>
               </div>
-              <!-- <div class="tw-grid tw-grid-cols-2">
-                <div class="tw-px-4 tw-py-2 tw-font-semibold">Birthday</div>
-                <div class="tw-px-4 tw-py-2">Feb 06, 1998</div>
-              </div> -->
             </div>
           </div>
           <!-- <button class="tw-block tw-w-full tw-text-blue-800 tw-text-sm tw-font-semibold tw-rounded-lg hover:tw-bg-gray-100 focus:tw-outline-none focus:tw-shadow-outline focus:tw-bg-gray-100 hover:tw-shadow-xs tw-p-3 tw-my-4">Show Full Information</button> -->
@@ -84,5 +80,3 @@ const loginStore = useLoginStore();
 const user = await loginStore.getUser;
 console.log(user);
 </script>
-
-<style></style>

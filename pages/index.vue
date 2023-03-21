@@ -19,9 +19,12 @@
         stroke="url(#sw-gradient)"
       ></path>
     </svg>
-    <div class="tw-text-2xl md:tw-text-4xl tw-my-10 tw-text-blue-500 tw-text-center">The New Covenant Apostolic Church International</div>
-    <v-form class="md:tw-w-96 tw-mx-auto" ref="form" v-model="valid" lazy-validation>
-      <div class="tw-text-center tw-text-2xl">Login</div>
+    <div class="tw-text-2xl md:tw-text-4xl tw-my-10 text-deep-purple tw-text-blue-500 tw-text-center">The New Covenant Apostolic Church International</div>
+    <v-form class="md:tw-w-96 tw-mx-auto tw-text-gray-600" ref="form" v-model="valid" lazy-validation>
+      <!-- <div class="tw-text-center tw-text-2xl">Login</div> -->
+      <div class="tw-w-full tw-text-center tw-pb-4">
+        <v-img class="tw-w-20 tw-mx-auto" src="/ncaciLogo.jpg" cover></v-img>
+      </div>
       <div class="tw-text-center tw-text-red-400" v-if="errorMessage">{{ errorMessage }}</div>
       <v-text-field class="tw-pr-4 md:tw-pr-0" v-model="loginForm.email" :rules="emailRules" label="E-mail" required></v-text-field>
       <v-text-field class="tw-pr-4 md:tw-pr-0" type="password" v-model="loginForm.password" :rules="passwordRules" label="Password" required></v-text-field>
