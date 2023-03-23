@@ -39,6 +39,7 @@ export default defineNuxtConfig({
     plugins: [
         // { src: '~/plugins/apex.js', mode: 'client' },
         // '@/plugins/flowbite.client.ts'
+        // '@/plugins/userMiddleware.js'
     ],
     ssr: false, 
     // target: 'assets',

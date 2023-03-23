@@ -20,7 +20,7 @@ const columnDefs = reactive([
   { headerName: "District", field: "district" },
   { headerName: "Pastor", field: "pastor" },
   { headerName: "Status", field: "status" },
-  { headerName: "Tithe Year", field: "tithe_year" },
+  { headerName: "Tithe Year", field: "tithe_year", type: ["numberColumn"] },
   { headerName: "OpenedOn", field: "openedOn", type: ["dateColumn"] },
   { headerName: "Total Tithe", field: "total", type: ["numberColumn"] },
   { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
