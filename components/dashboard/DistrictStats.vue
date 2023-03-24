@@ -108,7 +108,6 @@ onMounted(async () => {
   });
 
   districts.value = data.value.data;
-  console.log(districts.value);
 
   const dist = [];
   incomes.value.filter((res) => {
@@ -116,8 +115,6 @@ onMounted(async () => {
       dist.push(res);
     }
   });
-
-  console.log(dist);
 });
 
 onMounted(async () => {
@@ -133,7 +130,6 @@ onMounted(async () => {
   });
 
   incomes.value = data.value.data;
-  console.log(incomes.value);
 
   const districts = [];
   incomes.value.filter((res) => {
@@ -141,11 +137,9 @@ onMounted(async () => {
       districts.push(res);
     }
   });
-  console.log(districts);
 
   const result = new Map();
   districts.forEach((element) => {
-    console.log(element.attributes.district);
     if (result.get(element.attributes.district)) {
       result.set(element.attributes.district, result.get(element.attributes.district) + element.attributes.amount);
     } else {
@@ -159,7 +153,6 @@ onMounted(async () => {
 });
 
 watch(incomeDistrict.value, (newIncomeDistrict) => {
-  console.log(newIncomeDistrict);
   if (newIncomeDistrict) {
     let arryArea = [];
     let arryAmt = [];

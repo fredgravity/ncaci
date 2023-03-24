@@ -6,7 +6,7 @@
         </div> -->
       <v-divider class="tw-mb-5"></v-divider>
       <v-list>
-        <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg" :title="getUser.name" :subtitle="getUser.email"></v-list-item>
+        <v-list-item :title="getUser.name" :subtitle="getUser.email" style="background-color: #26a0fc; color: white; margin: 0 1rem"></v-list-item>
       </v-list>
 
       <v-divider></v-divider>
@@ -173,6 +173,8 @@
 // const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const getUser = await loginStore.getUser;
+// getUser.image = "assets/assets/img/avatars/6.png";
+// console.log(getUser);
 const drawStore = useMenuStore();
 const opened = computed(() => drawStore.drawer);
 console.log(getUser);

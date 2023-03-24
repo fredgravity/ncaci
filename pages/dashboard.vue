@@ -19,6 +19,9 @@
       <LazyDashboardExpenseStats />
       <!--/ district stats -->
     </div>
+    <!-- birthday stat -->
+    <LazyDashboardBirthdayStat />
+    <!-- birthday stat -->
   </div>
 </template>
 

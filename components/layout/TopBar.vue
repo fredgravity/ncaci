@@ -36,7 +36,7 @@
 
       <v-menu>
         <template v-slot:activator="{ props }">
-          <img src="https://randomuser.me/api/portraits/women/85.jpg" class="tw-cursor-pointer tw-rounded-full tw-w-10 tw-h-10 tw-bg-slate-500" alt="" v-bind="props" />
+          <img src="~/assets/assets/img/avatars/6.png" class="tw-cursor-pointer tw-rounded-full tw-w-10 tw-h-10 tw-bg-slate-500" alt="" v-bind="props" />
         </template>
 
         <v-list class="tw-w-full">
@@ -64,7 +64,7 @@ const drawer = () => {
   drawStore.openMenu();
 };
 const loginStore = useLoginStore();
-const user = await loginStore.getUser;
+// const user = await loginStore.getUser;
 const items = ref([
   { title: "My Profile", icon: "fas fa-regular fa-user", link: "/userProfile" },
   { title: "Settings", icon: "fas fa-regular fa-gear", link: "/#" },

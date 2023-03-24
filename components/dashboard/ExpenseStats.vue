@@ -110,7 +110,6 @@ onMounted(async () => {
   });
 
   areas.value = data.value.data;
-  console.log(areas.value);
 });
 
 onMounted(async () => {
@@ -136,7 +135,6 @@ onMounted(async () => {
 
   const result = new Map();
   areas.forEach((element) => {
-    console.log(element.attributes.area);
     if (result.get(element.attributes.area)) {
       result.set(element.attributes.area, result.get(element.attributes.area) + element.attributes.amount);
     } else {
@@ -148,9 +146,9 @@ onMounted(async () => {
     expenseArea.value.push({ area: key, amount: value });
   }
 
-  // console.log(expenseArea.value);
+  //
   // for (const value of expenseArea.value) {
-  //   console.log(expenseStatChart.value.labels);
+  //
   //   expenseName.value.push(value.area);
   //   expenseAmt.value.push(value.amount);
 
@@ -158,7 +156,6 @@ onMounted(async () => {
 });
 
 watch(expenseArea.value, (newExpenseArea) => {
-  console.log(newExpenseArea);
   if (newExpenseArea) {
     let arryArea = [];
     let arryAmt = [];
