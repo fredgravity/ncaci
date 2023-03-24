@@ -47,7 +47,7 @@ const chartOptions = ref({
     curve: "straight",
   },
   title: {
-    text: "Income Comparason",
+    text: "Comparason",
     align: "left",
   },
   grid: {
@@ -97,7 +97,6 @@ watch(
       series.value[1].name = "Actual - " + props.data[0].attributes.year;
       series.value[0].data = props.dataValue.budget;
       series.value[1].data = props.dataValue.actual;
-      console.log(props.dataValue.budget, props.dataValue.actual);
 
       chartOptions.value.xaxis.categories = chartCategory(newProps.data);
 
