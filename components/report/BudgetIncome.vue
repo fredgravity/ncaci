@@ -47,7 +47,7 @@ const chartOptions = ref({
     curve: "straight",
   },
   title: {
-    text: "Comparason",
+    text: "Comparison",
     align: "left",
   },
   grid: {

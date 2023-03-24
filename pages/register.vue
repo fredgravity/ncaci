@@ -6,6 +6,8 @@
       <Alert :alert="error_message" v-if="error_message" />
     </template>
 
+    <Loading :loading="loading" />
+
     <div class="card-body md:tw-w-2/3 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
       <form ref="form">
         <div class="mb-3 row">
@@ -65,6 +67,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const form = ref(null);
+const loading = ref("");
 const assemblies = reactive([]);
 const ministries = reactive([]);
 const roleItems = ref([
@@ -98,14 +101,9 @@ const user = reactive({
   permission: "",
 });
 
-watch(user, (newRole, oldRole) => {
+watch(user, async (newRole) => {
   if (newRole.role !== "" && newRole.role !== "admin" && newRole.role !== "user") {
-    const {
-      data: permission,
-      error,
-      refresh,
-      pending,
-    } = useFetch(api_base + "/" + newRole.role, {
+    const { data, error, refresh, pending } = await useFetch(api_base + "/" + newRole.role, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -116,16 +114,15 @@ watch(user, (newRole, oldRole) => {
       initialCache: false,
     });
 
+    loading.value = pending.value;
     permItems.value = [];
 
-    permission.value.data.filter((res) => {
+    data.value.data.filter((res) => {
       permItems.value.push({
         perm: res.attributes.name,
         val: res.attributes.name,
       });
     });
-
-    console.log(permItems.value);
   }
 });
 

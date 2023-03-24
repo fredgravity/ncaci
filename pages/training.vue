@@ -51,7 +51,6 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   trainings.value = data.value.data;
-  console.log(trainings.value);
   rowData.value = trainings.value.map((res) => {
     let mine = {
       name: res.attributes.training_item_name,
