@@ -6,8 +6,6 @@
       <Alert :alert="error_message" v-if="error_message" />
     </template>
 
-    <Loading :loading="loading" />
-
     <div class="card-body md:tw-w-2/3 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
       <form ref="form">
         <div class="mb-3 row">
