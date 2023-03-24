@@ -48,6 +48,21 @@
         <li class="tw-border-b-2 tw-list-none">
           <span class=""></span>
         </li>
+        <!-- attendance -->
+        <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-edit" rounded="shaped">
+          <v-list-group value="Attendance">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" title="attendance" rounded="shaped"></v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, link], i) in attendance" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            </v-list-item>
+          </v-list-group>
+        </v-list-item>
+        <li class="tw-border-b-2 tw-list-none">
+          <span class=""></span>
+        </li>
         <!-- area -->
         <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-tower-cell" rounded="shaped">
           <v-list-group value="Areas">
@@ -180,6 +195,10 @@ const users = ref([
 const members = ref([
   ["View Member", "/member"],
   ["Add Member", "/addMember"],
+]);
+const attendance = ref([
+  ["View Attendance", "/attendance"],
+  ["Mark Attendance", "/attendanceMark"],
 ]);
 const areas = ref([
   ["View Area", "/area"],

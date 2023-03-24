@@ -46,6 +46,12 @@
           </div>
         </div>
 
+        <div class="mb-3 row">
+          <div class="col-md-10">
+            <v-select clearable label="user permission" :items="permItems" item-title="perm" item-value="val" :rules="nameRules" variant="solo" v-model="user.permission"></v-select>
+          </div>
+        </div>
+
         <div class="text-center mb-3">
           <v-btn type="button" @click="submitUser">Add User</v-btn>
         </div>
@@ -64,7 +70,11 @@ const ministries = reactive([]);
 const roleItems = ref([
   { role: "Admin", val: "admin" },
   { role: "User", val: "user" },
+  { role: "Assembly", val: "assembly" },
+  { role: "District", val: "district" },
+  { role: "Area", val: "area" },
 ]);
+const permItems = ref([]);
 const nameRules = ref([
   (value) => {
     if (value) return true;
@@ -85,6 +95,38 @@ const user = reactive({
   password: "",
   password_confirmation: "",
   role: "",
+  permission: "",
+});
+
+watch(user, (newRole, oldRole) => {
+  if (newRole.role !== "" && newRole.role !== "admin" && newRole.role !== "user") {
+    const {
+      data: permission,
+      error,
+      refresh,
+      pending,
+    } = useFetch(api_base + "/" + newRole.role, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + accessToken.accessToken,
+      },
+
+      initialCache: false,
+    });
+
+    permItems.value = [];
+
+    permission.value.data.filter((res) => {
+      permItems.value.push({
+        perm: res.attributes.name,
+        val: res.attributes.name,
+      });
+    });
+
+    console.log(permItems.value);
+  }
 });
 
 let submitUser = async () => {
