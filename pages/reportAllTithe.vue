@@ -50,7 +50,6 @@ onMounted(async () => {
   // let titheAssembly = titheFiltered.filter((res) => res.attributes.member !== null);
 
   rowData.value = tithesFiltered.map((res) => {
-    console.log(res.attributes);
     let mine = {
       name: res.attributes.assembly.name,
       area: res.attributes.assembly.area.name,
