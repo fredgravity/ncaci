@@ -45,14 +45,12 @@
             </v-list-item>
           </v-list-group>
         </v-list-item>
-        <li class="tw-border-b-2 tw-list-none">
-          <span class=""></span>
-        </li>
+
         <!-- attendance -->
         <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-edit" rounded="shaped">
           <v-list-group value="Attendance">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" title="attendance" rounded="shaped"></v-list-item>
+              <v-list-item v-bind="props" title="Attendance" rounded="shaped"></v-list-item>
             </template>
 
             <v-list-item v-for="([title, link], i) in attendance" :key="i" :value="title" class="tw-w-full" rounded="shaped">
@@ -223,14 +221,15 @@ const trainings = ref([
   ["Add Participant", "/addTraining"],
 ]);
 const tithes = ref([
-  ["View All Tithe", "/tithe"],
+  ["View Assembly Tithe", "/tithe"],
   ["View Members Tithe", "/titheMember"],
   ["Add Tithe", "/addTithe"],
 ]);
 const reports = ref([
   ["Budget Income", "/reportBudgetIncome"],
   ["Budget Expense", "/reportBudgetExpense"],
-  ["Tithe Quarter Analysis", "/reportTithe"],
+  ["Tithe Analysis", "/reportTithe"],
+  ["Tithe Report", "/reportAllTithe"],
   ["Tithe Compare", "/reportTitheCompare"],
 ]);
 const finances = ref([

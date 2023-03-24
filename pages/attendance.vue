@@ -57,6 +57,10 @@ onMounted(async () => {
     return mine;
   });
 });
+
+const recordClick = async (event) => {
+  //   console.log(event.data);
+};
 </script>
 
 <style></style>
