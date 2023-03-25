@@ -122,6 +122,21 @@ watch(user, async (newRole) => {
       });
     });
   }
+  if (newRole.role !== "" && newRole.role == "admin") {
+    permItems.value = [];
+    permItems.value.push({
+      perm: "Admin",
+      val: "admin",
+    });
+  }
+
+  if (newRole.role !== "" && newRole.role == "user") {
+    permItems.value = [];
+    permItems.value.push({
+      perm: "User",
+      val: "user",
+    });
+  }
 });
 
 let submitUser = async () => {

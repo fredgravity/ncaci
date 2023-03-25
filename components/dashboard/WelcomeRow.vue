@@ -7,7 +7,7 @@
           <div class="d-flex align-items-end row">
             <div class="col-sm-7">
               <div class="card-body">
-                <h5 class="card-title text-primary">Welcome {{ user.name }}! 🎉</h5>
+                <h5 class="card-title text-primary">Welcome {{ getUser.name }}! 🎉</h5>
                 <p class="mb-4">You are now logged in. You can navigate the app freely. Enjoy!!</p>
 
                 <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Profile</a>
@@ -79,7 +79,7 @@
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const api_base = useRuntimeConfig().public.apiBase;
-const user = await loginStore.getUser;
+const getUser = await loginStore.getUser;
 const members = ref([]);
 const users = ref([]);
 const loading = ref("");
@@ -104,7 +104,16 @@ onMounted(async () => {
     initialCache: false,
   });
   loading.value = pending.value;
-  users.value = data.value;
+
+  if (getUser.role == "admin") {
+    users.value = data.value;
+  } else if (getUser.role == "assembly") {
+    users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
+  } else if (getUser.role == "district") {
+    users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
+  } else if (getUser.role == "area") {
+    users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
+  }
 });
 
 onMounted(async () => {
@@ -118,7 +127,25 @@ onMounted(async () => {
     initialCache: false,
   });
   loading.value = pending.value;
-  members.value = data.value.data;
+
+  if (getUser.role == "admin") {
+    members.value = data.value.data;
+  } else if (getUser.role == "assembly") {
+    members.value = data.value.data.filter((res) => {
+      return res.attributes.assembly.name == getUser.permission;
+    });
+  } else if (getUser.role == "district") {
+    members.value = data.value.data.filter((res) => {
+      return res.attributes.assembly.district == getUser.permission;
+    });
+  } else if (getUser.role == "area") {
+    members.value = data.value.data.filter((res) => {
+      return res.attributes.assembly.area.name == getUser.permission;
+    });
+  }
+  // else {
+  //   users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
+  // }
 });
 </script>
 
