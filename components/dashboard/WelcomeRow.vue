@@ -10,7 +10,7 @@
                 <h5 class="card-title text-primary">Welcome {{ getUser.name }}! 🎉</h5>
                 <p class="mb-4">You are now logged in. You can navigate the app freely. Enjoy!!</p>
 
-                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Profile</a>
+                <NuxtLink to="/userProfile" class="btn btn-sm btn-outline-primary">View Profile</NuxtLink>
               </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">
