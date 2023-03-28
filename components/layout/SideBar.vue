@@ -201,6 +201,13 @@ const close = () => {
   drawStore.openMenu();
 };
 
+const areas = ref([]);
+const districts = ref([]);
+const assemblies = ref([]);
+const ministries = ref([]);
+const trainings = ref([]);
+const finances = ref([]);
+
 onMounted(async () => {
   getUser.value = await loginStore.getUser;
 
@@ -250,13 +257,6 @@ watch(display, (newDisplay) => {
     ["Add Budget", "/addBudget", display.value],
   ];
 });
-
-const areas = ref([]);
-const districts = ref([]);
-const assemblies = ref([]);
-const ministries = ref([]);
-const trainings = ref([]);
-const finances = ref([]);
 
 const open = ref(["Users"]);
 const menus = ref([["Dashboard", "mdi:mdi-view-dashboard", "/dashboard"]]);
