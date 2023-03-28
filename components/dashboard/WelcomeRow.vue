@@ -104,16 +104,8 @@ onMounted(async () => {
     initialCache: false,
   });
   loading.value = pending.value;
-
-  if (getUser.role == "admin") {
-    users.value = data.value;
-  } else if (getUser.role == "assembly") {
-    users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
-  } else if (getUser.role == "district") {
-    users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
-  } else if (getUser.role == "area") {
-    users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
-  }
+  console.log(getUser);
+  users.value = data.value;
 });
 
 onMounted(async () => {
@@ -127,25 +119,7 @@ onMounted(async () => {
     initialCache: false,
   });
   loading.value = pending.value;
-
-  if (getUser.role == "admin") {
-    members.value = data.value.data;
-  } else if (getUser.role == "assembly") {
-    members.value = data.value.data.filter((res) => {
-      return res.attributes.assembly.name == getUser.permission;
-    });
-  } else if (getUser.role == "district") {
-    members.value = data.value.data.filter((res) => {
-      return res.attributes.assembly.district == getUser.permission;
-    });
-  } else if (getUser.role == "area") {
-    members.value = data.value.data.filter((res) => {
-      return res.attributes.assembly.area.name == getUser.permission;
-    });
-  }
-  // else {
-  //   users.value = data.value.filter((res) => res.role == getUser.role && res.permission == getUser.permission);
-  // }
+  members.value = data.value.data;
 });
 </script>
 

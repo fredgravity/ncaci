@@ -144,7 +144,6 @@ onMounted(async () => {
     initialCache: false,
   });
   // loading.value = pending.value;
-  console.log(data.value);
   incomes.value = data.value.data;
 
   const result = new Map();

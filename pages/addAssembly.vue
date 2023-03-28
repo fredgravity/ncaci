@@ -141,8 +141,6 @@ onMounted(async () => {
 
 const getDistrict = async (e) => {
   let res = districts.value.filter((res) => {
-    console.log(res.attributes.area_id.toString());
-    console.log(assembly.area_id);
     let data = res.attributes.area_id.toString() == assembly.area_id;
     return data;
   });

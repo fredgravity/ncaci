@@ -10,6 +10,7 @@
 const loginStore = useLoginStore();
 const api_base = useRuntimeConfig().public.apiBase;
 const user = await loginStore.getUser;
+
 const router = useRouter();
 const route = useRoute();
 const accessToken = await loginStore.getAccessToken;
@@ -36,9 +37,8 @@ onMounted(async () => {
     if (!user) {
       router.push({ path: "/" });
     } else {
-      if (user.role == "user") {
+      if (user.role !== "admin") {
         if (route.fullPath == "/user" || route.fullPath == "/register") {
-          console.log(user);
           router.push({ path: "/dashboard" });
         }
       }

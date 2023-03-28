@@ -168,7 +168,6 @@ onMounted(async () => {
   });
 
   ministries.value = data.value.data;
-  console.log(ministries.value);
 });
 
 onMounted(async () => {
@@ -183,7 +182,6 @@ onMounted(async () => {
   });
 
   assemblies.value = data.value.data;
-  console.log(assemblies.value);
 });
 
 onMounted(async () => {
@@ -198,7 +196,6 @@ onMounted(async () => {
   });
 
   districts.value = data.value.data;
-  console.log(districts.value);
 });
 
 onMounted(async () => {
@@ -213,7 +210,6 @@ onMounted(async () => {
   });
 
   areas.value = data.value.data;
-  console.log(areas.value);
 });
 
 onMounted(async () => {
@@ -232,12 +228,10 @@ onMounted(async () => {
   let arry = [];
   Items.filter((res) => {
     if (res.attributes.type === "expense") {
-      console.log(res.attributes.type);
       arry.push(res);
     }
   });
   budgetItems.value = arry;
-  console.log(budgetItems.value);
 });
 
 const getBudgetItems = async (event) => {
@@ -245,7 +239,6 @@ const getBudgetItems = async (event) => {
     return res.id == event.target.value;
   });
 
-  console.log(result[0].attributes.year);
   expenditure.year = result[0].attributes.year;
   expenditure.type = result[0].attributes.type;
 

@@ -108,7 +108,6 @@ onMounted(async () => {
   });
 
   ministries.value = data.value.data;
-  console.log(ministries.value);
 });
 
 onMounted(async () => {
@@ -129,7 +128,7 @@ const getBudgetItems = async (event) => {
   let result = budgetItems.value.filter((res) => {
     return res.id == event.target.value;
   });
-  console.log(result[0].attributes.name);
+
   budget.year = result[0].attributes.year;
   budget.type = result[0].attributes.type;
   budget.ministry = result[0].attributes.ministry_name;

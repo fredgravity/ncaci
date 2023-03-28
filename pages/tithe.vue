@@ -46,10 +46,8 @@ onMounted(async () => {
 
   // let titheAssembly = titheFiltered.filter((res) => res.attributes.member !== null);
 
-  console.log(assembliesFiltered);
-
   rowData.value = assembliesFiltered.map((res) => {
-    // console.log(res.attributes);
+    //
     let mine = {
       name: res.attributes.name,
       area: res.attributes.area.name,
@@ -57,7 +55,6 @@ onMounted(async () => {
       pastor: res.attributes.pastor,
       status: res.attributes.status,
       tithe_year: res.attributes.tithe.reduce((acc, curr) => {
-        console.log(curr);
         return new Date(curr.created_at).getFullYear();
       }, 0),
       openedOn: res.attributes.openedOn,

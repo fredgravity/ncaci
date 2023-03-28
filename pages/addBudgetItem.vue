@@ -98,7 +98,6 @@ onMounted(async () => {
   });
 
   ministries.value = data.value.data;
-  console.log(ministries.value);
 });
 
 let submitBudgetItem = async () => {

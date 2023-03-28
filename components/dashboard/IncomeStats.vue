@@ -52,6 +52,7 @@
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const api_base = useRuntimeConfig().public.apiBase;
+const getUser = await loginStore.getUser;
 const incomes = ref([]);
 const areas = ref([]);
 const incomeArea = ref([]);

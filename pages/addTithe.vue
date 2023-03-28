@@ -148,7 +148,6 @@ const getAssemblyDetails = async (e) => {
   let assembly = assemblies.value.filter((res) => {
     return res.id == assembly_id.value;
   });
-  console.log(assembly);
 
   detail.value = assembly[0];
 };

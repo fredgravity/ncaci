@@ -84,7 +84,7 @@
             <select class="form-control" id="assembly" v-model="training.assembly" @change="getAssembly($event)">
               <option value="" disabled>select here</option>
               <template v-for="(item, index) in assemblies.value" :key="index">
-                <option v-if="item.attributes.name" :value="item.id">{{ item.attributes.name }}</option>
+                <option v-if="item.attributes.name" :value="item.attributes.name">{{ item.attributes.name }}</option>
               </template>
             </select>
           </div>
@@ -162,7 +162,6 @@ onMounted(async () => {
   });
 
   assemblies.value = data.value.data;
-  console.log(assemblies.value);
 });
 
 onMounted(async () => {
@@ -211,7 +210,6 @@ onMounted(async () => {
   });
 
   trainingItems.value = data.value.data;
-  console.log(trainingItems.value);
 });
 
 let submitTraining = async () => {

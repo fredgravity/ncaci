@@ -7,8 +7,6 @@
 </template>
 
 <script setup>
-import { isArray } from "@vue/shared";
-
 const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
@@ -31,7 +29,7 @@ const columnDefs = reactive([
 ]);
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/tithe", {
+  const { data, error, refresh, pending } = await useFetch(api_base + "/tithe-all", {
     method: "get",
     headers: {
       "Content-Type": "application/json",

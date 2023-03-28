@@ -6,7 +6,9 @@
         </div> -->
       <v-divider class="tw-mb-5"></v-divider>
       <v-list>
-        <v-list-item :title="getUser.name" :subtitle="getUser.email" style="background-color: #26a0fc; color: white; margin: 0 1rem"></v-list-item>
+        <v-list-item :title="getUser.name" :subtitle="getUser.email" style="background-color: #26a0fc; color: white; margin: 0 1rem">
+          <div class="tw-text-xs">{{ getUser.permission }}</div>
+        </v-list-item>
       </v-list>
 
       <v-divider></v-divider>
@@ -62,14 +64,17 @@
           <span class=""></span>
         </li>
         <!-- area -->
+
         <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-tower-cell" rounded="shaped">
           <v-list-group value="Areas">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" title="Areas" rounded="shaped"></v-list-item>
             </template>
 
-            <v-list-item v-for="([title, link], i) in areas" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            <v-list-item v-for="([title, link, display], i) in areas" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <template v-if="display == 'show'">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </template>
             </v-list-item>
           </v-list-group>
         </v-list-item>
@@ -80,8 +85,10 @@
               <v-list-item v-bind="props" title="Districts" rounded="shaped"></v-list-item>
             </template>
 
-            <v-list-item v-for="([title, link], i) in districts" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            <v-list-item v-for="([title, link, display], i) in districts" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <template v-if="display == 'show'">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </template>
             </v-list-item>
           </v-list-group>
         </v-list-item>
@@ -92,8 +99,10 @@
               <v-list-item v-bind="props" title="Assemblies" rounded="shaped"></v-list-item>
             </template>
 
-            <v-list-item v-for="([title, link], i) in assemblies" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            <v-list-item v-for="([title, link, display], i) in assemblies" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <template v-if="display == 'show'">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </template>
             </v-list-item>
           </v-list-group>
         </v-list-item>
@@ -104,8 +113,10 @@
               <v-list-item v-bind="props" title="Ministries" rounded="shaped"></v-list-item>
             </template>
 
-            <v-list-item v-for="([title, link], i) in ministries" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            <v-list-item v-for="([title, link, display], i) in ministries" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <template v-if="display == 'show'">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </template>
             </v-list-item>
           </v-list-group>
         </v-list-item>
@@ -119,8 +130,10 @@
               <v-list-item v-bind="props" title="Tithes" rounded="shaped"></v-list-item>
             </template>
 
-            <v-list-item v-for="([title, link], i) in tithes" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            <v-list-item v-for="([title, link, display], i) in tithes" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <template v-if="display == 'show'">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </template>
             </v-list-item>
           </v-list-group>
         </v-list-item>
@@ -131,8 +144,10 @@
               <v-list-item v-bind="props" title="Finances" rounded="shaped"></v-list-item>
             </template>
 
-            <v-list-item v-for="([title, link], i) in finances" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            <v-list-item v-for="([title, link, display], i) in finances" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <template v-if="display == 'show'">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </template>
             </v-list-item>
           </v-list-group>
         </v-list-item>
@@ -147,23 +162,27 @@
               <v-list-item v-bind="props" title="Training" rounded="shaped"></v-list-item>
             </template>
 
-            <v-list-item v-for="([title, link], i) in trainings" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            <v-list-item v-for="([title, link, display], i) in trainings" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <template v-if="display == 'show'">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </template>
             </v-list-item>
           </v-list-group>
         </v-list-item>
         <!-- reports -->
-        <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-file-signature" rounded="shaped">
-          <v-list-group value="Report">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" title="Report" rounded="shaped"></v-list-item>
-            </template>
+        <template v-if="getUser.role == 'admin' || getUser.role == 'user'">
+          <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-file-signature" rounded="shaped">
+            <v-list-group value="Report">
+              <template v-slot:activator="{ props }">
+                <v-list-item v-bind="props" title="Report" rounded="shaped"></v-list-item>
+              </template>
 
-            <v-list-item v-for="([title, link], i) in reports" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
-            </v-list-item>
-          </v-list-group>
-        </v-list-item>
+              <v-list-item v-for="([title, link], i) in reports" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+                <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+              </v-list-item>
+            </v-list-group>
+          </v-list-item>
+        </template>
       </v-list>
     </v-navigation-drawer>
   </v-card>
@@ -172,60 +191,115 @@
 <script setup>
 // const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
-const getUser = await loginStore.getUser;
+const getUser = ref({});
 // getUser.image = "assets/assets/img/avatars/6.png";
 // console.log(getUser);
+const display = ref("hide");
 const drawStore = useMenuStore();
 const opened = computed(() => drawStore.drawer);
-console.log(getUser);
 const close = () => {
   drawStore.openMenu();
 };
 
+onMounted(async () => {
+  getUser.value = await loginStore.getUser;
+
+  if (getUser.value.role == "admin" || getUser.value.role == "user") {
+    display.value = "show";
+  }
+  console.log(display.value);
+});
+
+watch(display, (newDisplay) => {
+  console.log(newDisplay);
+  areas.value = [
+    ["View Area", "/area", "show"],
+    ["Add Area", "/addArea", display.value],
+  ];
+
+  districts.value = [
+    ["View District", "/district", "show"],
+    ["Add District", "/addDistrict", display.value],
+  ];
+
+  assemblies.value = [
+    ["View Assembly", "/assembly", "show"],
+    ["Add Assembly", "/addAssembly", display.value],
+  ];
+
+  ministries.value = [
+    ["View Ministry", "/ministry", "show"],
+    ["Add Ministry", "/addMinistry", display.value],
+  ];
+
+  trainings.value = [
+    ["View Training", "/trainingItem", "show"],
+    ["View Participant", "/training", "show"],
+    ["Add Training", "/addTrainingItem", display.value],
+    ["Add Participant", "/addTraining", "show"],
+  ];
+
+  finances.value = [
+    ["View Expend", "/expenditure", "show"],
+    ["View Income", "/income", "show"],
+    ["Add Expend", "/addExpenditure", "show"],
+    ["Add Income", "/addIncome", "show"],
+    ["View Budget Setup", "/budgetItem", display.value],
+    ["View Budget", "/budget", display.value],
+    ["Budget Setup", "/addBudgetItem", display.value],
+    ["Add Budget", "/addBudget", display.value],
+  ];
+});
+
+const areas = ref([]);
+const districts = ref([]);
+const assemblies = ref([]);
+const ministries = ref([]);
+const trainings = ref([]);
+const finances = ref([]);
+
 const open = ref(["Users"]);
-const menus = ref([
-  ["Dashboard", "mdi:mdi-view-dashboard", "/dashboard"],
-  // ["Shared with me", "mdi:mdi-account-multiple"],
-  // ["Starred", "mdi:mdi-star"],
-]);
+const menus = ref([["Dashboard", "mdi:mdi-view-dashboard", "/dashboard"]]);
 const users = ref([
   ["View User", "/user"],
   ["Register", "/register"],
 ]);
 const members = ref([
-  ["View Member", "/member"],
-  ["Add Member", "/addMember"],
+  ["View Member", "/member", "show"],
+  ["Add Member", "/addMember", , "show"],
 ]);
 const attendance = ref([
-  ["View Attendance", "/attendance"],
-  ["Mark Attendance", "/attendanceMark"],
+  ["View Attendance", "/attendance", "show"],
+  ["Mark Attendance", "/attendanceMark", , "show"],
 ]);
-const areas = ref([
-  ["View Area", "/area"],
-  ["Add Area", "/addArea"],
-]);
-const districts = ref([
-  ["View District", "/district"],
-  ["Add District", "/addDistrict"],
-]);
-const assemblies = ref([
-  ["View Assembly", "/assembly"],
-  ["Add Assembly", "addAssembly"],
-]);
-const ministries = ref([
-  ["View Ministry", "/ministry"],
-  ["Add Ministry", "/addMinistry"],
-]);
-const trainings = ref([
-  ["View Training", "/trainingItem"],
-  ["Add Training", "/addTrainingItem"],
-  ["View Participant", "/training"],
-  ["Add Participant", "/addTraining"],
-]);
+
+// const areas = ref([
+//   ["View Area", "/area", "show"],
+//   ["Add Area", "/addArea", display.value],
+// ]);
+
+// const districts = ref([
+//   ["View District", "/district", "show"],
+//   ["Add District", "/addDistrict", display.value],
+// ]);
+// const assemblies = ref([
+//   ["View Assembly", "/assembly", "show"],
+//   ["Add Assembly", "/addAssembly", display.value],
+// ]);
+// const ministries = ref([
+//   ["View Ministry", "/ministry", "show"],
+//   ["Add Ministry", "/addMinistry", display.value],
+// ]);
+// const trainings = ref([
+//   ["View Training", "/trainingItem", "show"],
+//   ["View Participant", "/training", "show"],
+//   ["Add Training", "/addTrainingItem", display.value],
+//   ["Add Participant", "/addTraining", "show"],
+// ]);
 const tithes = ref([
-  ["View Assembly Tithe", "/tithe"],
-  ["View Members Tithe", "/titheMember"],
-  ["Add Tithe", "/addTithe"],
+  ["View Assembly Tithe", "/tithe", "show"],
+  ["View Members Tithe", "/titheMember", "show"],
+  ["Add Tithe", "/addTithe", "show"],
 ]);
 const reports = ref([
   ["Budget Income", "/reportBudgetIncome"],
@@ -234,16 +308,16 @@ const reports = ref([
   ["Tithe Report", "/reportAllTithe"],
   ["Tithe Compare", "/reportTitheCompare"],
 ]);
-const finances = ref([
-  ["View Budget Setup", "/budgetItem"],
-  ["Budget Setup", "/addBudgetItem"],
-  ["View Budget", "/budget"],
-  ["Add Budget", "/addBudget"],
-  ["View Expend", "/expenditure"],
-  ["Add Expend", "/addExpenditure"],
-  ["View Income", "/income"],
-  ["Add Income", "/addIncome"],
-]);
+// const finances = ref([
+//   ["View Expend", "/expenditure", "show"],
+//   ["View Income", "/income", "show"],
+//   ["Add Expend", "/addExpenditure", "show"],
+//   ["Add Income", "/addIncome", "show"],
+//   ["View Budget Setup", "/budgetItem", display.value],
+//   ["View Budget", "/budget", display.value],
+//   ["Budget Setup", "/addBudgetItem", display.value],
+//   ["Add Budget", "/addBudget", display.value],
+// ]);
 </script>
 
 <style></style>

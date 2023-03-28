@@ -69,7 +69,6 @@ onMounted(async () => {
   });
   loading.value = pending.value;
   areas.value = data.value.data;
-  console.log(areas.value);
 });
 
 let submitDistrict = async () => {
