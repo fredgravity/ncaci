@@ -72,7 +72,6 @@
             </template>
 
             <v-list-item v-for="([title, link, display], i) in areas" :key="i" :value="title" class="tw-w-full" rounded="shaped">
-              {{ display }}
               <template v-if="display == 'show'">
                 <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
               </template>
@@ -202,12 +201,21 @@ const close = () => {
   drawStore.openMenu();
 };
 
-const areas = ref([]);
-const districts = ref([]);
-const assemblies = ref([]);
-const ministries = ref([]);
-const trainings = ref([]);
-const finances = ref([]);
+const areas = ref([["View Area", "/area", "show"]]);
+const districts = ref([["View District", "/district", "show"]]);
+const assemblies = ref([["View Assembly", "/assembly", "show"]]);
+const ministries = ref([["View Ministry", "/ministry", "show"]]);
+const trainings = ref([
+  ["View Training", "/trainingItem", "show"],
+  ["View Participant", "/training", "show"],
+  ["Add Participant", "/addTraining", "show"],
+]);
+const finances = ref([
+  ["View Expend", "/expenditure", "show"],
+  ["View Income", "/income", "show"],
+  ["Add Expend", "/addExpenditure", "show"],
+  ["Add Income", "/addIncome", "show"],
+]);
 
 onMounted(async () => {
   getUser.value = await loginStore.getUser;
@@ -243,8 +251,8 @@ watch(display, (newDisplay) => {
   trainings.value = [
     ["View Training", "/trainingItem", "show"],
     ["View Participant", "/training", "show"],
-    ["Add Training", "/addTrainingItem", display.value],
     ["Add Participant", "/addTraining", "show"],
+    ["Add Training", "/addTrainingItem", display.value],
   ];
 
   finances.value = [
