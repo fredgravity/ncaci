@@ -193,7 +193,7 @@
 const loginStore = useLoginStore();
 const getUser = ref({});
 // getUser.image = "assets/assets/img/avatars/6.png";
-// console.log(getUser);
+//
 const display = ref("hide");
 const drawStore = useMenuStore();
 const opened = computed(() => drawStore.drawer);
@@ -223,11 +223,9 @@ onMounted(async () => {
   if (getUser.value.role == "admin" || getUser.value.role == "user") {
     display.value = "show";
   }
-  console.log(display.value);
 });
 
 watch(display, (newDisplay) => {
-  console.log(newDisplay);
   areas.value = [
     ["View Area", "/area", "show"],
     ["Add Area", "/addArea", display.value],
