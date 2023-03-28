@@ -72,6 +72,7 @@
             </template>
 
             <v-list-item v-for="([title, link, display], i) in areas" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              {{ display }}
               <template v-if="display == 'show'">
                 <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
               </template>
