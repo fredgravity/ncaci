@@ -9,9 +9,9 @@
           <v-card-title>
             <span class="text-h5">Edit Profile</span>
           </v-card-title>
-          <template v-if="error_message.type">
-            <Alert :alert="error_message" v-if="error_message" />
-          </template>
+          <div v-if="toaster">
+            <Toaster :alert="toaster" />
+          </div>
           <v-card-text>
             <v-container class="tw-mb-10">
               <v-row>
@@ -76,11 +76,7 @@ const props = defineProps({
   member_id: String,
 });
 const data = ref(props.member);
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 const dataAssemblies = [];
 const dataMinistries = [];
 
@@ -93,7 +89,7 @@ watch(dialog, async () => {
       dataMinistries.push({ name: element.attributes.name, id: element.id });
     });
 
-    // console.log(dataAssemblies);
+    //
     member.name = data.value.attributes.name;
     member.email = data.value.attributes.email;
     member.home_town = data.value.attributes.home_town;
@@ -119,7 +115,6 @@ const member = reactive({
   marital_status: "",
   address: "",
 });
-console.log(member);
 
 let submitMember = async () => {
   const { data, pending, error, refresh } = await useAsyncData("submitMember", () =>
@@ -135,15 +130,20 @@ let submitMember = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.title = "Error";
-    error_message.text = error.value.data.message;
+    toaster.value = {
+      type: "error",
+      title: "Error",
+      info: error.value.data.message,
+    };
   }
   if (data.value.data) {
     // error_message.value = "Church member edited successfully!";
-    error_message.type = "success";
-    error_message.title = "Success";
-    error_message.text = "Church member edited successfully!";
+
+    toaster.value = {
+      type: "success",
+      title: "Success",
+      info: "Church member edited successfully!",
+    };
   }
 };
 </script>

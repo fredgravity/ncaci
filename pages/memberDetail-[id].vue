@@ -5,9 +5,8 @@
     </div>
     <Loading :loading="loading" />
 
-    <div v-if="error_message" class="alert alert-danger alert-dismissible" role="alert">
-      {{ error_message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
     </div>
 
     <div class="card-body tw-flex tw-flex-wrap md:tw-flex-nowrap tw-justify-between">
@@ -136,7 +135,7 @@ const accessToken = await loginStore.getAccessToken;
 const route = useRoute();
 const member = ref([]);
 const member_modal = ref([]);
-const error_message = ref("");
+const toaster = reactive({});
 const assemblies = ref([]);
 const ministries = ref([]);
 const loading = ref("");
@@ -164,7 +163,7 @@ onMounted(async () => {
   });
 
   assemblies.value = data.value.data;
-  // console.log(assemblies.value);
+  //
 });
 
 onMounted(async () => {
@@ -215,12 +214,20 @@ let submitSpouse = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
+    toaster.value = {
+      type: "error",
+      title: "Add Member Spouse",
+      info: error.value.data.message,
+    };
   }
   if (data.value.data) {
-    error_message.value = "Church member's spouse added successfully!";
+    // error_message.value = "Church member's spouse added successfully!";
+    toaster.value = {
+      type: "error",
+      title: "Add Member Spouse",
+      info: "Church member's spouse added successfully!",
+    };
     spouse.name = "";
     spouse.phone = "";
     spouse.home_town = "";
@@ -242,12 +249,20 @@ let submitChild = async () => {
     initialCache: false,
   });
 
-  console.log(data.value);
   if (error.value) {
-    error_message.value = error.value.data.message;
+    toaster.value = {
+      type: "error",
+      title: "Add Member Child",
+      info: error.value.data.message,
+    };
   }
   if (data.value.data) {
-    error_message.value = "Church member's child added successfully!";
+    toaster.value = {
+      type: "success",
+      title: "Add Member Child",
+      info: "Church member's child added successfully!",
+    };
+
     spouse.name = "";
     spouse.gender = "";
     spouse.home_town = "";
