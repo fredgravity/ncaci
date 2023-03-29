@@ -5,9 +5,9 @@
     </div>
     <Loading :loading="loading" />
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
       <form ref="form">
@@ -45,11 +45,7 @@ const accessToken = await loginStore.getAccessToken;
 const areas = ref([]);
 const form = ref(null);
 const loading = ref("");
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 const district = reactive({
   name: "",
@@ -85,17 +81,19 @@ let submitDistrict = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Church District not added successfully!. Try again";
-    error_message.title = "Add District";
+    toaster.value = {
+      type: "error",
+      title: "Add District",
+      info: "Church District not added successfully!. Try again",
+    };
 
     // error_message.value = error.value.data.message;
   } else {
-    // alert();
-
-    error_message.type = "success";
-    error_message.text = "Church District added successfully!";
-    error_message.title = "Add District";
+    toaster.value = {
+      type: "success",
+      title: "Add District",
+      info: "Church District added successfully!",
+    };
 
     // district.name = "";
     // district.area_id = "";

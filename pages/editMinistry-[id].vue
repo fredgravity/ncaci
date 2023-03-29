@@ -5,9 +5,9 @@
     </div>
     <Loading :loading="loading" />
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-bg-gray-100 tw-shadow-xl tw-mb-4 tw-p-2">
       <form ref="form">
@@ -33,11 +33,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const loading = ref("");
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 const ministry_id = ref("");
 const route = useRoute();
 
@@ -77,14 +73,18 @@ let submitMinistry = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = error.value.data.message;
-    error_message.title = "Add Ministry";
+    toaster.value = {
+      type: "error",
+      title: "Edit Ministry",
+      info: error.value.data.message,
+    };
   }
   if (data.value.data) {
-    error_message.type = "success";
-    error_message.text = "Church Ministry edited successfully!.";
-    error_message.title = "Add Ministry";
+    toaster.value = {
+      type: "success",
+      title: "Edit Ministry",
+      info: "Church Ministry edited successfully!.",
+    };
   }
 };
 </script>

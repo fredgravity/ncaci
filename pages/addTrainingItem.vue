@@ -2,9 +2,9 @@
   <div>
     <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">add training item</div>
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
       <form ref="form">
@@ -83,11 +83,7 @@ const trainingItem = reactive({
   venue: "",
 });
 
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 onMounted(async () => {
   const { data, error, refresh } = await useFetch(api_base + "/ministry", {
@@ -117,13 +113,17 @@ let submitTrainingItem = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Training item not added successfully!. Try again";
-    error_message.title = "Add District";
+    toaster.value = {
+      type: "error",
+      title: "Add District",
+      info: "Training item not added successfully!. Try again",
+    };
   } else {
-    error_message.type = "success";
-    error_message.text = "Training item added successfully!";
-    error_message.title = "Add District";
+    toaster.value = {
+      type: "success",
+      title: "Add District",
+      info: "Training item added successfully!",
+    };
 
     // trainingItem.name = "";
     // trainingItem.startDate = "";

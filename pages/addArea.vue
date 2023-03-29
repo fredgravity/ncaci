@@ -4,9 +4,9 @@
       <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">add area</div>
     </div>
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
       <form ref="form">
@@ -33,11 +33,7 @@ const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const form = ref(null);
 
-const error_message = reactive({
-  type: "",
-  text: "",
-  title: "",
-});
+const toaster = reactive({});
 
 const area = reactive({
   name: "",
@@ -57,13 +53,17 @@ let submitArea = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Church Area not added successfully!. Try again";
-    error_message.title = "Add Area";
+    toaster.value = {
+      type: "error",
+      title: "Add Area",
+      info: "Church Area not added successfully! Try again",
+    };
   } else {
-    error_message.type = "success";
-    error_message.text = "Church Area added successfully!";
-    error_message.title = "Add Area";
+    toaster.value = {
+      type: "success",
+      title: "Add Area",
+      info: "Church Area added successfully!",
+    };
 
     area.name = "";
     form.value.reset();

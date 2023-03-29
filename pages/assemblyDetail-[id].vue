@@ -6,9 +6,9 @@
 
     <Loading :loading="loading" />
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <form class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
       <!--  -->
@@ -88,11 +88,7 @@ const districts = ref("");
 const filteredDistricts = ref([]);
 const route = useRoute();
 const loading = ref("");
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 const statusItems = ref([
   { status: "Active", val: "active" },
@@ -192,14 +188,18 @@ let submitAssembly = async () => {
   loading.value = pending.value;
 
   if (error.value) {
-    error_message.text = error.value.data.message;
-    error_message.type = "error";
-    error_message.title = "Update assembly";
+    toaster.value = {
+      type: "error",
+      title: "Update assembly",
+      info: error.value.data.message,
+    };
   }
   if (data.value.data) {
-    error_message.text = "Church Assembly updated successfully!";
-    error_message.type = "success";
-    error_message.title = "Update assembly";
+    toaster.value = {
+      type: "success",
+      title: "Update assembly",
+      info: "Church Assembly updated successfully!",
+    };
   }
 };
 </script>

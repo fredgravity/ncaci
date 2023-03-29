@@ -4,9 +4,9 @@
 
     <Loading :loading="loading" />
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="mb-3 row">
       <label for="assembly" class="col-md-2 col-form-label">Find Assembly</label>
@@ -115,11 +115,7 @@ const accessToken = await loginStore.getAccessToken;
 const assemblies = reactive([]);
 const detail = ref("");
 const assembly_id = ref("");
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 const tithe = reactive({
   amount: "",
@@ -168,13 +164,17 @@ const submitTithe = async () => {
   loading.value = pending.value;
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Tithe not paid successfully!. Try again";
-    error_message.title = "Pay Tithe";
+    toaster.value = {
+      type: "error",
+      title: "Pay Tithe",
+      info: "Tithe not paid successfully!. Try again",
+    };
   } else {
-    error_message.type = "success";
-    error_message.text = "Tithe paid successfully!.";
-    error_message.title = "Pay Tithe";
+    toaster.value = {
+      type: "success",
+      title: "Pay Tithe",
+      info: "Tithe paid successfully!.",
+    };
 
     tithe.amount = "";
     tithe.paidby = "";

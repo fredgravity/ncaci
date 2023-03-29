@@ -2,10 +2,6 @@
   <div>
     <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">Register User</div>
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
-
     <div class="card-body md:tw-w-2/3 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
       <form ref="form">
         <div class="mb-3 row">
@@ -57,6 +53,9 @@
         </div>
       </form>
     </div>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
   </div>
 </template>
 
@@ -68,6 +67,7 @@ const form = ref(null);
 const loading = ref("");
 const assemblies = reactive([]);
 const ministries = reactive([]);
+const toaster = reactive({});
 const roleItems = ref([
   { role: "Admin", val: "admin" },
   { role: "User", val: "user" },
@@ -83,12 +83,6 @@ const nameRules = ref([
     return "Fields is requred.";
   },
 ]);
-
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
 
 const user = reactive({
   name: "",
@@ -153,14 +147,19 @@ let submitUser = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Church User not added successfully!. Try again";
-    error_message.title = "Add User";
+    toaster.value = {
+      type: "error",
+      title: "Add User",
+      info: "Church User not added successfully!. Try again",
+    };
+
     // form.value.reset();
   } else {
-    error_message.type = "success";
-    error_message.text = "Church User added successfully!.";
-    error_message.title = "Add User";
+    toaster.value = {
+      type: "success",
+      title: "Add User",
+      info: "Church User added successfully!. Try again",
+    };
 
     // user.name = "";
     // user.email = "";

@@ -2,9 +2,9 @@
   <div>
     <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">add budget item</div>
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
       <form ref="form">
@@ -80,11 +80,7 @@ const nameRules = ref([
   },
 ]);
 
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 onMounted(async () => {
   const { data, error, refresh } = await useFetch(api_base + "/ministry", {
@@ -114,14 +110,18 @@ let submitBudgetItem = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Budget Item not added successfully!. Try again";
-    error_message.title = "Add Budget Item";
+    toaster.value = {
+      type: "error",
+      title: "Add Budget Item",
+      info: "Budget Item not added successfully!. Try again",
+    };
   }
   if (data.value.data) {
-    error_message.type = "success";
-    error_message.text = "Budget Item added successfully!";
-    error_message.title = "Add Budget Item";
+    toaster.value = {
+      type: "error",
+      title: "Add Budget Item",
+      info: "Budget Item added successfully!",
+    };
 
     // budgetItem.name = "";
     // budgetItem.year = "";

@@ -4,9 +4,9 @@
       <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">add assembly</div>
     </div>
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-sm tw-mb-4 tw-p-2">
       <form ref="form">
@@ -97,11 +97,7 @@ const nameRules = ref([
   },
 ]);
 
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 const assembly = reactive({
   name: "",
@@ -162,14 +158,17 @@ let submitAssembly = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Church Assembly not added successfully!. Try again";
-    error_message.title = "Add Assembly";
+    toaster.value = {
+      type: "error",
+      title: "Add Assembly",
+      info: "Church Assembly not added successfully!. Try again",
+    };
   } else {
-    // alert();
-    error_message.type = "success";
-    error_message.text = "Church Assembly added successfully!";
-    error_message.title = "Add Assembly";
+    toaster.value = {
+      type: "success",
+      title: "Add Assembly",
+      info: "Church Assembly added successfully!",
+    };
 
     // assembly.area_id = "";
     // assembly.district = "";

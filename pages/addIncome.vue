@@ -2,9 +2,9 @@
   <div>
     <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">add income</div>
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
       <form ref="form">
@@ -120,11 +120,8 @@ const nameRules = ref([
     return "Fields is requred.";
   },
 ]);
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
+
 const income = reactive({
   budget_item_id: "",
   budget_id: "",
@@ -246,13 +243,17 @@ let submitIncome = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Income not added successfully. Try again";
-    error_message.title = "Add Income";
+    toaster.value = {
+      type: "error",
+      title: "Add Income",
+      info: "Income not added successfully. Try again",
+    };
   } else {
-    error_message.type = "success";
-    error_message.text = "Income  added successfully!.";
-    error_message.title = "Add Income";
+    toaster.value = {
+      type: "success",
+      title: "Add Income",
+      info: "Income  added successfully!",
+    };
 
     // income.budget_item_id = "";
     // income.year = "";

@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="ml-4 mt-3 font-bold">Parent Information</div>
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
     <div class="card-body">
       <form id="formAccountSettings" method="POST" onsubmit="return false">
         <div class="row">
@@ -47,11 +47,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 const route = useRoute();
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 const parent = reactive({
   name: "",
@@ -75,16 +71,19 @@ let submitParent = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.title = "Error";
-    error_message.text = error.value.data.message;
-    // error_message.value = error.value.data.message;
+    toaster.value = {
+      type: "error",
+      title: "Error",
+      info: error.value.data.message,
+    };
   }
   if (data.value.data) {
-    // error_message.value = "Church member's child added successfully!";
-    error_message.type = "success";
-    error_message.title = "Success";
-    error_message.text = "Church member's parent added successfully!";
+    toaster.value = {
+      type: "success",
+      title: "Success",
+      info: "Church member's parent added successfully!",
+    };
+
     parent.name = "";
     parent.gender = "";
     parent.dob = "";

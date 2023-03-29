@@ -2,9 +2,9 @@
   <div>
     <div class="tw-p-2 tw-border-b tw-border-blue-300 tw-mb-2 tw-ml-20">add training</div>
 
-    <template v-if="error_message.type">
-      <Alert :alert="error_message" v-if="error_message" />
-    </template>
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <div class="card-body md:tw-w-1/2 tw-mx-auto tw-shadow-xl tw-mb-4 tw-p-2">
       <v-form ref="form">
@@ -130,11 +130,9 @@ const nameRules = ref([
     return "Fields is requred.";
   },
 ]);
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+
+const toaster = reactive({});
+
 const training = reactive({
   training_item_id: "",
   participant: "",
@@ -226,13 +224,17 @@ let submitTraining = async () => {
   );
 
   if (error.value) {
-    error_message.type = "error";
-    error_message.text = "Training not added successfully!. Try again";
-    error_message.title = "Add Training";
+    toaster.value = {
+      type: "error",
+      title: "Add Training",
+      info: "Training not added successfully!. Try again",
+    };
   } else {
-    error_message.type = "success";
-    error_message.text = "Training added successfully!";
-    error_message.title = "Add Training";
+    toaster.value = {
+      type: "success",
+      title: "Add Training",
+      info: "Training added successfully!",
+    };
 
     // training.training_item_id = "";
     // training.startDate = "";

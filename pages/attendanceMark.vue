@@ -4,9 +4,9 @@
     <Loading :loading="loading" />
   </div>
 
-  <template v-if="error_message.type">
-    <Alert :alert="error_message" v-if="error_message" />
-  </template>
+  <div v-if="toaster">
+    <Toaster :alert="toaster" />
+  </div>
 
   <div class="tw-w-full tw-flex tw-gap-1 tw-justify-evenly tw-flex-wrap">
     <div class="tw-basis-1/2">
@@ -37,11 +37,7 @@ const assembly = reactive({
   date: "",
 });
 
-const error_message = reactive({
-  type: "",
-  title: "",
-  text: "",
-});
+const toaster = reactive({});
 
 const forceRerender = () => {
   componentKey.value += 1;
@@ -84,14 +80,18 @@ const recordClick = async (event) => {
     );
 
     if (error.value) {
-      error_message.type = "error";
-      error_message.text = "Member Attendance not added successfully!. Try again";
-      error_message.title = "Add Attendance";
+      toaster.value = {
+        type: "error",
+        title: "Add Attendance",
+        info: "Member Attendance not marked successfully!. Try again",
+      };
       // form.value.reset();
     } else {
-      error_message.type = "success";
-      error_message.text = "Member Attendance  added successfully!.";
-      error_message.title = "Add Attendance";
+      toaster.value = {
+        type: "success",
+        title: "Add Attendance",
+        info: "Member Attendance marked successfully!.",
+      };
     }
   }
 };

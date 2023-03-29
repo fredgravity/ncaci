@@ -89,11 +89,18 @@ const userCount = computed(() => {
 const memberCount = computed(() => {
   return members.value.length;
 });
+const toaster = reactive({});
+
+const alert = () => {
+  toaster.value = {
+    type: "success",
+    title: "Title",
+    info: "im testing this toaster",
+  };
+  // (toaster.type = "success")((toaster.title = "Title"))((toaster.info = "im testing this toaster"));
+};
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
-
   const { data, error, refresh, pending } = await useFetch(api_base + "/users", {
     method: "get",
     headers: {
