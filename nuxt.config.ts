@@ -3,12 +3,12 @@ import vuetify from "./plugins/vuetify"
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     css: [
-        'vuetify/lib/styles/main.sass', '@mdi/font/css/materialdesignicons.min.css', '~/assets/css/main.css',
-
+        'vuetify/lib/styles/main.sass', 
+        '@mdi/font/css/materialdesignicons.min.css', 
+        '~/assets/css/main.css',
         '@/assets/assets/css/main.css',
         '~/assets/assets/vendor/css/core.css',
         '~/assets/assets/vendor/css/theme-default.css',
-
     ],
     build: {
         transpile: ['vuetify'],

@@ -42,7 +42,7 @@
     <template v-if="member_modal.length != 0">
       <ModalsEditMember2 :member="member_modal" :assemblies="assemblies" :ministries="ministries" :member_id="spouse.member_id" />
     </template>
-    <NuxtLink :to="'/member-' + member.id" class="tw-font-normal tw-ml-4 btn btn-sm tw-w-full md:tw-w-1/3 tw-mb-2 btn-outline-primary tw-text-blue-500 tw-cursor-pointer">Add More Info</NuxtLink>
+    <NuxtLink :to="'/member/member-' + member.id" class="tw-font-normal tw-ml-4 btn btn-sm tw-w-full md:tw-w-1/3 tw-mb-2 btn-outline-primary tw-text-blue-500 tw-cursor-pointer">Add More Info</NuxtLink>
     <hr class="tw-my-0" />
     <div class="tw-ml-4 tw-mt-3 tw-font-bold">Spouse History</div>
     <div class="tw-flex tw-flex-wrap tw-mx-3" v-if="member.attributes">

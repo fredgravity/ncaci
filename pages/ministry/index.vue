@@ -18,13 +18,13 @@ const rowData = ref([]);
 
 const columnDefs = reactive([
   { headerName: "Name", field: "name" },
-  { headerName: "Action", field: "action" },
   { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
+  { headerName: "Action", field: "action" },
 ]);
 
 const recordClick = (event) => {
   if (event.value == "Edit") {
-    window.location.href = "/editMinistry-" + event.data.id;
+    window.location.href = "/ministry/editMinistry-" + event.data.id;
   }
 };
 

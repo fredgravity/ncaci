@@ -66,7 +66,7 @@ const drawer = () => {
 const loginStore = useLoginStore();
 // const user = await loginStore.getUser;
 const items = ref([
-  { title: "My Profile", icon: "fas fa-regular fa-user", link: "/userProfile" },
+  { title: "My Profile", icon: "fas fa-regular fa-user", link: "/user/userProfile" },
   { title: "Settings", icon: "fas fa-regular fa-gear", link: "/#" },
   // { title: "", icon: "" },
   // { title: "Logout", icon: "fas fa-solid fa-arrow-right-from-bracket" },

@@ -32,7 +32,7 @@ const columnDefs = reactive([
 const recordClick = (event) => {
   console.log(event.data);
   if (event.value == "Edit") {
-    window.location.href = "/assemblyDetail-" + event.data.id;
+    window.location.href = "/assembly/assemblyDetail-" + event.data.id;
   }
 };
 

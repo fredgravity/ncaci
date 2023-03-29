@@ -87,7 +87,7 @@ const recordClick = (event) => {
   // console.log(event);
   if (event.value == "Edit") {
     // window.location.href = "/memberDetail-" + event.data.id;
-    router.push("memberDetail-" + event.data.id);
+    router.push("member/memberDetail-" + event.data.id);
   }
   if (event.value == "Pay Tithe") {
     dialog.value = true;

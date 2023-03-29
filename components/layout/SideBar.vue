@@ -228,40 +228,40 @@ onMounted(async () => {
 watch(display, (newDisplay) => {
   areas.value = [
     ["View Area", "/area", "show"],
-    ["Add Area", "/addArea", display.value],
+    ["Add Area", "/area/addArea", display.value],
   ];
 
   districts.value = [
     ["View District", "/district", "show"],
-    ["Add District", "/addDistrict", display.value],
+    ["Add District", "/district/addDistrict", display.value],
   ];
 
   assemblies.value = [
     ["View Assembly", "/assembly", "show"],
-    ["Add Assembly", "/addAssembly", display.value],
+    ["Add Assembly", "/assembly/addAssembly", display.value],
   ];
 
   ministries.value = [
     ["View Ministry", "/ministry", "show"],
-    ["Add Ministry", "/addMinistry", display.value],
+    ["Add Ministry", "/ministry/addMinistry", display.value],
   ];
 
   trainings.value = [
-    ["View Training", "/trainingItem", "show"],
-    ["View Participant", "/training", "show"],
-    ["Add Participant", "/addTraining", "show"],
-    ["Add Training", "/addTrainingItem", display.value],
+    ["View Training", "/training/trainingItem", "show"],
+    ["View Participant", "/training/training", "show"],
+    ["Add Participant", "/training/addTraining", "show"],
+    ["Add Training", "/training/addTrainingItem", display.value],
   ];
 
   finances.value = [
-    ["View Expend", "/expenditure", "show"],
-    ["View Income", "/income", "show"],
-    ["Add Expend", "/addExpenditure", "show"],
-    ["Add Income", "/addIncome", "show"],
-    ["View Budget Setup", "/budgetItem", display.value],
-    ["View Budget", "/budget", display.value],
-    ["Budget Setup", "/addBudgetItem", display.value],
-    ["Add Budget", "/addBudget", display.value],
+    ["View Expend", "/finance/expenditure", "show"],
+    ["View Income", "/finance/income", "show"],
+    ["Add Expend", "/finance/addExpenditure", "show"],
+    ["Add Income", "/finance/addIncome", "show"],
+    ["View Budget Setup", "/finance/budgetItem", display.value],
+    ["View Budget", "/finance/budget", display.value],
+    ["Budget Setup", "/finance/addBudgetItem", display.value],
+    ["Add Budget", "/finance/addBudget", display.value],
   ];
 });
 
@@ -269,15 +269,15 @@ const open = ref(["Users"]);
 const menus = ref([["Dashboard", "mdi:mdi-view-dashboard", "/dashboard"]]);
 const users = ref([
   ["View User", "/user"],
-  ["Register", "/register"],
+  ["Register", "/user/register"],
 ]);
 const members = ref([
   ["View Member", "/member", "show"],
-  ["Add Member", "/addMember", , "show"],
+  ["Add Member", "/member/addMember", , "show"],
 ]);
 const attendance = ref([
   ["View Attendance", "/attendance", "show"],
-  ["Mark Attendance", "/attendanceMark", , "show"],
+  ["Mark Attendance", "/attendance/mark", , "show"],
 ]);
 
 // const areas = ref([
@@ -305,15 +305,15 @@ const attendance = ref([
 // ]);
 const tithes = ref([
   ["View Assembly Tithe", "/tithe", "show"],
-  ["View Members Tithe", "/titheMember", "show"],
-  ["Add Tithe", "/addTithe", "show"],
+  ["View Members Tithe", "/tithe/titheMember", "show"],
+  ["Add Tithe", "/tithe/addTithe", "show"],
 ]);
 const reports = ref([
-  ["Budget Income", "/reportBudgetIncome"],
-  ["Budget Expense", "/reportBudgetExpense"],
-  ["Tithe Analysis", "/reportTithe"],
-  ["Tithe Report", "/reportAllTithe"],
-  ["Tithe Compare", "/reportTitheCompare"],
+  ["Budget Income", "/report/budgetIncome"],
+  ["Budget Expense", "/report/budgetExpense"],
+  ["Tithe Analysis", "/report/tithe"],
+  ["Tithe Report", "/report/allTithe"],
+  ["Tithe Compare", "/report/titheCompare"],
 ]);
 // const finances = ref([
 //   ["View Expend", "/expenditure", "show"],

@@ -11,7 +11,7 @@
 
     <div class="card-body">
       <div class="d-flex align-items-start align-items-sm-center gap-4">
-        <img src="../assets/assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+        <img src="../../assets/assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
         <div class="button-wrapper" v-if="member.attributes">
           <p class="text-muted mb-0">Name: {{ member.attributes.name }}</p>
           <p class="text-muted mb-0">Gender: {{ member.attributes.gender }}</p>
