@@ -1,8 +1,8 @@
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 
 export const useSubmitData = async (title:string, url:string, formData:{}, method:string = 'post') =>{
+    const api_base = useRuntimeConfig().public.apiBase;
+    const loginStore = useLoginStore();
+    const accessToken = await loginStore.getAccessToken;
     const { data, pending, error, refresh } = await useAsyncData(`${title}`, () =>
     $fetch(api_base + "/"+url, {
       method: method,
