@@ -2,7 +2,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
 
-export const useGetData = async (url:String) =>{
+export const useGetData = async (url:string) =>{
     const { data, error, refresh, pending } = await useFetch(api_base + "/"+url, {
         method: "get",
         headers: {

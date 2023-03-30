@@ -27,10 +27,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const form = ref(null);
 
 const toaster = reactive({});
@@ -40,19 +36,9 @@ const ministry = reactive({
 });
 
 let submitMinistry = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitMinistry", () =>
-    $fetch(api_base + "/ministry", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: ministry,
-    })
-  );
+  let submitData = await useSubmitData("submitMinistry", "ministry", ministry);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add Ministry",

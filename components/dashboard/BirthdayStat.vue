@@ -33,27 +33,21 @@
 </template>
 
 <script setup>
-const loginStore = useLoginStore();
-const api_base = useRuntimeConfig().public.apiBase;
-const accessToken = await loginStore.getAccessToken;
 const members = ref([]);
 const birthday = ref([]);
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/member-birthdays", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("member-birthdays");
 
-    initialCache: false,
-  });
-  members.value = data.value.data;
+  members.value = getData.data.data;
   birthday.value = [];
   members.value.map((res) => {
-    birthday.value.push({ name: res.attributes.name, assembly: res.attributes.assembly.name, dob: res.attributes.dob, gender: res.attributes.gender });
+    birthday.value.push({
+      name: res.attributes.name,
+      assembly: res.attributes.assembly.name,
+      dob: res.attributes.dob,
+      gender: res.attributes.gender,
+    });
   });
 });
 </script>

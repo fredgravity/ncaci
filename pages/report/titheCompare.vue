@@ -25,9 +25,6 @@
 
 <script setup>
 import _, { map } from "underscore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const titheYearPrev = ref(2020);
 const titheYearCurrent = ref(2021);
 const titheAreas = ref([]);

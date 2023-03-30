@@ -53,10 +53,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const route = useRoute();
 const toaster = reactive({});
 
@@ -71,26 +67,15 @@ const spouse = reactive({
 });
 
 let submitSpouse = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitSpouse", () =>
-    $fetch(api_base + "/member-spouse", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: spouse,
-    })
-  );
+  let submitData = await useSubmitData("submitSpouse", "member-spouse", spouse);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Error",
-      info: error.value.data.message,
+      info: submitData.error.value.data.message,
     };
-  }
-  if (data.value.data) {
+  } else {
     toaster.value = {
       type: "success",
       title: "Success",

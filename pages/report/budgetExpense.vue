@@ -27,9 +27,7 @@
 
 <script setup>
 import _, { map } from "underscore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
+
 const budgetItems = ref([]);
 const loading = ref("");
 // const budgetItemIncome = ref([]);
@@ -117,10 +115,6 @@ const gettotalExpenseActualArry = () => {
 };
 
 const getYear = async (event) => {
-  // budgetItemIncome.value = _.filter(budgetItems.value, (res) => {
-  //   return res.attributes.year == parseInt(event.target.value) && res.attributes.type == "income";
-  // });
-
   budgetItemExpense.value = _.filter(budgetItems.value, (res) => {
     return parseInt(res.attributes.year) == parseInt(event.target.value) && res.attributes.type == "expense";
   });

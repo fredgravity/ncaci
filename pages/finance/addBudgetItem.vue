@@ -56,10 +56,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const ministries = ref([]);
 const form = ref(null);
 const budgetItems = ref([
@@ -89,26 +85,15 @@ onMounted(async () => {
 });
 
 let submitBudgetItem = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitBudgetItem", () =>
-    $fetch(api_base + "/budget-item", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: budgetItem,
-    })
-  );
+  let submitData = await useSubmitData("submitBudgetItem", "budget-item", budgetItem);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add Budget Item",
       info: "Budget Item not added successfully!. Try again",
     };
-  }
-  if (data.value.data) {
+  } else {
     toaster.value = {
       type: "error",
       title: "Add Budget Item",

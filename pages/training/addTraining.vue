@@ -115,10 +115,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const assemblies = reactive([]);
 const trainingItems = ref([]);
 const ministries = ref([]);
@@ -179,19 +175,9 @@ const getAssembly = async (event) => {
 };
 
 let submitTraining = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitTraining", () =>
-    $fetch(api_base + "/training", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: training,
-    })
-  );
+  let submitData = await useSubmitData("submitTraining", "training", training);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add Training",

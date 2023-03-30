@@ -62,10 +62,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const ministries = ref([]);
 const form = ref(null);
 const nameRules = ref([
@@ -92,19 +88,9 @@ onMounted(async () => {
 });
 
 let submitTrainingItem = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitTrainingItem", () =>
-    $fetch(api_base + "/training-item", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: trainingItem,
-    })
-  );
+  let submitData = await useSubmitData("submitTrainingItem", "training-item", trainingItem);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add District",

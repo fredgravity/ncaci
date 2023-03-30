@@ -28,10 +28,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const loading = ref("");
 const toaster = reactive({});
 const ministry_id = ref("");
@@ -51,26 +47,16 @@ onMounted(async () => {
 });
 
 let submitMinistry = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitMinistry", () =>
-    $fetch(api_base + "/ministry/" + ministry_id.value, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: ministry,
-    })
-  );
+  let submitData = await useSubmitData("submitMinistry", "ministry/" + ministry_id.value, ministry, "put");
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Edit Ministry",
-      info: error.value.data.message,
+      info: submitData.error.value.data.message,
     };
   }
-  if (data.value.data) {
+  if (submitData.data.data) {
     toaster.value = {
       type: "success",
       title: "Edit Ministry",

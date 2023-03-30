@@ -49,10 +49,6 @@
 </template>
 
 <script setup>
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
-const api_base = useRuntimeConfig().public.apiBase;
-const getUser = await loginStore.getUser;
 const incomes = ref([]);
 const areas = ref([]);
 const incomeArea = ref([]);
@@ -100,43 +96,21 @@ const incomeStatSeries = ref([]);
 // const incomeStatSeries = [44, 55, 13, 43, 22];
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("area");
+  let getData2 = await useGetData("income");
 
-    initialCache: false,
-  });
+  areas.value = getData.data.data;
+  incomes.value = getData2.data.data;
 
-  areas.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/income", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: false,
-  });
-
-  incomes.value = data.value.data;
-
-  const areas = [];
+  const myareas = [];
   incomes.value.filter((res) => {
     if (res.attributes.area) {
-      areas.push(res);
+      myareas.push(res);
     }
   });
 
   const result = new Map();
-  areas.forEach((element) => {
+  myareas.forEach((element) => {
     if (result.get(element.attributes.area)) {
       result.set(element.attributes.area, result.get(element.attributes.area) + element.attributes.amount);
     } else {

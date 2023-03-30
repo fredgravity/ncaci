@@ -25,9 +25,6 @@
 </template>
 
 <script setup>
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const loading = ref("");
 const rowData = ref([]);
 const members = reactive([]);
@@ -67,19 +64,9 @@ const recordClick = async (event) => {
       mark_date: assembly.date,
     };
 
-    const { data, pending, error, refresh } = await useAsyncData("submitAttendance", () =>
-      $fetch(api_base + "/attendance", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + accessToken.accessToken,
-        },
-        body: attendaceDate,
-      })
-    );
+    let submitData = await useSubmitData("submitAttendance", "attendance", attendaceDate);
 
-    if (error.value) {
+    if (submitData.error.value) {
       toaster.value = {
         type: "error",
         title: "Add Attendance",

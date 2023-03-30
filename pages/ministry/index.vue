@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
 const ministries = reactive([]);
 const loading = ref("");
 const rowData = ref([]);

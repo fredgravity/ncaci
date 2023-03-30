@@ -54,10 +54,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const route = useRoute();
 const toaster = reactive({});
 
@@ -71,28 +67,17 @@ const occupation = reactive({
 });
 
 let submitOccupation = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitOccupation", () =>
-    $fetch(api_base + "/member-occupation", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: occupation,
-    })
-  );
+  let submitData = await useSubmitData("submitOccupation", "member-occupation", occupation);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Error",
-      info: error.value.data.message,
+      info: submitData.error.value.data.message,
     };
 
     // error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
+  } else {
     toaster.value = {
       type: "success",
       title: "Success",

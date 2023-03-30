@@ -133,18 +133,10 @@ const totalRevenue1 = ref({
 const totalRevenueSeries1 = incomeAmountSlice;
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/income", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("income");
 
-    initialCache: false,
-  });
   // loading.value = pending.value;
-  incomes.value = data.value.data;
+  incomes.value = getData.data.data;
 
   const result = new Map();
   incomes.value.forEach((element) => {

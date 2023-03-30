@@ -9,20 +9,12 @@
 
 <script setup>
 import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const tithes = ref([]);
 const loading = ref("");
 const rowData = ref([]);
 const router = useRouter();
 
 const columnDefs = reactive([
-  // { headerName: "Assembly", field: "name" },
-  // { headerName: "District", field: "district" },
-  // { headerName: "Pastor", field: "pastor" },
-  // { headerName: "Status", field: "status" },
-  // { headerName: "OpenedOn", field: "openedOn" },
   { headerName: "Paid By", field: "paidby" },
   { headerName: "Amount", field: "tithe", type: ["numberColumn"] },
   { headerName: "Paid On", field: "paidon", type: ["dateColumn"] },

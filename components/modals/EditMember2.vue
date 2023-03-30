@@ -66,9 +66,6 @@
 
 <script setup>
 const dialog = ref(false);
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const props = defineProps({
   member: ref([]),
   assemblies: ref([]),
@@ -117,32 +114,20 @@ const member = reactive({
 });
 
 let submitMember = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitMember", () =>
-    $fetch(api_base + "/member/" + props.member_id, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: member,
-    })
-  );
+  let submitData = await useSubmitData("submitMember", "member/" + props.member_id, member, "put");
+  // error_message.value = error.value.data.message;
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
-      title: "Error",
-      info: error.value.data.message,
+      title: "Member Edit",
+      info: submitData.error.value.data.message,
     };
-  }
-  if (data.value.data) {
-    // error_message.value = "Church member edited successfully!";
-
+  } else {
     toaster.value = {
       type: "success",
-      title: "Success",
-      info: "Church member edited successfully!",
+      title: "Member Edit",
+      info: "Church member tithe payed successfully!.",
     };
   }
 };

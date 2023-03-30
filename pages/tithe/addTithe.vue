@@ -109,9 +109,6 @@
 </template>
 
 <script setup>
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const assemblies = reactive([]);
 const detail = ref("");
 const assembly_id = ref("");
@@ -142,21 +139,11 @@ const getAssemblyDetails = async (e) => {
 };
 
 const submitTithe = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitTithe", () =>
-    $fetch(api_base + "/tithe", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: tithe,
-    })
-  );
+  let submitData = await useSubmitData("submitTithe", "tithe", tithe);
 
-  loading.value = pending.value;
+  loading.value = submitData.pending;
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Pay Tithe",

@@ -10,7 +10,7 @@
                 <h5 class="card-title text-primary">Welcome {{ getUser.name }}! 🎉</h5>
                 <p class="mb-4">You are now logged in. You can navigate the app freely. Enjoy!!</p>
 
-                <NuxtLink to="/userProfile" class="btn btn-sm btn-outline-primary">View Profile</NuxtLink>
+                <NuxtLink to="/user/userProfile" class="btn btn-sm btn-outline-primary">View Profile</NuxtLink>
               </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">
@@ -77,8 +77,6 @@
 
 <script setup>
 const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
-const api_base = useRuntimeConfig().public.apiBase;
 const getUser = await loginStore.getUser;
 const members = ref([]);
 const users = ref([]);
@@ -89,44 +87,16 @@ const userCount = computed(() => {
 const memberCount = computed(() => {
   return members.value.length;
 });
-const toaster = reactive({});
-
-const alert = () => {
-  toaster.value = {
-    type: "success",
-    title: "Title",
-    info: "im testing this toaster",
-  };
-  // (toaster.type = "success")((toaster.title = "Title"))((toaster.info = "im testing this toaster"));
-};
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/users", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  console.log(getUser);
-  users.value = data.value;
-});
+  let getData = await useGetData("users");
+  let getData2 = await useGetData("member");
 
-onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/member", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  members.value = data.value.data;
+  loading.value = getData.pending;
+  loading.value = getData2.pending;
+  members.value = getData2.data.data;
+
+  users.value = getData.data;
 });
 </script>
 

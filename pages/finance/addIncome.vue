@@ -95,10 +95,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const ministries = reactive([]);
 const budgetItems = reactive([]);
 const assemblies = ref([]);
@@ -175,19 +171,9 @@ const getBudgetItems = async (event) => {
 };
 
 let submitIncome = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitIncome", () =>
-    $fetch(api_base + "/income", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: income,
-    })
-  );
+  let submitData = await useSubmitData("submitIncome", "income", income);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add Income",

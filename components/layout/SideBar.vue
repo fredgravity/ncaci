@@ -206,15 +206,15 @@ const districts = ref([["View District", "/district", "show"]]);
 const assemblies = ref([["View Assembly", "/assembly", "show"]]);
 const ministries = ref([["View Ministry", "/ministry", "show"]]);
 const trainings = ref([
-  ["View Training", "/trainingItem", "show"],
-  ["View Participant", "/training", "show"],
-  ["Add Participant", "/addTraining", "show"],
+  ["View Training", "/training/trainingItem", "show"],
+  ["View Participant", "/training/training", "show"],
+  ["Add Participant", "/training/addTraining", "show"],
 ]);
 const finances = ref([
-  ["View Expend", "/expenditure", "show"],
-  ["View Income", "/income", "show"],
-  ["Add Expend", "/addExpenditure", "show"],
-  ["Add Income", "/addIncome", "show"],
+  ["View Expend", "/finance/expenditure", "show"],
+  ["View Income", "/finance/income", "show"],
+  ["Add Expend", "/finance/addExpenditure", "show"],
+  ["Add Income", "/finance/addIncome", "show"],
 ]);
 
 onMounted(async () => {

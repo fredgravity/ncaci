@@ -98,10 +98,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const assemblies = ref([]);
 const ministries = ref([]);
 const form = ref(null);
@@ -144,19 +140,9 @@ onMounted(async () => {
 });
 
 let submitMember = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("member", () =>
-    $fetch(api_base + "/member", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: member,
-    })
-  );
+  let submitData = await useSubmitData("submitMember", "member", member);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add Member",

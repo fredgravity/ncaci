@@ -27,10 +27,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const form = ref(null);
 
 const toaster = reactive({});
@@ -40,19 +36,9 @@ const area = reactive({
 });
 
 let submitArea = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitArea", () =>
-    $fetch(api_base + "/area", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: area,
-    })
-  );
+  let submitData = await useSubmitData("submitArea", "area", area);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add Area",

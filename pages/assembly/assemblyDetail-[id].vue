@@ -78,10 +78,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const assembly_id = ref("");
 const areas = ref("");
 const districts = ref("");
@@ -112,8 +108,20 @@ const assembly = reactive({
 });
 
 onMounted(async () => {
+  assembly_id.value = route.params.id;
   let getData1 = await useGetData("area");
   let getData2 = await useGetData("district");
+  let getData = await useGetData("assembly/" + assembly_id.value);
+
+  loading.value = getData.pending;
+
+  let result = getData.data.data;
+  assembly.name = result.attributes.name;
+  assembly.area_id = result.attributes.area_id;
+  assembly.status = result.attributes.status;
+  assembly.openedOn = result.attributes.openedOn;
+  assembly.district = result.attributes.district;
+  assembly.pastor = result.attributes.pastor;
 
   areas.value = getData1.data.data;
   districts.value = getData2.data.data;
@@ -128,53 +136,19 @@ const getDistrict = async (e) => {
   filteredDistricts.value = res;
 };
 
-onMounted(async () => {
-  assembly_id.value = route.params.id;
-
-  const { data, error, refresh, pending } = await useFetch(api_base + "/assembly/" + assembly_id.value, {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  loading.value = pending.value;
-
-  let result = data.value.data;
-  assembly.name = result.attributes.name;
-  assembly.area_id = result.attributes.area_id;
-  assembly.status = result.attributes.status;
-  assembly.openedOn = result.attributes.openedOn;
-  assembly.district = result.attributes.district;
-  assembly.pastor = result.attributes.pastor;
-});
-
 let submitAssembly = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitAssembly", () =>
-    $fetch(api_base + "/assembly/" + assembly_id.value, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: assembly,
-    })
-  );
+  let submitData = await useSubmitData("submitAssembly", "assembly/" + assembly_id.value, assembly, "put");
 
-  loading.value = pending.value;
+  loading.value = submitData.pending;
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Update assembly",
-      info: error.value.data.message,
+      info: submitData.error.value.data.message,
     };
   }
-  if (data.value.data) {
+  if (submitData.data.data) {
     toaster.value = {
       type: "success",
       title: "Update assembly",

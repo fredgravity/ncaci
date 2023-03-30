@@ -22,41 +22,6 @@
     </div>
     <hr class="border-b border-blue-300 mb-4" />
 
-    <!-- <div class="row">
-      <div class="w-full mx-2">
-        <div class="nav-align-top mb-4">
-          <ul class="nav nav-pills mb-3" role="tablist">
-            <li class="nav-item">
-              <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#pills-spouse" aria-controls="navs-pills-top-home" aria-selected="true">Spouse</button>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#pills-children" aria-controls="navs-pills-top-profile" aria-selected="false">Children</button>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#pills-parent" aria-controls="navs-pills-top-messages" aria-selected="false">Parent</button>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#pills-occupation" aria-controls="navs-pills-top-messages" aria-selected="false">Occupation</button>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="pills-spouse" role="tabpanel">
-              <MoreInfoSpouse />
-            </div>
-            <div class="tab-pane fade" id="pills-children" role="tabpanel">
-              <MoreInfoChildren />
-            </div>
-            <div class="tab-pane fade" id="pills-parent" role="tabpanel">
-              <MoreInfoParent />
-            </div>
-            <div class="tab-pane fade" id="pills-occupation" role="tabpanel">
-              <MoreInfoOccupation />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <!--  -->
     <v-card class="tw-mb-10">
       <v-tabs v-model="tab" bg-color="" centered stacked>
@@ -69,11 +34,6 @@
       </v-tabs>
 
       <v-window v-model="tab">
-        <!-- <v-window-item v-for="i in 3" :key="i" :value="'tab-' + i">
-          <v-card>
-            {{ text }}</v-card-text>
-          </v-card>
-        </v-window-item> -->
         <v-window-item value="tab-1">
           <LazyMoreInfoSpouse />
         </v-window-item>

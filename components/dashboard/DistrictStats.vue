@@ -49,9 +49,6 @@
 </template>
 
 <script setup>
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
-const api_base = useRuntimeConfig().public.apiBase;
 const incomes = ref([]);
 const districts = ref([]);
 const incomeDistrict = ref([]);
@@ -96,18 +93,8 @@ const districtStatChart = ref({
 const districtStatSeries = ref([]);
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/district", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: false,
-  });
-
-  districts.value = data.value.data;
+  let getData2 = await useGetData("district");
+  districts.value = getData2.data.data;
 
   const dist = [];
   incomes.value.filter((res) => {
@@ -115,31 +102,20 @@ onMounted(async () => {
       dist.push(res);
     }
   });
-});
 
-onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/income", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("income");
 
-    initialCache: false,
-  });
+  incomes.value = getData.data.data;
 
-  incomes.value = data.value.data;
-
-  const districts = [];
+  const mydistricts = [];
   incomes.value.filter((res) => {
     if (res.attributes.district) {
-      districts.push(res);
+      mydistricts.push(res);
     }
   });
 
   const result = new Map();
-  districts.forEach((element) => {
+  mydistricts.forEach((element) => {
     if (result.get(element.attributes.district)) {
       result.set(element.attributes.district, result.get(element.attributes.district) + element.attributes.amount);
     } else {

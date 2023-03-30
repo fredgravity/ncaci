@@ -8,6 +8,10 @@
       <AgGrid :results="members" :columnDefs="columnDefs" :rowData="rowData" @recordClick="recordClick" />
     </div>
 
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
+
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent class="tw-w-1/2">
         <!-- <template v-slot:activator="{ props }"> -->
@@ -59,6 +63,7 @@ const rowData = ref([]);
 const dialog = ref(false);
 const router = useRouter();
 const form = ref(null);
+const toaster = reactive({});
 const tithe = reactive({
   amount: "",
   paidby: "",
@@ -121,24 +126,21 @@ onMounted(async () => {
 });
 
 let submitTitheMember = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitTitheMember", () =>
-    $fetch(api_base + "/tithe", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: tithe,
-    })
-  );
+  let submitData = await useSubmitData("submitTitheMember", "tithe", tithe);
+  // error_message.value = error.value.data.message;
 
-  if (error.value) {
-    // error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
-    form.value.reset();
-    // error_message.value = "Church member edited successfully!";
+  if (submitData.error.value) {
+    toaster.value = {
+      type: "error",
+      title: "Pay Member Tithe",
+      info: submitData.error.value.data.message,
+    };
+  } else {
+    toaster.value = {
+      type: "success",
+      title: "Pay Member Tithe",
+      info: "Church member tithe payed successfully!.",
+    };
   }
 };
 </script>

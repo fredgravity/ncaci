@@ -112,9 +112,6 @@
 
 <script setup>
 import _, { map } from "underscore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const ministries = reactive([]);
 const budgetItems = reactive([]);
 const assemblies = ref([]);
@@ -193,19 +190,9 @@ const getBudgetItems = async (event) => {
 };
 
 let submitExpenditure = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitExpenditure", () =>
-    $fetch(api_base + "/expenditure", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: expenditure,
-    })
-  );
+  let submitData = await useSubmitData("submitExpenditure", "expenditure", expenditure);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add Expenditure",

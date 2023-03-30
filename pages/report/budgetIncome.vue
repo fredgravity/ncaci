@@ -27,9 +27,7 @@
 
 <script setup>
 import _, { map } from "underscore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
+
 const budgetItems = ref([]);
 const loading = ref("");
 const budgetItemIncome = ref([]);
@@ -183,7 +181,7 @@ const getYear = async (event) => {
 };
 
 const recordClick = (event) => {
-  console.log(event.data);
+  // console.log(event.data);
   // window.location.href = "/assemblyDetail-" + event.data.id;
 };
 </script>

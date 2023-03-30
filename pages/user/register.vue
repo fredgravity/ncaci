@@ -60,9 +60,6 @@
 </template>
 
 <script setup>
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const form = ref(null);
 const loading = ref("");
 const assemblies = reactive([]);
@@ -95,21 +92,12 @@ const user = reactive({
 
 watch(user, async (newRole) => {
   if (newRole.role !== "" && newRole.role !== "admin" && newRole.role !== "user") {
-    const { data, error, refresh, pending } = await useFetch(api_base + "/" + newRole.role, {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
+    let getData = await useGetData(newRole.role);
 
-      initialCache: false,
-    });
-
-    loading.value = pending.value;
+    loading.value = getData.pending;
     permItems.value = [];
 
-    data.value.data.filter((res) => {
+    getData.data.data.filter((res) => {
       permItems.value.push({
         perm: res.attributes.name,
         val: res.attributes.name,
@@ -134,19 +122,9 @@ watch(user, async (newRole) => {
 });
 
 let submitUser = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitUser", () =>
-    $fetch(api_base + "/register", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: user,
-    })
-  );
+  let submitData = await useSubmitData("submitUser", "register", user);
 
-  if (error.value) {
+  if (submitData.error.value) {
     toaster.value = {
       type: "error",
       title: "Add User",

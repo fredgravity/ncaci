@@ -1,6 +1,9 @@
 <template>
   <div>
     <!-- Modal -->
+    <div v-if="toaster">
+      <Toaster :alert="toaster" />
+    </div>
 
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent class="tw-w-1/2">
@@ -47,10 +50,7 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
+const toaster = reactive({});
 const dialog = ref(false);
 const form = ref(null);
 const props = defineProps({
@@ -71,25 +71,21 @@ setTimeout(() => {
 }, 2000);
 
 let submitTithe = async () => {
-  const { data, pending, error, refresh } = await useAsyncData("submitTithe", () =>
-    $fetch(api_base + "/tithe", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + accessToken.accessToken,
-      },
-      body: tithe,
-    })
-  );
+  let submitData = await useSubmitData("submitTithe", "tithe", tithe);
+  // error_message.value = error.value.data.message;
 
-  console.log(error.value);
-  if (error.value) {
-    // error_message.value = error.value.data.message;
-  }
-  if (data.value.data) {
-    form.value.reset();
-    // error_message.value = "Church member edited successfully!";
+  if (submitData.error.value) {
+    toaster.value = {
+      type: "error",
+      title: "Pay Member Tithe",
+      info: submitData.error.value.data.message,
+    };
+  } else {
+    toaster.value = {
+      type: "success",
+      title: "Pay Member Tithe",
+      info: "Church member tithe payed successfully!.",
+    };
   }
 };
 </script>

@@ -7,9 +7,6 @@
 </template>
 
 <script setup>
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const tithes = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
