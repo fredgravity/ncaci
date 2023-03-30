@@ -28,17 +28,10 @@ const columnDefs = reactive([
 ]);
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/assembly", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  assemblies.value = data.value.data;
+  let getData = await useGetData("assembly");
+
+  loading.value = getData.pending;
+  assemblies.value = getData.data.data;
 
   let assembliesFiltered = assemblies.value.filter((res) => {
     return res.attributes.tithe.length > 0;

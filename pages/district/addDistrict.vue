@@ -53,18 +53,10 @@ const district = reactive({
 });
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("area");
 
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  areas.value = data.value.data;
+  loading.value = getData.pending;
+  areas.value = getData.data.data;
 });
 
 let submitDistrict = async () => {

@@ -45,17 +45,10 @@ const columnDefs = reactive([
 ]);
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  titheAreas.value = data.value.data;
+  let getData = await useGetData("area");
+
+  loading.value = getData.pending;
+  titheAreas.value = getData.data.data;
 });
 
 watch([titheYearPrev, titheYearCurrent], ([newPrevYear, newCurrYear]) => {

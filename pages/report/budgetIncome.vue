@@ -50,18 +50,10 @@ const columnDefs = reactive([
 
 // get budget items
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/budget-item", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("budget-item");
 
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  budgetItems.value = data.value.data;
+  loading.value = getData.pending;
+  budgetItems.value = getData.data.data;
 });
 
 const gettotalIncomeBudget = () => {

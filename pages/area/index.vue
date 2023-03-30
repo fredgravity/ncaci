@@ -10,8 +10,9 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
+// const loginStore = useLoginStore();
+// const accessToken = await loginStore.getAccessToken;
+// const api_base = useRuntimeConfig().public.apiBase;
 const areas = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
@@ -29,21 +30,10 @@ const recordClick = (event) => {
 };
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
+  let getData = await useGetData("area");
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  areas.value = data.value.data;
+  loading.value = getData.pending;
+  areas.value = getData.data.data;
   rowData.value = areas.value.map((res) => {
     let mine = {
       name: res.attributes.name,

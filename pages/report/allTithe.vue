@@ -29,17 +29,10 @@ const columnDefs = reactive([
 ]);
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/tithe-all", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  tithes.value = data.value.data;
+  let getData = await useGetData("tithe-all");
+
+  loading.value = getData.pending;
+  tithes.value = getData.data.data;
 
   let tithesFiltered = tithes.value.filter((res) => {
     return res.attributes.assembly !== null;

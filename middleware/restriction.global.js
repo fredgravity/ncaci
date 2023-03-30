@@ -3,20 +3,20 @@ let counter = 1
 export default defineNuxtRouteMiddleware((to, from) => {
     
     const routeArray = [
-        "/addArea",
-        "/addDistrict",
-        "/addAssembly",
-        "/addMinistry",
-        "/addTrainingItem",
-        "/budgetItem",
-        "/budget",
-        "/addBudgetItem",
-        "/addBudget",
-        "/reportBudgetIncome",
-        "/reportBudgetExpense",
-        "/reportTithe",
-        "/reportAllTithe",
-        "/reportTitheCompare"
+        "/area/addArea",
+        "/district/addDistrict",
+        "/assembly/addAssembly",
+        "/ministry/addMinistry",
+        "/training/addTrainingItem",
+        "/finance/budgetItem",
+        "/finance/budget",
+        "/finance/addBudgetItem",
+        "/finance/addBudget",
+        "/report/budgetIncome",
+        "/report/budgetExpense",
+        "/report/tithe",
+        "/report/allTithe",
+        "/report/titheCompare"
     ]
 
     
@@ -37,3 +37,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
 
   })
+
+  

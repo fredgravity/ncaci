@@ -97,36 +97,16 @@ const recordClick = async (event) => {
 };
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/assembly", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData1 = await useGetData("assembly");
+  let getData2 = await useGetData("member");
 
-    initialCache: false,
-  });
+  loading.value = getData2.pending;
+  members.value = getData2.data.data;
 
   assemblyItems.value = [];
-  data.value.data.filter((res) => {
+  getData1.data.data.filter((res) => {
     assemblyItems.value.push({ assembly: res.attributes.name, val: res.attributes.name });
   });
-});
-
-onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/member", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: true,
-  });
-  loading.value = pending.value;
-  members.value = data.value.data;
 });
 
 watch(assembly, (newAssembly) => {

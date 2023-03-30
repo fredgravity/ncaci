@@ -10,9 +10,6 @@
 </template>
 
 <script setup>
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const loading = ref("");
 const rowData = ref([]);
 const members = reactive([]);
@@ -29,18 +26,10 @@ const columnDefs = reactive([
 ]);
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/attendance", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("attendance");
 
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  members.value = data.value.data;
+  loading.value = getData.pending;
+  members.value = getData.data.data;
   // console.log(members.value);
   rowData.value = members.value.map((res) => {
     let mine = {

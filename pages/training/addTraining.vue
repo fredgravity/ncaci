@@ -149,31 +149,13 @@ const training = reactive({
 });
 
 onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/assembly", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
+  let getData1 = await useGetData("ministry");
+  let getData2 = await useGetData("assembly");
+  let getData = await useGetData("training-item");
 
-  assemblies.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/ministry", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  ministries.value = data.value.data;
+  assemblies.value = getData2.data.data;
+  ministries.value = getData1.data.data;
+  trainingItems.value = getData.data.data;
 });
 
 const getTraining = async (event) => {
@@ -189,26 +171,12 @@ const getTraining = async (event) => {
 
 const getAssembly = async (event) => {
   let result = assemblies.value.filter((res) => {
-    return res.id == event.target.value;
+    return res.attributes.name == event.target.value;
   });
 
   training.district = result[0].attributes.district;
   training.area = result[0].attributes.area.name;
 };
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/training-item", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  trainingItems.value = data.value.data;
-});
 
 let submitTraining = async () => {
   const { data, pending, error, refresh } = await useAsyncData("submitTraining", () =>

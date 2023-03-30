@@ -41,7 +41,7 @@ const forceRerender = () => {
 const rowData = ref([]);
 
 const getYear = (event) => {
-  // console.log(event.target.value);
+  //
   titheYear.value = parseInt(event.target.value);
   chartOptions.value.xaxis.title.text = titheYear.value + " Quarters";
   forceRerender();
@@ -110,7 +110,7 @@ const columnDefs = reactive([
 watch(titheYear, (newTitheYear) => {
   if (newTitheYear) {
     rowData.value = areas.value.map((res) => {
-      // console.log(res.attributes.assembly);
+      //
       let mine = {
         area: res.attributes.name,
         quater1: (() => {
@@ -149,7 +149,6 @@ watch(titheYear, (newTitheYear) => {
           }
 
           if (assembly.length == 1) {
-            console.log(assembly);
             let arrySum = [];
             //
             let a = _.reduce(
@@ -265,7 +264,7 @@ watch(titheYear, (newTitheYear) => {
             let a = _.reduce(
               assembly,
               (acc, curr) => {
-                // console.log(curr);
+                //
                 let b = _.reduce(
                   curr.tithes,
                   (num, val) => {
@@ -281,7 +280,7 @@ watch(titheYear, (newTitheYear) => {
                   },
                   0
                 );
-                console.log(b);
+
                 return b;
               },
               0
@@ -296,7 +295,6 @@ watch(titheYear, (newTitheYear) => {
           }
 
           if (assembly.length == 1) {
-            console.log(assembly);
             let arrySum = [];
             //
             let a = _.reduce(
@@ -345,8 +343,6 @@ watch(titheYear, (newTitheYear) => {
                   (num, val) => {
                     let date = new Date(val.created_at);
                     let quarter = Math.ceil((date.getMonth() + 1) / 3);
-
-                    console.log(date.getFullYear());
 
                     if (val.assembly_id && date.getFullYear() == titheYear.value && quarter == 4) {
                       arrySum.push(parseInt(num) + parseInt(val.amount));
@@ -414,7 +410,7 @@ watch(titheYear, (newTitheYear) => {
             let a = _.reduce(
               assembly,
               (acc, curr) => {
-                // console.log(curr);
+                //
                 let b = _.reduce(
                   curr.tithes,
                   (num, val) => {
@@ -443,14 +439,14 @@ watch(titheYear, (newTitheYear) => {
 
           // if (assembly.length == 1) {
           //   let arrySum = [];
-          //   // console.log(curr);
+          //   //
           //   let a = _.reduce(
           //     assembly,
           //     (acc, curr) => {
           //       let b = _.reduce(
           //         curr.tithes,
           //         (num, val) => {
-          //           console.log(val);
+          //
           //           if (val.assembly_id && new Date(val.created_at).getFullYear() == titheYear.value) {
           //             arrySum.push(parseInt(num) + parseInt(val.amount));
           //             return parseInt(num) + parseInt(val.amount);
@@ -459,7 +455,7 @@ watch(titheYear, (newTitheYear) => {
           //         },
           //         0
           //       );
-          //       console.log(b);
+          //
           //       return b;
           //     },
           //     0
@@ -468,7 +464,7 @@ watch(titheYear, (newTitheYear) => {
           //     return parseInt(acc) + parseInt(cur);
           //   }, 0);
 
-          //   console.log(a);
+          //
           //   return finalTotal;
           // }
 
@@ -482,17 +478,10 @@ watch(titheYear, (newTitheYear) => {
 });
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/area", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  areas.value = data.value.data;
+  let getData = await useGetData("area");
+
+  loading.value = getData.pending;
+  areas.value = getData.data.data;
 });
 
 const recordClick = (event) => {

@@ -39,17 +39,10 @@ const recordClick = (event) => {
 };
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/tithe", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  tithes.value = data.value.data;
+  let getData = await useGetData("tithe");
+
+  loading.value = getData.pending;
+  tithes.value = getData.data.data;
   let titheMembers = tithes.value.filter((res) => res.attributes.member !== null);
   rowData.value = titheMembers.map((res) => {
     if (res.attributes.member_id !== null) {

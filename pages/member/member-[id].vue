@@ -98,10 +98,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const route = useRoute();
 const member = ref([]);
 const error_message = ref("");
@@ -110,21 +106,12 @@ const router = useRouter();
 
 onMounted(async () => {
   const member_id = route.params.id;
+  let getData = await useGetData("member/" + member_id);
 
-  const { data, error, refresh } = await useFetch(api_base + "/member/" + member_id, {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  if (error.value && error.value.statusCode == 404) {
+  if (getData.error.value && getData.error.value.statusCode == 404) {
     router.back();
   }
-  member.value = data.value.data;
+  member.value = getData.data.data;
 });
 </script>
 

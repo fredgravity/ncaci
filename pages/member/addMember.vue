@@ -105,6 +105,7 @@ const accessToken = await loginStore.getAccessToken;
 const assemblies = ref([]);
 const ministries = ref([]);
 const form = ref(null);
+const toaster = reactive({});
 const nameRules = ref([
   (value) => {
     if (value) return true;
@@ -121,36 +122,6 @@ const maritalItems = ref([
   { status: "Married", val: "married" },
 ]);
 
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/assembly", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  assemblies.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/ministry", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  ministries.value = data.value.data;
-});
-
-const toaster = reactive({});
-
 const member = reactive({
   name: "",
   email: "",
@@ -162,6 +133,14 @@ const member = reactive({
   ministry_id: "",
   marital_status: "",
   address: "",
+});
+
+onMounted(async () => {
+  let getData1 = await useGetData("assembly");
+  let getData2 = await useGetData("ministry");
+
+  assemblies.value = getData1.data.data;
+  ministries.value = getData2.data.data;
 });
 
 let submitMember = async () => {

@@ -128,7 +128,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
 const api_base = useRuntimeConfig().public.apiBase;
 const loginStore = useLoginStore();
 const accessToken = await loginStore.getAccessToken;
@@ -152,54 +151,22 @@ const spouse = reactive({
 });
 
 onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/assembly", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  assemblies.value = data.value.data;
-  //
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/ministry", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  ministries.value = data.value.data;
-});
-
-onMounted(async () => {
   const member_id = route.params.id;
+  let getData1 = await useGetData("assembly");
+  let getData2 = await useGetData("ministry");
+  let getData3 = await useGetData("member/" + member_id);
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/member/" + member_id, {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
+  loading.value = getData3.pending;
 
-  loading.value = pending.value;
+  assemblies.value = getData1.data.data;
+  ministries.value = getData2.data.data;
 
-  if (error.value && error.value.statusCode == 404) {
+  if (getData3.error.value && getData3.error.value.statusCode == 404) {
     router.back();
   }
-  member.value = data.value.data;
-  member_modal.value = data.value.data;
+  member.value = getData3.data.data;
+  member_modal.value = getData3.data.data;
+  //
 });
 
 let submitSpouse = async () => {

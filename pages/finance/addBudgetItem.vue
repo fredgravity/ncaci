@@ -83,17 +83,9 @@ const nameRules = ref([
 const toaster = reactive({});
 
 onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/ministry", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
+  let getData = await useGetData("ministry");
 
-  ministries.value = data.value.data;
+  ministries.value = getData.data.data;
 });
 
 let submitBudgetItem = async () => {

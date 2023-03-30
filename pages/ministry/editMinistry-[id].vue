@@ -43,19 +43,10 @@ const ministry = reactive({
 
 onMounted(async () => {
   ministry_id.value = route.params.id;
+  let getData = await useGetData("ministry/" + ministry_id.value);
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/ministry/" + ministry_id.value, {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  loading.value = pending.value;
-  let result = data.value.data;
+  loading.value = getData.pending;
+  let result = getData.data.data;
   ministry.name = result.attributes.name;
 });
 

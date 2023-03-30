@@ -78,5 +78,4 @@
 <script setup>
 const loginStore = useLoginStore();
 const user = await loginStore.getUser;
-console.log(user);
 </script>

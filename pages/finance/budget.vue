@@ -10,9 +10,6 @@
 </template>
 
 <script setup>
-const api_base = useRuntimeConfig().public.apiBase;
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const budget = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
@@ -34,19 +31,11 @@ const recordClick = (event) => {
 };
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/budget", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("budget");
 
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  budget.value = data.value.data;
-  console.log(budget.value);
+  loading.value = getData.pending;
+  budget.value = getData.data.data;
+
   rowData.value = budget.value.map((res) => {
     let mine = {
       budget_name: res.attributes.budget_item_name,

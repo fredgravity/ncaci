@@ -108,31 +108,11 @@ const assembly = reactive({
 });
 
 onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/area", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
+  let getData1 = await useGetData("area");
+  let getData2 = await useGetData("district");
 
-  areas.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/district", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  districts.value = data.value.data;
+  areas.value = getData1.data.data;
+  districts.value = getData2.data.data;
 });
 
 const getDistrict = async (e) => {

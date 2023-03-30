@@ -10,13 +10,10 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
 const assemblies = reactive([]);
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
 const loading = ref("");
 const rowData = ref([]);
+const router = useRouter();
 
 const columnDefs = reactive([
   { headerName: "Assembly", field: "name" },
@@ -30,25 +27,17 @@ const columnDefs = reactive([
 ]);
 
 const recordClick = (event) => {
-  console.log(event.data);
   if (event.value == "Edit") {
-    window.location.href = "/assembly/assemblyDetail-" + event.data.id;
+    // window.location.href = "/assembly/assemblyDetail-" + event.data.id;
+    router.push("/assembly/assemblyDetail-" + event.data.id);
   }
 };
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/assembly", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("assembly");
 
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  assemblies.value = data.value.data;
+  loading.value = getData.pending;
+  assemblies.value = getData.data.data;
   console.log(assemblies.value);
   rowData.value = assemblies.value.map((res) => {
     let mine = {

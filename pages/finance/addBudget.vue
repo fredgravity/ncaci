@@ -94,31 +94,11 @@ const budget = reactive({
 });
 
 onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/ministry", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
+  let getData = await useGetData("ministry");
+  let getData1 = await useGetData("budget-item");
 
-  ministries.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/budget-item", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  budgetItems.value = data.value.data;
+  ministries.value = getData.data.data;
+  budgetItems.value = getData1.data.data;
 });
 
 const getBudgetItems = async (event) => {

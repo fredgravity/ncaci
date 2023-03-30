@@ -53,9 +53,6 @@
 </template>
 
 <script setup>
-const loginStore = useLoginStore();
-const api_base = useRuntimeConfig().public.apiBase;
-const accessToken = await loginStore.getAccessToken;
 const members = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
@@ -84,32 +81,23 @@ const columnDefs = reactive([
 ]);
 
 const recordClick = (event) => {
-  // console.log(event);
   if (event.value == "Edit") {
     // window.location.href = "/memberDetail-" + event.data.id;
     router.push("member/memberDetail-" + event.data.id);
   }
   if (event.value == "Pay Tithe") {
     dialog.value = true;
-    console.log(event.data);
+
     tithe.member_id = event.data.id;
     tithe.paidby = event.data.name;
   }
 };
 
 onMounted(async () => {
-  const { data, error, refresh, pending } = await useFetch(api_base + "/member", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  let getData = await useGetData("member");
 
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  members.value = data.value.data;
+  loading.value = getData.pending;
+  members.value = getData.data.data;
   // console.log(members.value);
   rowData.value = members.value.map((res) => {
     let mine = {
@@ -133,7 +121,6 @@ onMounted(async () => {
 });
 
 let submitTitheMember = async () => {
-  console.log(tithe);
   const { data, pending, error, refresh } = await useAsyncData("submitTitheMember", () =>
     $fetch(api_base + "/tithe", {
       method: "post",
@@ -146,7 +133,6 @@ let submitTitheMember = async () => {
     })
   );
 
-  console.log(data);
   if (error.value) {
     // error_message.value = error.value.data.message;
   }

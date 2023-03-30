@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
 const trainings = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
@@ -31,26 +29,15 @@ const columnDefs = reactive([
 ]);
 
 const recordClick = (event) => {
-  console.log(event.data);
+  // console.log(event.data);
   // window.location.href = "/assemblyDetail-" + event.data.id;
 };
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
+  let getData = await useGetData("training");
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/training", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  trainings.value = data.value.data;
+  loading.value = getData.pending;
+  trainings.value = getData.data.data;
   rowData.value = trainings.value.map((res) => {
     let mine = {
       name: res.attributes.training_item_name,

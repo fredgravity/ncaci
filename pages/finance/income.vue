@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-const api_base = useRuntimeConfig().public.apiBase;
 const incomes = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
@@ -28,27 +27,16 @@ const columnDefs = reactive([
 ]);
 
 const recordClick = (event) => {
-  console.log(event.data);
+  // console.log(event.data);
   // window.location.href = "/assemblyDetail-" + event.data.id;
 };
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
+  let getData = await useGetData("income");
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/income", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
+  loading.value = getData.pending;
+  incomes.value = getData.data.data;
 
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  incomes.value = data.value.data;
-  console.log(incomes.value);
   rowData.value = incomes.value.map((res) => {
     let mine = {
       income_name: res.attributes.budget_item_name,

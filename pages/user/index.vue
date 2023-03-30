@@ -26,26 +26,15 @@ const columnDefs = reactive([
 ]);
 
 const recordClick = (event) => {
-  console.log(event.data);
+  // console.log(event.data);
   // window.location.href = "/assemblyDetail-" + event.data.id;
 };
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
+  let getData = await useGetData("users");
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/users", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  users.value = data.value;
+  loading.value = getData.pending;
+  users.value = getData.data;
   rowData.value = users.value.map((res) => {
     let mine = {
       name: res.name,

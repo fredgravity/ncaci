@@ -153,73 +153,18 @@ const expenditure = reactive({
 });
 
 onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/ministry", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
+  let getData = await useGetData("ministry");
+  let getData2 = await useGetData("assembly");
+  let getData3 = await useGetData("district");
+  let getData4 = await useGetData("area");
+  let getData5 = await useGetData("budget-item");
 
-  ministries.value = data.value.data;
-});
+  ministries.value = getData.data.data;
+  assemblies.value = getData2.data.data;
+  districts.value = getData3.data.data;
+  areas.value = getData4.data.data;
 
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/assembly", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  assemblies.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/district", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  districts.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/area", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  areas.value = data.value.data;
-});
-
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/budget-item", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  let Items = data.value.data;
+  let Items = getData5.data.data;
 
   let arry = [];
   Items.filter((res) => {

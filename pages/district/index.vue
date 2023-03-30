@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import { useLoginStore } from "~/stores/LoginStore";
-const api_base = useRuntimeConfig().public.apiBase;
 const districts = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
@@ -30,21 +28,10 @@ const recordClick = (event) => {
 };
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
+  let getData = await useGetData("district");
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/district", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  districts.value = data.value.data;
+  loading.value = getData.pending;
+  districts.value = getData.data.data;
   rowData.value = districts.value.map((res) => {
     let mine = {
       name: res.attributes.name,

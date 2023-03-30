@@ -15,6 +15,7 @@ const api_base = useRuntimeConfig().public.apiBase;
 const ministries = reactive([]);
 const loading = ref("");
 const rowData = ref([]);
+const router = useRouter();
 
 const columnDefs = reactive([
   { headerName: "Name", field: "name" },
@@ -24,26 +25,16 @@ const columnDefs = reactive([
 
 const recordClick = (event) => {
   if (event.value == "Edit") {
-    window.location.href = "/ministry/editMinistry-" + event.data.id;
+    // window.location.href = "/ministry/editMinistry-" + event.data.id;
+    router.push("/ministry/editMinistry-" + event.data.id);
   }
 };
 
 onMounted(async () => {
-  const loginStore = useLoginStore();
-  const accessToken = await loginStore.getAccessToken;
+  let getData = await useGetData("ministry");
 
-  const { data, error, refresh, pending } = await useFetch(api_base + "/ministry", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-
-    initialCache: false,
-  });
-  loading.value = pending.value;
-  ministries.value = data.value.data;
+  loading.value = getData.pending;
+  ministries.value = getData.data.data;
   rowData.value = ministries.value.map((res) => {
     let mine = {
       name: res.attributes.name,
