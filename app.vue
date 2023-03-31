@@ -6,46 +6,7 @@
   </div>
 </template>
 
-<script setup>
-const loginStore = useLoginStore();
-const api_base = useRuntimeConfig().public.apiBase;
-const user = await loginStore.getUser;
-
-const router = useRouter();
-const route = useRoute();
-const accessToken = await loginStore.getAccessToken;
-onMounted(async () => {
-  const { data, error, refresh } = await useFetch(api_base + "/user", {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + accessToken.accessToken,
-    },
-    initialCache: false,
-  });
-
-  loginStore.setUser(data.value);
-});
-
-onMounted(async () => {
-  if (route.fullPath == "/") {
-    if (user) {
-      router.push({ path: "/dashboard" });
-    }
-  } else {
-    if (!user) {
-      router.push({ path: "/" });
-    } else {
-      if (user.role !== "admin") {
-        if (route.fullPath == "/user" || route.fullPath == "/register") {
-          router.push({ path: "/dashboard" });
-        }
-      }
-    }
-  }
-});
-</script>
+<script setup></script>
 
 <script>
 export default {
