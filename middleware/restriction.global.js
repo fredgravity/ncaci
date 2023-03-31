@@ -53,7 +53,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         if(user.role !== 'admin' || user.role !== 'user'){
             
             counter++
-            return navigateTo('/')
+            return navigateTo('/dashboard')
         }
         counter++  
         return navigateTo('/dashboard')
