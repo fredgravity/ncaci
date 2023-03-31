@@ -27,14 +27,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     loginStore.setUser(getData.data)
 
     
-    if(counter == 1 && to.fullPath == '/'){
+    if( to.fullPath == '/'){
         if(user){
-
             counter++
             return navigateTo('/dashboard')
         }
         if(!user){
-
             counter++
             return navigateTo('/')
         }
@@ -53,7 +51,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             return navigateTo(to.fullPath)
         }
         if(user.role !== 'admin' || user.role !== 'user'){
-
+            console.log('sdf')
             counter++
             return navigateTo('/')
         }
