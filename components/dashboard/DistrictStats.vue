@@ -23,7 +23,7 @@
             <h2 class="mb-2 tw-text-2xl">GHS {{ totalIncome }}</h2>
             <span>Districts</span>
           </div>
-          <div id="orderStatisticsChart">
+          <div id="orderStatisticsChart" v-if="districts.length > 0">
             <apexchart :key="componentKey" width="250" :options="districtStatChart" :series="districtStatSeries"></apexchart>
           </div>
         </div>
@@ -49,6 +49,8 @@
 </template>
 
 <script setup>
+const loginStore = useLoginStore();
+const getUser = await loginStore.getUser;
 const incomes = ref([]);
 const districts = ref([]);
 const incomeDistrict = ref([]);
@@ -92,9 +94,13 @@ const districtStatChart = ref({
 
 const districtStatSeries = ref([]);
 
+const props = defineProps({
+  getData: {},
+  getDataIncome: {},
+});
+
 onMounted(async () => {
-  let getData2 = await useGetData("district");
-  districts.value = getData2.data.data;
+  districts.value = props.getData;
 
   const dist = [];
   incomes.value.filter((res) => {
@@ -103,23 +109,23 @@ onMounted(async () => {
     }
   });
 
-  let getData = await useGetData("income");
-
-  incomes.value = getData.data.data;
+  incomes.value = props.getDataIncome;
 
   const mydistricts = [];
+  let role = "district";
+
   incomes.value.filter((res) => {
-    if (res.attributes.district) {
+    if (res.attributes[role]) {
       mydistricts.push(res);
     }
   });
 
   const result = new Map();
   mydistricts.forEach((element) => {
-    if (result.get(element.attributes.district)) {
-      result.set(element.attributes.district, result.get(element.attributes.district) + element.attributes.amount);
+    if (result.get(element.attributes[role])) {
+      result.set(element.attributes[role], result.get(element.attributes[role]) + element.attributes.amount);
     } else {
-      result.set(element.attributes.district, element.attributes.amount);
+      result.set(element.attributes[role], element.attributes.amount);
     }
   });
 

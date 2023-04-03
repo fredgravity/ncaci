@@ -12,7 +12,7 @@
           <!-- <label for="name" class="col-md-2 col-form-label">Name</label> -->
           <div class="col-md-10">
             <!-- <input class="form-control" type="text" id="name" v-model="member.name" /> -->
-            <v-text-field v-model="member.name" clearable :rules="nameRules" variant="solo" label="name" required></v-text-field>
+            <v-text-field v-model="member.name" clearable :rules="nameRules" label="name" required></v-text-field>
           </div>
         </div>
 
@@ -20,7 +20,7 @@
           <!-- <label for="email" class="col-md-2 col-form-label">Email</label> -->
           <div class="col-md-10">
             <!-- <input class="form-control" type="email" id="email" v-model="member.email" /> -->
-            <v-text-field v-model="member.email" clearable :rules="nameRules" variant="solo" label="email" type="email" required></v-text-field>
+            <v-text-field v-model="member.email" clearable :rules="nameRules" label="email" type="email" required></v-text-field>
           </div>
         </div>
 
@@ -28,7 +28,7 @@
           <!-- <label for="home_town" class="col-md-2 col-form-label">Home Town</label> -->
           <div class="col-md-10">
             <!-- <input class="form-control" type="text" id="home_town" v-model="member.home_town" /> -->
-            <v-text-field v-model="member.home_town" clearable :rules="nameRules" variant="solo" label="home_town" required></v-text-field>
+            <v-text-field v-model="member.home_town" clearable :rules="nameRules" label="home_town" required></v-text-field>
           </div>
         </div>
 
@@ -36,7 +36,7 @@
           <!-- <label for="phone" class="col-md-2 col-form-label">Phone</label> -->
           <div class="col-md-10">
             <!-- <input class="form-control" type="tel" id="phone" v-model="member.phone" /> -->
-            <v-text-field v-model="member.phone" clearable :rules="nameRules" variant="solo" hint="eg: 0244123456" label="phone" required></v-text-field>
+            <v-text-field v-model="member.phone" clearable :rules="nameRules" hint="eg: 0244123456" label="phone" required></v-text-field>
           </div>
         </div>
 
@@ -44,20 +44,20 @@
           <!-- <label for="dob" class="col-md-2 col-form-label">Date of Birth</label> -->
           <div class="col-md-10">
             <!-- <input class="form-control" type="date" id="dob" v-model="member.dob" /> -->
-            <v-text-field v-model="member.dob" clearable :rules="nameRules" variant="solo" label="dob" type="date" required></v-text-field>
+            <v-text-field v-model="member.dob" clearable :rules="nameRules" label="dob" type="date" required></v-text-field>
           </div>
         </div>
 
         <div class="mb-3 row">
           <!-- <label for="gender" class="col-md-2 w-full col-form-label">Gender</label> -->
           <div class="col-md-10">
-            <v-select clearable label="gender" :items="genderItems" item-title="gender" item-value="val" :rules="nameRules" variant="solo" v-model="member.gender"></v-select>
+            <v-select clearable label="gender" :items="genderItems" item-title="gender" item-value="val" :rules="nameRules" v-model="member.gender"></v-select>
           </div>
         </div>
         <div class="mb-3 row">
           <!-- <label for="marital_status" class="col-md-2 col-form-label">Marital Status</label> -->
           <div class="col-md-10">
-            <v-select clearable label="marital status" :items="maritalItems" item-title="status" item-value="val" :rules="nameRules" variant="solo" v-model="member.marital_status"></v-select>
+            <v-select clearable label="marital status" :items="maritalItems" item-title="status" item-value="val" :rules="nameRules" v-model="member.marital_status"></v-select>
           </div>
         </div>
 
@@ -69,27 +69,22 @@
                 <option v-if="assembly.attributes.name" :value="assembly.id">{{ assembly.attributes.name }}</option>
               </template>
             </select> -->
-            <v-select clearable :rules="nameRules" variant="solo" :items="assemblies" item-title="attributes.name" item-value="id" label="Assembly" v-model="member.assembly_id"></v-select>
+            <v-select clearable :rules="nameRules" :items="assemblies" item-title="attributes.name" item-value="id" label="Assembly" v-model="member.assembly_id"></v-select>
           </div>
         </div>
         <div class="mb-3 row">
           <!-- <label for="ministry" class="col-md-2 col-form-label">Ministry</label> -->
           <div class="col-md-10">
-            <!-- <select class="form-control" id="ministry" v-model="member.ministry_id">
-              <template v-for="(ministry, index) in ministries.value" :key="index">
-                <option v-if="ministry.attributes.name" :value="ministry.id">{{ ministry.attributes.name }}</option>
-              </template>
-            </select> -->
-            <v-select clearable :rules="nameRules" variant="solo" :items="ministries" item-title="attributes.name" item-value="id" label="Ministry" v-model="member.ministry_id" :hint="`${member.ministry_id}`"></v-select>
+            <v-select clearable :rules="nameRules" :items="ministries" item-title="attributes.name" item-value="id" label="Ministry" v-model="member.ministry_id" :hint="`${member.ministry_id}`"></v-select>
           </div>
         </div>
         <div class="tw-mb-3 tw-w-full">
           <!-- <label for="Address" class="col-md-2 col-form-label">Address</label> -->
           <!-- <textarea class="form-control" id="Address" rows="3" v-model="member.address"></textarea> -->
-          <v-textarea clearable :rules="nameRules" variant="solo" counter label="Address" auto-grow model-value="" v-model="member.address"></v-textarea>
+          <v-textarea clearable :rules="nameRules" counter label="Address" auto-grow model-value="" v-model="member.address"></v-textarea>
         </div>
         <div class="text-center">
-          <v-btn variant="outlined" type="submit" @click="submitMember"> Add Member </v-btn>
+          <v-btn type="submit" @click="submitMember"> Add Member </v-btn>
           <!-- <button type="button" class="" >Add Member</button> -->
         </div>
       </v-form>

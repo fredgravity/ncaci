@@ -1,8 +1,9 @@
 
-export const useGetData = async (url:string) =>{
+export const useGetData = async (url) =>{
   const api_base = useRuntimeConfig().public.apiBase;
   const loginStore = useLoginStore();
   const accessToken = await loginStore.getAccessToken;
+  try {
     const { data, error, refresh, pending } = await useFetch(api_base + "/"+url, {
         method: "get",
         headers: {
@@ -13,4 +14,8 @@ export const useGetData = async (url:string) =>{
       });
 
       return {'data': data.value, 'pending':pending.value, 'error': error}
+    
+  } catch (error) {
+    console.log(error)
+  }
 }

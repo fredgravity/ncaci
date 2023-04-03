@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Loading :loading="loading" />
     <div class="tw-flex tw-gap-0 tw-flex-wrap tw-justify-between">
       <div class="col-lg-7 mb-4 tw-mr-0 order-0">
         <div class="card">
@@ -80,7 +79,7 @@ const loginStore = useLoginStore();
 const getUser = await loginStore.getUser;
 const members = ref([]);
 const users = ref([]);
-const loading = ref("");
+
 const userCount = computed(() => {
   return users.value.length;
 });
@@ -88,15 +87,15 @@ const memberCount = computed(() => {
   return members.value.length;
 });
 
+const props = defineProps({
+  users: ref({}),
+  member: ref({}),
+});
+
 onMounted(async () => {
-  let getData = await useGetData("users");
-  let getData2 = await useGetData("member");
+  members.value = props.member;
 
-  loading.value = getData.pending;
-  loading.value = getData2.pending;
-  members.value = getData2.data.data;
-
-  users.value = getData.data;
+  users.value = props.users;
 });
 </script>
 

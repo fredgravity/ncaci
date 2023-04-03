@@ -23,7 +23,7 @@
             <h2 class="mb-2 tw-text-2xl">GHS {{ totalIncome }}</h2>
             <span>Areas</span>
           </div>
-          <div id="orderStatisticsChart">
+          <div id="orderStatisticsChart" v-if="incomes.length > 0">
             <apexchart :key="componentKey" width="250" :options="incomeStatChart" :series="incomeStatSeries"></apexchart>
           </div>
         </div>
@@ -49,6 +49,8 @@
 </template>
 
 <script setup>
+const loginStore = useLoginStore();
+const getUser = await loginStore.getUser;
 const incomes = ref([]);
 const areas = ref([]);
 const incomeArea = ref([]);
@@ -93,28 +95,31 @@ const incomeStatChart = ref({
 
 const incomeStatSeries = ref([]);
 
-// const incomeStatSeries = [44, 55, 13, 43, 22];
+const props = defineProps({
+  getDataIncome: {},
+  getDataArea: {},
+});
+console.log(props);
 
 onMounted(async () => {
-  let getData = await useGetData("area");
-  let getData2 = await useGetData("income");
-
-  areas.value = getData.data.data;
-  incomes.value = getData2.data.data;
+  areas.value = props.getDataArea;
+  incomes.value = props.getDataIncome;
 
   const myareas = [];
+  let role = "area";
+
   incomes.value.filter((res) => {
-    if (res.attributes.area) {
+    if (res.attributes[role]) {
       myareas.push(res);
     }
   });
 
   const result = new Map();
   myareas.forEach((element) => {
-    if (result.get(element.attributes.area)) {
-      result.set(element.attributes.area, result.get(element.attributes.area) + element.attributes.amount);
+    if (result.get(element.attributes[role])) {
+      result.set(element.attributes[role], result.get(element.attributes[role]) + element.attributes.amount);
     } else {
-      result.set(element.attributes.area, element.attributes.amount);
+      result.set(element.attributes[role], element.attributes.amount);
     }
   });
 

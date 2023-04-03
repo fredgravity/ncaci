@@ -5,8 +5,8 @@
         <div class="row row-bordered g-0">
           <div class="col-md-8">
             <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
-            <div id="totalRevenueChart" v-if="incomeYear.length > 0" class="px-2">
-              <apexchart width="550" type="bar" :options="totalRevenue" :series="totalRevenueSeries"></apexchart>
+            <div id="totalRevenueChart" v-if="incomeYear.length > 0" class="tw-px-2">
+              <apexchart width="580" type="bar" :options="totalRevenue" :series="totalRevenueSeries"></apexchart>
             </div>
           </div>
           <div class="col-md-4">
@@ -19,7 +19,7 @@
                 </select> -->
               </div>
             </div>
-            <div id="growthChart">
+            <div id="growthChart" v-if="incomeYear.length > 0">
               <apexchart width="300" :options="totalRevenue1" :series="totalRevenueSeries1"></apexchart>
             </div>
 
@@ -53,15 +53,12 @@
 </template>
 
 <script setup>
-const loginStore = useLoginStore();
-const accessToken = await loginStore.getAccessToken;
-const api_base = useRuntimeConfig().public.apiBase;
 const incomes = ref([]);
-const getUser = await loginStore.getUser;
 const incomeYear = ref([]);
 const incomeYearSlice = ref([]);
 const incomeAmount = ref([]);
 const incomeAmountSlice = ref([]);
+
 const varience = ref(0);
 setTimeout(() => {
   varience.value = computed(() => {
@@ -88,13 +85,26 @@ const totalRevenue = ref({
   },
   plotOptions: {
     bar: {
-      borderRadius: 4,
+      borderRadius: 5,
       horizontal: true,
     },
   },
   dataLabels: {
     enabled: false,
   },
+  responsive: [
+    {
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 300,
+        },
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  ],
 });
 
 const totalRevenueSeries = ref([
@@ -115,7 +125,7 @@ const totalRevenue1 = ref({
       breakpoint: 480,
       options: {
         chart: {
-          width: 200,
+          width: 300,
         },
         legend: {
           position: "bottom",
@@ -132,12 +142,12 @@ const totalRevenue1 = ref({
 
 const totalRevenueSeries1 = incomeAmountSlice;
 
+const props = defineProps({
+  getData: {},
+});
+incomes.value = props.getData;
+
 onMounted(async () => {
-  let getData = await useGetData("income");
-
-  // loading.value = pending.value;
-  incomes.value = getData.data.data;
-
   const result = new Map();
   incomes.value.forEach((element) => {
     if (result.get(element.attributes.year)) {

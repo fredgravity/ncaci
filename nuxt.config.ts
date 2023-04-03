@@ -25,6 +25,7 @@ export default defineNuxtConfig({
         },
       },
     modules: [
+      '@nuxtjs/google-fonts',
       [
         '@pinia/nuxt',
         {
@@ -43,6 +44,26 @@ export default defineNuxtConfig({
     ],
     ssr: false, 
     // target: 'assets',
+    googleFonts: {
+      families: {
+        Roboto: true,
+        'Josefin+Sans': true,
+        Lato: [100, 300],
+        Raleway: {
+          wght: [100, 400],
+          ital: [100]
+        },
+      },
+      display: 'swap',
+      download: true,
+      base64: false,
+      inject: true,
+      overwriting: false,
+      stylePath: 'assets/css/fonts.css',
+      fontsDir: 'fonts',
+      fontsPath: '~assets/fonts'
+      
+    },
 
     runtimeConfig: {
         public: {

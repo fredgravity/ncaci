@@ -14,6 +14,20 @@ export default defineNuxtPlugin(nuxtApp => {
   const vuetify = createVuetify({
     components,
     directives,
+    defaults: {
+      VTextField: {
+        variant: 'solo',
+      },
+      VSelect: {
+        variant: 'solo',
+      },
+      VTextarea: {
+        variant: 'solo',
+      },
+      VBtn: {
+        variant: 'outlined',
+      },
+    },
     theme: {
       defaultTheme: "lightTheme",
       themes: {
