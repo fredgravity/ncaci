@@ -25,7 +25,7 @@ export default defineNuxtPlugin(nuxtApp => {
         variant: 'solo',
       },
       VBtn: {
-        variant: 'outlined',
+        variant: 'elevated',
       },
     },
     theme: {
