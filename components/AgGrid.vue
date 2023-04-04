@@ -12,7 +12,7 @@
     </div>
     <ag-grid-vue
       style="width: 90%; height: 75vh; margin-left: 5rem"
-      class="ag-theme-alpine"
+      :class="theme"
       :columnDefs="columnDefs"
       :rowData="rowData"
       animateRows="true"
@@ -34,9 +34,19 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-enterprise";
 import { AgGridVue } from "ag-grid-vue3";
+const menuState = useMenuStore();
+const theme = computed(() => {
+  if (menuState.theme == "light") {
+    return "ag-theme-alpine";
+  } else {
+    return "ag-theme-alpine-dark";
+  }
+});
+
 const gridApi = ref({});
 const columnApi = ref({});
 const paginationPageSize = ref(10);
+
 const filterParams = {
   comparator: (filterLocalDateAtMidnight, cellValue) => {
     let dateAsString = new Date(cellValue).toLocaleDateString();

@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-6 col-lg-4 order-2 mb-4">
-    <div class="card h-100">
+    <div class="tw-shadow-xl h-100">
       <div class="card-header d-flex align-items-center justify-content-between pb-0">
         <div class="card-title mb-0">
           <h5 class="m-0 me-2">Expense Statistics Area</h5>
