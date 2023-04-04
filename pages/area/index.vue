@@ -10,9 +10,6 @@
 </template>
 
 <script setup>
-// const loginStore = useLoginStore();
-// const accessToken = await loginStore.getAccessToken;
-// const api_base = useRuntimeConfig().public.apiBase;
 const areas = reactive([]);
 const loading = ref("");
 const rowData = ref([]);

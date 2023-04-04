@@ -2,7 +2,9 @@
   <v-app-bar class="tw-px-3">
     <v-app-bar-nav-icon @click="drawer"></v-app-bar-nav-icon>
 
-    <v-btn :prepend-icon="theme === 'light' ? 'mdi:mdi-weather-sunny' : 'mdi:mdi-weather-night'" @click="onClick"></v-btn>
+    <v-btn :prepend-icon="theme === 'light' ? 'mdi:mdi-weather-sunny' : 'mdi:mdi-weather-night'" @click="onClick">
+      <div class="tw-text-xs tw-w-full">{{ new Date(nowTime).toLocaleTimeString() }}</div>
+    </v-btn>
 
     <template class="tw-flex tw-pr-3 tw-w-full tw-items-center tw-justify-end tw-gap-6">
       <p class="tw-w-full tw-text-center tw-pt-6">
@@ -34,9 +36,11 @@
         </v-list>
       </v-menu>
 
-      <v-menu>
+      <v-menu class="tw-border-2">
         <template v-slot:activator="{ props }">
-          <img src="~/assets/assets/img/avatars/6.png" class="tw-cursor-pointer tw-rounded-full tw-w-10 tw-h-10 tw-bg-slate-500" alt="" v-bind="props" />
+          <div class="tw-rounded-full tw-w-12 tw-h-11 md:tw-w-12 md:tw-h-12 tw-p-1" :class="clazz">
+            <img src="~/assets/assets/img/avatars/6.png" class="tw-cursor-pointer tw-rounded-full tw-w-9 tw-h-9 md:tw-w-12 md:tw-h-10 tw-bg-slate-500" alt="" v-bind="props" />
+          </div>
         </template>
 
         <v-list class="tw-w-full">
@@ -55,6 +59,10 @@
 <script setup>
 const drawStore = useMenuStore();
 const theme = computed(() => drawStore.theme);
+const online = useOnline();
+const nowTime = useNow();
+// const text = computed(() => (online.value ? "Online" : "Offline"));
+const clazz = computed(() => (online.value ? "tw-bg-green-400" : "tw-bg-slate-500"));
 
 const onClick = () => {
   drawStore.changeTheme();

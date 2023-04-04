@@ -6,37 +6,12 @@
   </div>
 </template>
 
-<script setup></script>
-
-<script>
-export default {
-  head() {
-    return {
-      title: "Church Management System", // Other meta information
-      meta: [
-        { charset: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-        {
-          hid: "Church",
-          name: "Church Finance",
-          content: "Church Finance",
-        },
-      ],
-      link: [{ rel: "icon", href: "/ncaciLogo.jpg" }],
-      // link: [{ rel: "icon", href: "/favicon.ico" }],
-      script: [
-        // { hid: "qq", src: "./assets/assets/vendor/libs/jquery/jquery.js", defer: true, body: true },
-        // // { hid: "menu", src: "./assets/assets/vendor/js/menu.js", defer: true, body: true },
-        // { hid: "helpers", src: "./assets/assets/vendor/js/helpers.js", defer: true, body: true },
-        // // { hid: "main", src: "./assets/assets/js/main.js", defer: true, body: true },
-        // { hid: "all", src: "./assets/assets/output/all.js", defer: false, body: false },
-        // { hid: "config", src: "./assets/assets/js/config.js", defer: true, body: true },
-        // { hid: "bootstrap", src: "./assets/assets/vendor/js/bootstrap.js", defer: true, body: true },
-        // { hid: "scroll", src: "./assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js", defer: true, body: true },
-        // { hid: "popper", src: "./assets/assets/vendor/libs/popper/popper.js", defer: true, body: true },
-        // { hid: "dashboard", src: "./assets/assets/js/dashboards-analytics.js", defer: true, body: true },
-      ],
-    };
-  },
-};
+<script setup>
+import { useFavicon } from "@vueuse/core";
+const icon = useFavicon("./public/ncaciLogo.jpg", {
+  baseUrl: "/",
+  rel: "icon",
+});
+// icon.value = "./public/ncaciLogo.jpg";
+console.log(icon.value);
 </script>

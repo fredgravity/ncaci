@@ -63,6 +63,22 @@
         <li class="tw-border-b-2 tw-list-none">
           <span class=""></span>
         </li>
+
+        <!-- broadcast -->
+        <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-edit" rounded="shaped">
+          <v-list-group value="Broadcast">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" title="Broadcast" rounded="shaped"></v-list-item>
+            </template>
+
+            <v-list-item v-for="([title, link], i) in broadcast" :key="i" :value="title" class="tw-w-full" rounded="shaped">
+              <NuxtLink class="tw-w-full tw-block tw-text-sm" :href="link">{{ title }}</NuxtLink>
+            </v-list-item>
+          </v-list-group>
+        </v-list-item>
+        <li class="tw-border-b-2 tw-list-none">
+          <span class=""></span>
+        </li>
         <!-- area -->
 
         <v-list-item v-model:opened="open" prepend-icon="fa-solid fa-tower-cell" rounded="shaped">
@@ -216,6 +232,7 @@ const finances = ref([
   ["Add Expend", "/finance/addExpenditure", "show"],
   ["Add Income", "/finance/addIncome", "show"],
 ]);
+const broadcast = ref([]);
 
 onMounted(async () => {
   getUser.value = await loginStore.getUser;
@@ -263,6 +280,7 @@ watch(display, (newDisplay) => {
     ["Budget Setup", "/finance/addBudgetItem", display.value],
     ["Add Budget", "/finance/addBudget", display.value],
   ];
+  broadcast.value = [["Send Message", "/broadcast", display.value]];
 });
 
 const open = ref(["Users"]);
