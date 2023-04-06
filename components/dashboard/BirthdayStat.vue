@@ -3,6 +3,7 @@
     <div v-if="toaster">
       <Toaster :alert="toaster" />
     </div>
+    <Loading :loading="loading" />
     <div class="col-md-12 order-2 mb-4">
       <div class="tw-shadow-xl h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
@@ -41,16 +42,31 @@
 const members = ref([]);
 const birthday = ref([]);
 const toaster = reactive({});
+const loading = ref(false);
 
 const wishMember = async (member) => {
-  // console.log(member);
   // process sms here
+  loading.value = true;
 
-  toaster.value = {
-    type: "info",
-    title: "Happy Birthday",
-    info: "A happy birthday wish has been sent to member",
+  let data = {
+    phone: [member.phone],
+    message: "testing happy birthday message",
   };
+  let submitData = await useSubmitData("wishMember", "member-birthdays-message", data);
+  loading.value = false;
+  if (submitData.data.data.status != 1000) {
+    toaster.value = {
+      type: "error",
+      title: "Happy Birthday",
+      info: "Failed to send a happy birthday wish has been sent to member",
+    };
+  } else {
+    toaster.value = {
+      type: "info",
+      title: "Happy Birthday",
+      info: "A happy birthday wish has been sent to member",
+    };
+  }
 };
 
 onMounted(async () => {

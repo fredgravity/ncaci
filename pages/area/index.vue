@@ -16,7 +16,7 @@ const rowData = ref([]);
 
 const columnDefs = reactive([
   { headerName: "Name", field: "name" },
-  { headerName: "Action", field: "action" },
+  // { headerName: "Action", field: "action" },
   { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
 ]);
 
@@ -36,7 +36,7 @@ onMounted(async () => {
       name: res.attributes.name,
       created_at: new Date(res.attributes.created_at).toDateString(),
       id: res.id,
-      action: "Edit",
+      // action: "Edit",
     };
     return mine;
   });

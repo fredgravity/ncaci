@@ -23,6 +23,7 @@
 
 <script setup>
 const ministries = ref([]);
+const members = ref([]);
 const loading = ref("");
 const toaster = reactive({});
 const ministry = reactive({
@@ -32,19 +33,62 @@ const ministry = reactive({
 
 const ministryItems = ref([]);
 
-const sendMessage = () => {
-  toaster.value = {
-    type: "success",
-    title: "Broadcast Message",
-    info: "Broadcast Message sent successfully!",
+const sendMessage = async () => {
+  if (ministry.ministry_name == "" || ministry.message == "") {
+    alert("ministry name and message can not be empty");
+    return;
+  }
+  loading.value = true;
+  let phoneNumbers = [];
+
+  members.value.filter((res) => {
+    if (res.attributes.ministry.name == ministry.ministry_name) {
+      phoneNumbers.push(res.attributes.phone);
+    }
+  });
+
+  let data = {
+    phone: phoneNumbers,
+    message: ministry.message,
   };
+
+  if (phoneNumbers.length > 0) {
+    let submitData = await useSubmitData("wishMember", "member-birthdays-message", data);
+
+    loading.value = false;
+    if (submitData.data.data.status != 1000) {
+      toaster.value = {
+        type: "error",
+        title: "Happy Birthday",
+        info: "Failed to send a happy birthday wish has been sent to member",
+      };
+    } else {
+      toaster.value = {
+        type: "info",
+        title: "Happy Birthday",
+        info: "A happy birthday wish has been sent to members",
+      };
+
+      ministry.message = "";
+    }
+  } else {
+    toaster.value = {
+      type: "error",
+      title: "Happy Birthday",
+      info: "No member has been sent a happy birthday wish",
+    };
+  }
+
+  loading.value = false;
 };
 
 onMounted(async () => {
   let getData = await useGetData("ministry");
+  let getDataMember = await useGetData("member");
 
   loading.value = getData.pending;
   ministries.value = getData.data.data;
+  members.value = getDataMember.data.data;
 
   let result = ministries.value.map((res) => {
     return { name: res.attributes.name, val: res.attributes.name };

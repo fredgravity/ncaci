@@ -18,7 +18,7 @@ const columnDefs = reactive([
   { headerName: "Name", field: "name" },
   { headerName: "Area", field: "area" },
   { headerName: "Created At", field: "created_at", type: ["dateColumn"] },
-  { headerName: "Action", field: "action" },
+  // { headerName: "Action", field: "action" },
 ]);
 
 const recordClick = (event) => {
@@ -38,7 +38,7 @@ onMounted(async () => {
       created_at: new Date(res.attributes.created_at).toDateString(),
       id: res.id,
       area: res.attributes.area_name,
-      action: "Edit",
+      // action: "Edit",
     };
     return mine;
   });

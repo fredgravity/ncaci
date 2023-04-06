@@ -36,7 +36,7 @@
           <!-- <label for="phone" class="col-md-2 col-form-label">Phone</label> -->
           <div class="col-md-10">
             <!-- <input class="form-control" type="tel" id="phone" v-model="member.phone" /> -->
-            <v-text-field v-model="member.phone" clearable :rules="nameRules" hint="eg: 0244123456" label="phone" required></v-text-field>
+            <v-text-field v-model="member.phone" clearable :rules="[phoneRule.required, phoneRule.format]" hint="eg: 233244123456" label="phone" required></v-text-field>
           </div>
         </div>
 
@@ -97,6 +97,15 @@ const assemblies = ref([]);
 const ministries = ref([]);
 const form = ref(null);
 const toaster = reactive({});
+const phoneRule = ref({
+  required: (value) => !!value || "Field is Required.",
+  format: (value) => {
+    if (value.length != 12) {
+      return "Phone Number length should be 12 digits eg. 233245997788";
+    }
+    return value;
+  },
+});
 const nameRules = ref([
   (value) => {
     if (value) return true;
