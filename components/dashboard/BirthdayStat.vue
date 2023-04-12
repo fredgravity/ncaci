@@ -39,10 +39,12 @@
 </template>
 
 <script setup>
+import { useStorage } from "@vueuse/core";
 const members = ref([]);
 const birthday = ref([]);
 const toaster = reactive({});
 const loading = ref(false);
+const state = useStorage("bdayMessage");
 
 const wishMember = async (member) => {
   // process sms here
@@ -50,11 +52,13 @@ const wishMember = async (member) => {
 
   let data = {
     phone: [member.phone],
-    message: "testing happy birthday message",
+    message: state.value,
   };
+
   let submitData = await useSubmitData("wishMember", "member-birthdays-message", data);
   loading.value = false;
-  if (submitData.data.data.status != 1000) {
+  console.log(submitData.data.data.status);
+  if (submitData.data.data.status != "success") {
     toaster.value = {
       type: "error",
       title: "Happy Birthday",

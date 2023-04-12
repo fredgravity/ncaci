@@ -280,7 +280,10 @@ watch(display, (newDisplay) => {
     ["Budget Setup", "/finance/addBudgetItem", display.value],
     ["Add Budget", "/finance/addBudget", display.value],
   ];
-  broadcast.value = [["Send Message", "/broadcast", display.value]];
+  broadcast.value = [
+    ["Message", "/broadcast/message", display.value],
+    ["Send Message", "/broadcast", display.value],
+  ];
 });
 
 const open = ref(["Users"]);

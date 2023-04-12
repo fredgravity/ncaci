@@ -56,7 +56,7 @@ const sendMessage = async () => {
     let submitData = await useSubmitData("wishMember", "member-birthdays-message", data);
 
     loading.value = false;
-    if (submitData.data.data.status != 1000) {
+    if (submitData.data.data.status != "success") {
       toaster.value = {
         type: "error",
         title: "Happy Birthday",
