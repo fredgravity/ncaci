@@ -17,7 +17,9 @@ const routeArray = [
     "/report/allTithe",
     "/report/titheCompare",
     "/user",
-    "/user/register"
+    "/user/register",
+    "/broadcast",
+    "/broadcast/message",
 ]
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
