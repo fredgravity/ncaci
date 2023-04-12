@@ -25,7 +25,7 @@ const routeArray = [
 export default defineNuxtRouteMiddleware(async (to, from) => {
     const loginStore = useLoginStore()
     let getData = await useGetData('user')
-    console.log(getData.data)
+   
     if(counter == 1 && !getData.data){
         counter++
         return navigateTo('/')
