@@ -21,7 +21,11 @@
               </div>
               <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                 <div class="me-2">
-                  <small class="d-block mb-0">{{ member.name }}</small>
+                  <small class="d-block mb-0">
+                    <NuxtLink :to="'member/memberDetail-' + member.id">
+                      {{ member.name }}
+                    </NuxtLink>
+                  </small>
                   <h6 class="mb-0 text-muted d-block tw-text-xs">{{ member.phone }}</h6>
                   <h6 class="mb-0 text-muted d-block tw-text-xs">{{ member.assembly }}</h6>
                 </div>
@@ -44,7 +48,15 @@ const members = ref([]);
 const birthday = ref([]);
 const toaster = reactive({});
 const loading = ref(false);
-const state = useStorage("bdayMessage");
+const state = ref("");
+
+onMounted(() => {
+  state.value = localStorage.getItem("bdayMessage");
+
+  if (!state.value) {
+    state.value = useStorage("bdayMessage", "Happy birthday Member!. Have a blessed day!").value;
+  }
+});
 
 const wishMember = async (member) => {
   // process sms here
@@ -57,7 +69,6 @@ const wishMember = async (member) => {
 
   let submitData = await useSubmitData("wishMember", "member-birthdays-message", data);
   loading.value = false;
-  console.log(submitData.data.data.status);
   if (submitData.data.data.status != "success") {
     toaster.value = {
       type: "error",
@@ -88,6 +99,7 @@ onMounted(async () => {
     let newDate = mySplit[1].concat("/", mySplit[2]);
     if (nowDate == newDate) {
       birthday.value.push({
+        id: res.id,
         name: res.attributes.name,
         assembly: res.attributes.assembly.name,
         dob: res.attributes.dob,
@@ -97,6 +109,7 @@ onMounted(async () => {
       });
     } else {
       birthday.value.push({
+        id: res.id,
         name: res.attributes.name,
         assembly: res.attributes.assembly.name,
         dob: res.attributes.dob,

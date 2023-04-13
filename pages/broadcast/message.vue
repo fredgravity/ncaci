@@ -26,8 +26,6 @@ onMounted(() => {
 
 const saveMessage = () => {
   if (message.value != "") {
-    console.log(message.value);
-    console.log(state.value);
     state.value = message.value;
     toaster.value = {
       type: "success",
