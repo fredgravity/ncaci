@@ -103,7 +103,7 @@ const phoneRule = ref({
     if (value.length != 12) {
       return "Phone Number length should be 12 digits eg. 233245997788";
     }
-    return value;
+    return !!value;
   },
 });
 const nameRules = ref([
